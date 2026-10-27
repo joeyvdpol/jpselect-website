@@ -70,6 +70,9 @@ p{margin:0}
 .brand{all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px}
 .brand svg{fill:currentColor;display:block}
 .brand:focus-visible{outline:1px solid currentColor;outline-offset:6px}
+/* alleen het woordmerk JP SELECT, net als op mobiel (laptop iets groter) */
+.brand>svg:first-child{display:none}
+.brand .word{height:16px!important}
 .tools{display:flex;justify-content:flex-end;align-items:center;gap:2px}
 .langs{display:flex;gap:6px;margin-right:8px}
 .langs button{all:unset;cursor:pointer;font:500 10.5px/1 var(--f-sans);letter-spacing:.18em;padding:6px 2px;opacity:.45}

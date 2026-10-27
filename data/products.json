@@ -161,6 +161,92 @@
    "feat": 2
   },
   {
+   "id": "jp-2610-031",
+   "sku": "JP-2610-031",
+   "brand": "Hogan",
+   "model": "Cool",
+   "category": "sneakers",
+   "gender": "men",
+   "size": "42",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 130,
+   "retail": 349,
+   "status": "coming",
+   "images": [
+    "img/jp-2610-031-0n.jpg"
+   ],
+   "color": {
+    "nl": "Wit, rood",
+    "en": "White, red"
+   },
+   "material": {
+    "nl": "Leer en suède",
+    "en": "Leather and suede"
+   },
+   "added": "2026-10-27",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2610-030",
+   "sku": "JP-2610-030",
+   "brand": "Hogan",
+   "model": "Hyperlight",
+   "category": "sneakers",
+   "gender": "men",
+   "size": "41",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 120,
+   "retail": 420,
+   "status": "coming",
+   "images": [
+    "img/jp-2610-030-0n.jpg"
+   ],
+   "color": {
+    "nl": "Wit, grijs",
+    "en": "White, grey"
+   },
+   "material": {
+    "nl": "Suède",
+    "en": "Suede"
+   },
+   "added": "2026-10-27",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2610-029",
+   "sku": "JP-2610-029",
+   "brand": "Boggi Milano",
+   "model": "Hooded gilet",
+   "category": "clothing",
+   "gender": "men",
+   "size": "M",
+   "sizeSystem": "",
+   "condition": "very-good",
+   "price": 140,
+   "retail": 385,
+   "status": "coming",
+   "images": [
+    "img/jp-2610-029-0n.jpg",
+    "img/jp-2610-029-1.jpg",
+    "img/jp-2610-029-2.jpg"
+   ],
+   "color": {
+    "nl": "Navy",
+    "en": "Navy"
+   },
+   "material": {
+    "nl": "Cashmere",
+    "en": "Cashmere"
+   },
+   "added": "2026-10-27",
+   "demo": false,
+   "note": null
+  },
+  {
    "id": "jp-2610-028",
    "sku": "JP-2610-028",
    "brand": "Hogan",
