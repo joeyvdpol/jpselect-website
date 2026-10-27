@@ -216,7 +216,7 @@ p{margin:0}
 .cat .lbl span{position:absolute;right:0;bottom:12px;font-size:18px;transform:translateX(-6px);opacity:0;transition:.5s var(--ease)}
 .cat:hover .lbl span{transform:none;opacity:1}
 .cat:focus-visible{outline:1px solid var(--char);outline-offset:3px}
-@media (max-width:700px){.cats{grid-template-columns:1fr 1fr;row-gap:26px}.cat .im{aspect-ratio:3/4}.cat:nth-child(3){grid-column:1/-1}.cat:nth-child(3) .im{aspect-ratio:4/3}.cat:nth-child(3) img{object-position:50% 40%}.cat .lbl{gap:8px}.cat .lbl b{font-size:min(19px,4.1vw);white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}.cat .lbl span{opacity:1;transform:none;flex:none;font-size:16px}}
+@media (max-width:700px){.cats{grid-template-columns:1fr 1fr;row-gap:26px}.cat .im{aspect-ratio:3/4}.cat:nth-child(3){grid-column:1/-1}.cat:nth-child(3) .im{aspect-ratio:4/3}.cat:nth-child(3) img{object-position:50% 12%}.cat .lbl{gap:8px}.cat .lbl b{font-size:min(19px,4.1vw);white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}.cat .lbl span{opacity:1;transform:none;flex:none;font-size:16px}}
 
 .head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:clamp(28px,4vw,48px)}
 .head .t{display:grid;gap:14px;min-width:0;flex:1 1 300px}
@@ -886,7 +886,7 @@ function Home({ctx}){const {t,L,products,go}=ctx;
     <${Hero} ctx=${ctx}/>
     <section className="wrap" style=${{paddingBlock:'clamp(48px,7vw,96px) var(--secY)'}} data-tone="ivory">
       <div className="head rv"><div className="t"><span className="eyebrow cap">${t.catEy}</span></div></div>
-      <div className="cats">${[['men','img/cat-men.jpg',{v:'col',p:'men-sneakers'}],['women','img/cat-women.jpg',{v:'col',p:'women-sneakers'}],['clothing','img/jp-2610-004-1.jpg',{v:'col',p:'clothing'}]].map(([k,src,r])=>html`<button key=${k} className="cat" onClick=${()=>go(r)}><span className="im rv-img"><img src=${src} alt="" loading="lazy"/></span><span className="lbl"><b>${t.cats[k]}</b><span>→</span></span></button>`)}</div>
+      <div className="cats">${[['men','img/cat-men.jpg',{v:'col',p:'men-sneakers'}],['women','img/cat-women.jpg',{v:'col',p:'women-sneakers'}],['clothing','img/jp-2610-029-0n.jpg',{v:'col',p:'clothing'}]].map(([k,src,r])=>html`<button key=${k} className="cat" onClick=${()=>go(r)}><span className="im rv-img"><img src=${src} alt="" loading="lazy"/></span><span className="lbl"><b>${t.cats[k]}</b><span>→</span></span></button>`)}</div>
     </section>
     <section className="wrap sec" data-tone="ivory"><div className="manifest rv">
       <span className="eyebrow cap mid">${t.manEy}</span>
