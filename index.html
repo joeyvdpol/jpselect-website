@@ -1,0 +1,1242 @@
+<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><style>:root{color-scheme:light;box-sizing:border-box}body{margin:0;padding:0}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body><title>JP SELECT</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="JP SELECT: geselecteerde nieuwe en tweedehands designermode. Hogan, Santoni, Moorer, Gran Sasso en andere Italiaanse huizen. Trade in. Step up.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..600;1,6..96,400&family=Jost:wght@300;400;500&display=swap">
+<style>
+/* JP SELECT, ontwerpsysteem
+   Laag concept: een Italiaanse galerij in de middagzon. Ivoor en travertijn als ondergrond,
+   houtskool voor tekst, champagne voor kleine accenten. Strakke hoeken, dunne lijnen, veel lucht.
+   Bewust één (licht) thema: de site is ontworpen als ivoren boutique. */
+:root{
+  --ivory:#F6F3EE; --beige:#E8E0D4; --stone:#DCD2C3; --char:#242424; --taupe:#A89A88; --champ:#B89E73;
+  --white:#FFFFFF; --mute:#6E675E; --line:#D9D1C4; --line2:#C9BFB0; --ok:#4A6B53; --warn:#8A5A1E;
+  --f-serif:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+  --f-sans:"Jost","Futura","Avenir Next","Helvetica Neue",Arial,sans-serif;
+  --gut:max(clamp(24px,4vw,48px),env(safe-area-inset-left,0px)); --gutr:max(clamp(24px,4vw,48px),env(safe-area-inset-right,0px));
+  --wrap:1320px; --ease:cubic-bezier(.2,.7,.1,1);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--ivory);color:var(--char);font:300 16px/1.65 var(--f-sans);letter-spacing:.01em}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:90;background:var(--ivory)}
+img{max-width:100%;display:block}
+a{color:inherit}
+button{font:inherit;color:inherit;letter-spacing:inherit}
+:focus-visible{outline:1px solid var(--char);outline-offset:3px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:var(--gut);padding-right:var(--gutr)}
+@media (min-width:800px){.wrap{padding-left:max(40px,env(safe-area-inset-left,0px));padding-right:max(40px,env(safe-area-inset-right,0px))}}
+h1,h2,h3,h4{font-family:var(--f-serif);font-weight:400;margin:0;text-wrap:balance;letter-spacing:-.005em}
+p{margin:0}
+.cap{font-family:var(--f-sans);font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase}
+.mute{color:var(--mute)}
+.sr{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;border:0!important;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.rule{height:1px;background:var(--line);border:0;margin:0}
+
+/* knoppen: rechthoekig, dun, hoofdletters */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:0 30px;border:1px solid var(--char);background:transparent;color:var(--char);font:500 11.5px/1 var(--f-sans);letter-spacing:.22em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:background .35s var(--ease),color .35s var(--ease),border-color .35s}
+.btn:hover{background:var(--char);color:var(--ivory)}
+.btn.solid{background:var(--char);color:var(--ivory)}
+.btn.solid:hover{background:transparent;color:var(--char)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn[disabled]:hover{background:transparent;color:var(--char)}
+.btn.solid[disabled]:hover{background:var(--char);color:var(--ivory)}
+.btn.full{width:100%}
+.lnk{all:unset;cursor:pointer;font:500 11.5px/1.4 var(--f-sans);letter-spacing:.2em;text-transform:uppercase;border-bottom:1px solid currentColor;padding-bottom:3px}
+.lnk:focus-visible{outline:1px solid var(--char);outline-offset:4px}
+.icon{all:unset;cursor:pointer;width:40px;height:40px;display:grid;place-items:center;position:relative}
+.icon:focus-visible{outline:1px solid currentColor}
+.icon svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.2}
+.icon .n{position:absolute;top:5px;right:3px;min-width:16px;height:16px;border-radius:8px;background:var(--char);color:var(--ivory);font:500 9.5px/16px var(--f-sans);text-align:center;letter-spacing:0;padding:0 4px}
+
+/* voorbeeldbalk */
+.notice{background:var(--beige);color:#4A443C;font-size:11.5px;letter-spacing:.06em;text-align:center;padding-block:7px;padding-left:var(--gut);padding-right:var(--gutr)}
+
+/* navigatie */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:60;transition:background-color .5s var(--ease),border-color .5s,backdrop-filter .5s;border-bottom:1px solid transparent}
+.nav.glass{background:var(--ivory);border-bottom-color:rgba(36,36,36,.08)}
+/* zwarte menubalk met wit logo */
+.nav,.nav.glass{background:var(--char);color:#F6F3EE;border-bottom-color:transparent}
+.nav .icon .n{background:#F6F3EE;color:var(--char)}
+.nav .row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;min-height:64px;gap:20px}
+.nav .links{display:flex;gap:26px;flex-wrap:nowrap}
+.nav .links button{all:unset;cursor:pointer;font:500 11px/1 var(--f-sans);letter-spacing:.2em;text-transform:uppercase;padding:8px 0;position:relative;white-space:nowrap}
+.nav .links button::after{content:"";position:absolute;left:0;right:100%;bottom:2px;height:1px;background:currentColor;transition:right .45s var(--ease)}
+.nav .links button:hover::after,.nav .links button[aria-current="page"]::after{right:0}
+.nav .links button:focus-visible{outline:1px solid currentColor;outline-offset:4px}
+.brand{all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px}
+.brand svg{fill:currentColor;display:block}
+.brand:focus-visible{outline:1px solid currentColor;outline-offset:6px}
+.tools{display:flex;justify-content:flex-end;align-items:center;gap:2px}
+.langs{display:flex;gap:6px;margin-right:8px}
+.langs button{all:unset;cursor:pointer;font:500 10.5px/1 var(--f-sans);letter-spacing:.18em;padding:6px 2px;opacity:.45}
+.langs button[aria-pressed="true"]{opacity:1;border-bottom:1px solid currentColor}
+/* menu-icoon linksboven op elk scherm; de losse menulinks en NL/EN zitten in het uitklapmenu */
+.burger,.msearch{display:grid}
+.nav .links,.tools .tsearch,.nav .langs{display:none}
+@media (max-width:1040px){
+  .nav .row{min-height:54px}
+  .nav .links{display:none}
+  .burger,.msearch{display:grid}
+  .tools .tsearch,.nav .langs{display:none}
+  .brand>svg:first-child{display:none}
+  .brand .word{height:12px!important}
+}
+@media (max-width:420px){.tools .acct{display:none}}
+
+/* volledig scherm menu (mobiel) */
+.mmenu{position:fixed;inset:0;z-index:80;background:var(--ivory);display:grid;grid-template-rows:auto 1fr auto;padding:env(safe-area-inset-top,0px) var(--gutr) 0 var(--gut);visibility:hidden;opacity:0;transition:opacity .45s var(--ease),visibility 0s .45s}
+.mmenu.on{visibility:visible;opacity:1;transition:opacity .45s var(--ease)}
+.mmenu .top{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;min-height:68px;border-bottom:1px solid var(--line)}
+.mmenu .top .icon{justify-self:start;margin-left:-10px}
+.mmenu .top .langs{justify-self:end;margin-right:0}
+.mlogo{all:unset;cursor:pointer;display:grid;place-items:center;color:var(--char);padding:4px}
+.mlogo svg{fill:currentColor;display:block}
+.mlogo:focus-visible{outline:1px solid var(--char);outline-offset:4px}
+.mmenu .mlist{display:block;align-self:start;margin-top:clamp(10px,2.5vh,26px)}
+.mlist>*{transform:translateY(12px);opacity:0;transition:transform .6s var(--ease),opacity .6s var(--ease)}
+.mmenu.on .mlist>*{transform:none;opacity:1}
+.mmenu.on .mlist>*:nth-child(2){transition-delay:.04s}.mmenu.on .mlist>*:nth-child(3){transition-delay:.08s}.mmenu.on .mlist>*:nth-child(4){transition-delay:.12s}.mmenu.on .mlist>*:nth-child(5){transition-delay:.16s}.mmenu.on .mlist>*:nth-child(6){transition-delay:.2s}
+.mrow{all:unset;cursor:pointer;box-sizing:border-box;width:100%;display:flex;justify-content:space-between;align-items:center;min-height:62px;border-bottom:1px solid var(--line);font:400 15px/1 var(--f-sans);letter-spacing:.12em;text-transform:uppercase;color:var(--char)}
+.mrow svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.3;flex:none;transition:transform .35s var(--ease)}
+.mrow:focus-visible{outline:1px solid var(--char);outline-offset:-2px}
+.mgrp.open>.mrow svg{transform:rotate(90deg)}
+.mgrp.open>.mrow{border-bottom-color:transparent}
+.msub{display:grid;overflow:hidden;max-height:0;transition:max-height .45s var(--ease)}
+.mgrp.open .msub{max-height:220px;border-bottom:1px solid var(--line)}
+.msub button{all:unset;cursor:pointer;padding:13px 0 13px 20px;font:400 14px/1 var(--f-sans);letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.msub button:first-child{padding-top:4px}.msub button:last-child{padding-bottom:20px}
+.msub button:hover,.msub button:focus-visible{color:var(--char)}
+.mmenu .foot{margin-inline:calc(var(--gut) * -1) calc(var(--gutr) * -1);background:var(--char);color:var(--ivory);display:flex;justify-content:center;align-items:center;padding:24px 16px calc(24px + env(safe-area-inset-bottom,0px));font:500 11.5px/1 var(--f-sans);letter-spacing:.32em;text-transform:uppercase}
+/* laptop: hetzelfde menu, als paneel dat van links inschuift */
+@media (min-width:1041px){
+  .mmenu{inset:0 auto 0 0;width:min(440px,100%);padding:0 40px;opacity:1;transform:translateX(-102%);box-shadow:24px 0 60px rgba(36,36,36,.14);transition:transform .55s var(--ease),visibility 0s .55s}
+  .mmenu.on{transform:none;transition:transform .55s var(--ease)}
+  .mmenu .top{min-height:72px}
+  .mmenu .mlist{margin-top:28px}
+  .mrow{min-height:64px}
+  .mrow:hover{color:var(--mute)}
+  .mmenu .foot{margin-inline:-40px}
+}
+
+/* HERO: gelaagd sfeerbeeld in beweging (geen filmopname) */
+.hero{position:relative;margin-top:calc(var(--navh,78px)*-1);height:max(620px,min(100svh,1000px));overflow:hidden;isolation:isolate;background:#E4DACB}
+.hero .scene,.banner .scene{position:absolute;inset:-6% -6%;z-index:-1}
+.scene .l{position:absolute;inset:0;background-size:cover;background-position:center;will-change:transform}
+.scene .wall{animation:breathe 34s ease-in-out infinite alternate}
+.scene .arch{background-size:130% auto;background-repeat:no-repeat;background-position:30% 40%;animation:sun 46s ease-in-out infinite alternate}
+.scene .lvb{background-size:120% auto;background-repeat:no-repeat;background-position:60% 0%;transform-origin:85% 0%;animation:sway 13s ease-in-out infinite alternate}
+.scene .lva{background-size:112% auto;background-repeat:no-repeat;background-position:70% 0%;transform-origin:90% 0%;animation:sway2 8.5s ease-in-out infinite alternate}
+.scene .bloom{background:radial-gradient(60% 55% at 62% 36%,rgba(255,244,222,.55),rgba(255,244,222,0) 70%);mix-blend-mode:soft-light;animation:bloom 18s ease-in-out infinite alternate}
+.scene .grain{background-image:url(scene/grain.png);background-size:256px;opacity:.06;mix-blend-mode:multiply}
+@keyframes breathe{from{transform:scale(1)}to{transform:scale(1.06)}}
+@keyframes sun{from{transform:translate3d(-2.5%,0,0)}to{transform:translate3d(2.5%,1.2%,0)}}
+@keyframes sway{0%{transform:rotate(-.8deg) translate3d(0,0,0)}100%{transform:rotate(1deg) translate3d(-14px,8px,0)}}
+@keyframes sway2{0%{transform:rotate(.9deg) translate3d(0,0,0)}50%{transform:rotate(-.6deg) translate3d(10px,4px,0)}100%{transform:rotate(1.4deg) translate3d(-6px,10px,0)}}
+@keyframes bloom{from{opacity:.75;transform:translate3d(-3%,0,0)}to{opacity:1;transform:translate3d(3%,2%,0)}}
+.hmedia{position:absolute;inset:-7% 0 0 0;z-index:-1;will-change:transform}
+.hmedia img,.hmedia video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hmedia video{opacity:0;transition:opacity 1.2s ease}
+.hmedia video.on{opacity:1}
+.hero .veil{position:absolute;inset:0;z-index:0;background:linear-gradient(90deg,rgba(246,243,238,.88) 0%,rgba(246,243,238,.62) 34%,rgba(246,243,238,0) 62%),linear-gradient(0deg,rgba(246,243,238,.6),rgba(246,243,238,0) 32%)}
+.hero .copy{position:relative;z-index:1;height:100%;display:grid;align-content:end;padding-bottom:clamp(40px,9vh,96px)}
+.hero .copy>div{display:grid;gap:22px;max-width:680px}
+.hero h1 svg{fill:var(--char);display:block}
+.hero .claim{font:400 clamp(30px,3.6vw,58px)/1.02 var(--f-serif);letter-spacing:.05em;text-transform:uppercase}
+.hero .quote{font:italic 400 clamp(18px,1.7vw,25px)/1.4 var(--f-serif);color:#4A443C;max-width:26ch}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+.st{opacity:0;animation:rise .9s ease forwards}
+.st.d1,.st.d2,.st.d3,.st.d4{animation-delay:0s}
+@keyframes rise{to{opacity:1}}
+.pause{position:absolute;z-index:2;right:var(--gutr);bottom:clamp(40px,9vh,96px);width:44px;height:44px;border:1px solid rgba(36,36,36,.35);display:grid;place-items:center;cursor:pointer;background:rgba(246,243,238,.4);backdrop-filter:blur(6px)}
+@media (min-width:800px){.pause{right:max(40px,env(safe-area-inset-right,0px))}}
+.paused .scene .l{animation-play-state:paused}
+.scroll-cue{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:1;display:grid;justify-items:center;gap:8px;color:#4A443C}
+.scroll-cue i{display:block;width:1px;height:38px;background:linear-gradient(var(--char),transparent);animation:cue 2.4s ease-in-out infinite}
+@keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@media (min-width:900px){
+  .hero{background:var(--ivory)}
+  .hero{margin-top:0;height:calc(max(620px,min(100svh,1000px)) - var(--navh,78px))}
+  .hero .hmedia{inset:-7% 0 0 50%}
+  .hero .scroll-cue{left:25%}
+  .hero .veil{display:none}
+  /* tekst precies gecentreerd in de lichte linkerhelft */
+  .hero .copy{width:50%;max-width:none;margin:0;box-sizing:border-box;padding:0 clamp(32px,4vw,72px);align-content:center;justify-items:center;text-align:center}
+  .hero .copy>div{max-width:680px;justify-items:center}
+  .hero .claim{white-space:nowrap;font-size:clamp(28px,3.1vw,54px)}
+  .hero .quote{margin-inline:auto}
+  .hero .ctas{justify-content:center}
+  .pause{right:max(40px,env(safe-area-inset-right,0px))}
+}
+@media (max-width:899px){
+  .hero{margin-top:0;height:calc(max(560px,min(100svh,1000px)) - var(--navh,64px))}
+  .hero .veil{background:linear-gradient(0deg,rgba(246,243,238,.96) 0%,rgba(246,243,238,.84) 38%,rgba(246,243,238,.35) 56%,rgba(246,243,238,0) 70%)}
+  .scroll-cue{display:none}
+  .hero .copy>div{gap:16px}
+  .hero .claim{margin-top:0;font-size:25px;letter-spacing:.08em}
+  .hero .quote{font-size:18px;margin-top:2px}
+  .hero .ctas{display:grid;grid-template-columns:1fr;gap:10px;max-width:min(420px,calc(100% - 64px));margin-top:12px}
+  .hero .ctas .btn{width:100%;box-sizing:border-box}
+}
+
+/* zichtbaar in rust; bij binnenkomen schuift het iets omhoog */
+.rv{transition:transform 1.2s var(--ease)}
+.js .rv:not(.in){transform:translateY(34px)}
+.rv-img{overflow:hidden}
+.rv-img img{transition:transform 1.8s var(--ease)}
+.js .rv-img:not(.in) img{transform:scale(1.08)}
+@media (prefers-reduced-motion:reduce){.scene .l,.st,.scroll-cue i{animation:none!important;opacity:1;transform:none}.js .rv:not(.in),.js .rv-img:not(.in) img{transform:none}}
+
+/* secties */
+.sec{padding-block:var(--secY)}
+:root{--secY:clamp(84px,12.5vw,180px)}
+.eyebrow{display:flex;align-items:center;gap:14px;color:var(--mute)}
+.eyebrow::before{content:"";width:34px;height:1px;background:currentColor}
+.eyebrow.mid{justify-content:center}
+.eyebrow.mid::after{content:"";width:34px;height:1px;background:currentColor}
+.philo{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(32px,7vw,120px);align-items:end}
+.philo h2{font-size:clamp(38px,5.4vw,78px);line-height:1.02}
+.philo h2 em{font-style:italic;color:var(--champ)}
+.philo .txt{display:grid;gap:22px;max-width:46ch;color:#4A443C;font-size:17px}
+@media (max-width:860px){.philo{grid-template-columns:1fr}}
+
+.cats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(10px,1.6vw,22px)}
+.cat{all:unset;cursor:pointer;display:grid;gap:14px;align-content:start}
+.cat .im{position:relative;display:block;aspect-ratio:4/5;overflow:hidden;background:var(--stone)}
+.cat img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.6s var(--ease),filter .8s}
+.cat:hover img{transform:scale(1.05)}
+.cat .lbl{position:relative;display:flex;justify-content:center;align-items:baseline;text-align:center;border-bottom:1px solid var(--line2);padding-bottom:12px}
+.cat .lbl b{font:400 clamp(20px,1.9vw,27px)/1.1 var(--f-serif)}
+.cat .lbl span{position:absolute;right:0;bottom:12px;font-size:18px;transform:translateX(-6px);opacity:0;transition:.5s var(--ease)}
+.cat:hover .lbl span{transform:none;opacity:1}
+.cat:focus-visible{outline:1px solid var(--char);outline-offset:3px}
+@media (max-width:700px){.cats{grid-template-columns:1fr 1fr;row-gap:26px}.cat .im{aspect-ratio:3/4}.cat:nth-child(3){grid-column:1/-1}.cat:nth-child(3) .im{aspect-ratio:4/3}.cat:nth-child(3) img{object-position:50% 40%}.cat .lbl{gap:8px}.cat .lbl b{font-size:min(19px,4.1vw);white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}.cat .lbl span{opacity:1;transform:none;flex:none;font-size:16px}}
+
+.head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:clamp(28px,4vw,48px)}
+.head .t{display:grid;gap:14px;min-width:0;flex:1 1 300px}
+.manifest{max-width:780px;margin-inline:auto;text-align:center;display:grid;justify-items:center;gap:clamp(22px,3vw,34px)}
+.manifest .mk{font:italic 400 clamp(15px,1.3vw,18px)/1.4 var(--f-serif);letter-spacing:.14em;color:var(--char)}
+.manifest .mt{font:400 clamp(25px,3vw,40px)/1.32 var(--f-serif);color:var(--char);text-wrap:balance}
+.manifest .sig{display:grid;gap:10px;justify-items:center;margin-top:4px}
+.manifest .sn{font:italic 400 clamp(28px,2.8vw,38px)/1 var(--f-serif);color:var(--char)}
+.manifest .sig .cap{font-size:10.5px;letter-spacing:.26em}
+.shead{display:flex;justify-content:space-between;align-items:baseline;gap:20px;margin-bottom:clamp(22px,3vw,36px)}
+.shead h2{font:500 clamp(12px,1vw,13.5px)/1.5 var(--f-sans);letter-spacing:.26em;text-transform:uppercase;color:var(--char)}
+.shead .lnk{white-space:nowrap}
+.head h2{font-size:clamp(34px,4.2vw,58px);line-height:1.04}
+.head p{color:var(--mute);max-width:58ch}
+
+/* producttegels */
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(28px,3vw,44px) clamp(12px,1.6vw,22px)}
+@media (max-width:1100px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:760px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.pc{display:grid;gap:14px;align-content:start;min-width:0;position:relative}
+.pc .ph{all:unset;cursor:pointer;position:relative;display:block;aspect-ratio:4/5;overflow:hidden;background:#CFD0D2}
+.pc .ph img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease),opacity .6s}
+.pc .ph img.alt{position:absolute;inset:0;opacity:0}
+.pc:hover .ph img{transform:scale(1.035)}
+.pc:hover .ph img.alt{opacity:1}
+.pc .ph:focus-visible{outline:1px solid var(--char);outline-offset:3px}
+.tag{position:absolute;top:12px;left:12px;font:500 9.5px/1 var(--f-sans);letter-spacing:.2em;text-transform:uppercase;padding:7px 9px;background:rgba(246,243,238,.92);color:var(--char)}
+.tag.demo{background:var(--char);color:var(--ivory)}
+.tag.soon{background:var(--champ);color:#fff}
+.tag.sold{background:rgba(36,36,36,.75);color:#fff}
+.demo-ov{position:absolute;inset:30% 0 auto;display:grid;justify-items:center;gap:6px;color:#5E5850;text-align:center}
+.demo-ov svg{height:44px;width:auto;fill:#3A3631;opacity:.75}
+.qv{position:absolute;left:12px;right:12px;bottom:12px;min-height:42px;border:0;background:rgba(246,243,238,.94);font:500 10.5px/1 var(--f-sans);letter-spacing:.2em;text-transform:uppercase;cursor:pointer;opacity:0;transform:translateY(8px);transition:.45s var(--ease)}
+.pc:hover .qv,.qv:focus-visible{opacity:1;transform:none}
+@media (hover:none){.qv{display:none}}
+.pc .meta{display:grid;gap:4px}
+.pc .r{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.pc .brandn{font:500 10.5px/1.3 var(--f-sans);letter-spacing:.22em;text-transform:uppercase}
+.pc .model{font:400 19px/1.2 var(--f-serif)}
+.pc .price{font-size:15px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.pc .price s{color:var(--mute);font-size:12.5px;margin-right:8px}
+.pc .det{font-size:13px;color:var(--mute)}
+.pc.sold .ph img:not(.alt){filter:none;opacity:1}
+.pc.sold .ph img.alt{display:none}
+
+/* horizontaal verhaal */
+.hz{position:relative;background:var(--ivory)}
+.hz .sticky{position:sticky;top:0;height:100svh;overflow:hidden;display:grid;align-content:center}
+.hz .track{display:flex;gap:clamp(20px,4vw,64px);padding-left:max(40px,8vw);will-change:transform}
+.hz .intro{flex:0 0 min(420px,80vw);display:grid;gap:18px;align-content:center}
+.hz .intro h2{font-size:clamp(38px,4.6vw,66px);line-height:1.02}
+.hz .hzp{flex:0 0 min(460px,78vw);display:grid;gap:18px;align-content:start;border-top:1px solid var(--line2);padding-top:22px}
+.hz .hzp .no{font:400 64px/1 var(--f-serif);color:var(--champ)}
+.hz .hzp h3{font-size:30px}
+.hz .hzp p{color:#4A443C;max-width:38ch}
+.hz.static .sticky{position:relative;height:auto;padding-block:var(--secY)}
+.hzg{padding-block:var(--secY);display:grid;gap:clamp(44px,5vw,72px)}
+.hzg .intro{display:grid;gap:18px}
+.hzg .intro h2{font-size:clamp(38px,4.6vw,66px);line-height:1.02}
+.hzg .steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(24px,3vw,48px)}
+.hzg .hzp{display:grid;gap:16px;align-content:start;border-top:1px solid var(--line2);padding-top:22px}
+.hzg .hzp .no{font:400 clamp(44px,4vw,60px)/1 var(--f-serif);color:var(--champ)}
+.hzg .hzp h3{font-size:clamp(22px,2vw,28px)}
+.hzg .hzp p{color:#4A443C}
+@media (max-width:1100px){.hzg .steps{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:48px}}
+@media (max-width:700px){.hzg{gap:36px}.hzg .steps{grid-template-columns:1fr;row-gap:0}.hzg .hzp{grid-template-columns:56px 1fr;column-gap:16px;row-gap:6px;padding-block:22px}.hzg .hzp .no{grid-row:span 2;font-size:30px}.hzg .hzp h3{font-size:20px;align-self:end}.hzg .hzp p{grid-column:2}}
+.hz.static .track{overflow-x:auto;scroll-snap-type:x mandatory;padding-left:var(--gut);padding-right:var(--gutr);scroll-padding-inline:var(--gut) var(--gutr);scrollbar-width:none}
+.hz.static .track::-webkit-scrollbar{display:none}
+.hz.static .hzp,.hz.static .intro{scroll-snap-align:start}
+
+/* banner */
+.banner{position:relative;min-height:clamp(480px,70vh,760px);overflow:hidden;isolation:isolate;display:grid;align-items:center;background:#DDD2C2}
+.banner .scene .wall{background-image:url(scene/wall-b.jpg)}
+.banner .scene .slats{background-image:url(scene/slats.webp);background-size:135% auto;background-repeat:no-repeat;background-position:40% 20%;animation:slide 40s linear infinite alternate}
+@keyframes slide{from{transform:translate3d(-3%,0,0)}to{transform:translate3d(3%,-1%,0)}}
+.banner .copy{text-align:center;display:grid;gap:22px;justify-items:center;position:relative;z-index:1}
+.banner h2{font-size:clamp(40px,7vw,104px);line-height:.96;letter-spacing:.04em;text-transform:uppercase}
+.banner blockquote{margin:0;font:italic 400 clamp(19px,2.2vw,28px)/1.35 var(--f-serif);color:#3E3832;max-width:30ch}
+
+/* inruilen */
+.revband{display:flex;justify-content:center;align-items:center;gap:clamp(24px,4vw,56px);border-block:1px solid var(--line);padding-block:clamp(26px,3.4vw,44px)}
+.revband .score{display:flex;align-items:baseline;gap:8px;padding-right:clamp(28px,5vw,72px);border-right:1px solid var(--line)}
+.revband .score b{font:400 clamp(54px,6vw,86px)/.9 var(--f-serif);color:var(--char)}
+.revband .score span{font:400 clamp(18px,1.8vw,24px)/1 var(--f-serif);color:var(--mute)}
+.revband .meta{display:grid;gap:10px;justify-items:start}
+.revband .meta .lnk{margin-top:4px}
+.revband .cnt{font:400 clamp(20px,1.9vw,26px)/1.15 var(--f-serif)}
+.revband .src{font-size:13.5px;color:var(--mute);line-height:1.6}
+.revband .src a{color:var(--char);text-decoration:underline;text-underline-offset:3px}
+.revband .src span{font-size:12px}
+.stars{display:inline-flex;gap:3px;line-height:0}
+.revs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2vw,28px);margin-top:clamp(36px,4vw,56px)}
+.rq{margin:0;display:flex;flex-direction:column;gap:14px;padding:clamp(22px,2.4vw,32px);background:var(--white);border:1px solid var(--line)}
+.rq blockquote{margin:0;font:italic 400 clamp(18px,1.45vw,21px)/1.45 var(--f-serif);color:var(--char)}
+.rq .tr{font-size:13.5px;color:var(--mute);line-height:1.55;margin:0}
+.rq .tr span{display:block;font:500 10px/1.4 var(--f-sans);letter-spacing:.16em;text-transform:uppercase;margin-bottom:4px}
+.rq figcaption{font:500 10.5px/1.3 var(--f-sans);letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin-top:auto;padding-top:6px}
+@media (max-width:1000px){.revs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:700px){.revs{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:calc(var(--gut) * -1);padding-inline:var(--gut);scroll-padding-inline:var(--gut);scrollbar-width:none}.revs::-webkit-scrollbar{display:none}.rq{flex:0 0 84%;scroll-snap-align:start}}
+.rateln{display:inline-flex;align-items:center;gap:10px;font-size:13.5px;color:var(--mute);text-decoration:none;width:max-content}
+.rateln:hover span{color:var(--char);text-decoration:underline;text-underline-offset:3px}
+@media (max-width:700px){.revband{flex-direction:column;gap:22px;text-align:center}.revband .score{border-right:0;padding-right:0}.revband .meta{justify-items:center}}
+.trade{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(36px,6vw,96px);align-items:start}
+.trade h2{font-size:clamp(40px,5.2vw,74px);line-height:1;text-transform:uppercase;letter-spacing:.03em}
+.steps{list-style:none;margin:0;padding:0;display:grid;counter-reset:s}
+.steps li{display:grid;grid-template-columns:60px 1fr;gap:16px;padding-block:22px;border-top:1px solid var(--line);counter-increment:s}
+.steps li::before{content:"0" counter(s);font:400 30px/1 var(--f-serif);color:var(--champ)}
+.steps b{display:block;font-weight:500;letter-spacing:.04em;margin-bottom:4px}
+.steps p{color:var(--mute);font-size:15px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:14px 20px;background:var(--white);padding:clamp(22px,3vw,40px);border:1px solid var(--line)}
+.form .full{grid-column:1/-1}
+.fld{display:grid;gap:8px;min-width:0}
+.fld label,.fld .lab{font:500 10.5px/1 var(--f-sans);letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
+.fld input,.fld select,.fld textarea{width:100%;border:0;border-bottom:1px solid var(--line2);background:transparent;padding:10px 0;font:300 16px/1.4 var(--f-sans);color:var(--char);border-radius:0}
+.fld textarea{min-height:45px;height:45px;resize:vertical}
+.fld input:focus,.fld select:focus,.fld textarea:focus{outline:0;border-bottom-color:var(--char)}
+.fld [aria-invalid="true"]{border-bottom-color:var(--warn)}
+.fld .err{font-size:12.5px;color:var(--warn)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{all:unset;cursor:pointer;border:1px solid var(--line2);padding:8px 12px;font-size:13px}
+.chip[aria-pressed="true"]{background:var(--char);color:var(--ivory);border-color:var(--char)}
+.chip:focus-visible{outline:1px solid var(--char);outline-offset:2px}
+.drop{border:1px dashed var(--line2);padding:14px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px}
+.drop .thumbs,.drop .err{flex-basis:100%}
+.trade.teaser{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center}
+@media (max-width:900px){.trade.teaser{grid-template-columns:1fr}}
+.thumbs{display:flex;gap:8px;flex-wrap:wrap}
+.thumbs div{position:relative;width:70px;height:70px;background:var(--beige)}
+.thumbs img{width:100%;height:100%;object-fit:cover}
+.thumbs button{position:absolute;top:2px;right:2px;width:22px;height:22px;border:0;background:rgba(246,243,238,.9);cursor:pointer;font-size:13px;line-height:1}
+.wiz{grid-column:1/-1;list-style:none;margin:0 0 6px;padding:0 0 16px;display:flex;gap:clamp(10px,2.4vw,26px);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.wiz li{display:flex;align-items:center;gap:9px;color:var(--mute);font:500 11px/1 var(--f-sans);letter-spacing:.16em;text-transform:uppercase}
+.wiz .n{width:24px;height:24px;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;font-size:11px;letter-spacing:0}
+.wiz li.on{color:var(--char)}.wiz li.on .n{background:var(--char);border-color:var(--char);color:var(--ivory)}
+.wiz li.ok .n{background:var(--champ);border-color:var(--champ);color:#fff}
+.wizintro h3{font-size:clamp(20px,2vw,26px);margin:0 0 6px}.wizintro p{margin:0;color:#4A443C;font-size:14.5px;max-width:60ch}
+.slots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:1100px){.slots{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:600px){.slots{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}
+.slot{position:relative;min-width:0}
+.slot label{display:grid;justify-items:center;align-content:start;gap:6px;text-align:center;height:100%;box-sizing:border-box;border:1px dashed var(--line2);background:var(--ivory);padding:16px 10px 12px;cursor:pointer;transition:border-color .2s,background .2s}
+.slot label:hover{border-color:var(--char);background:#fff}
+.slot:focus-within label{outline:2px solid var(--char);outline-offset:2px}
+.slot .ico svg{width:46px;height:46px;stroke:var(--taupe);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;display:block}
+.slot b{font:500 12.5px/1.25 var(--f-sans);letter-spacing:.04em;color:var(--char)}
+.slot b em{font-style:normal;font-weight:400;color:var(--mute);font-size:11px;letter-spacing:.02em}
+.slot small{font-size:11.5px;line-height:1.35;color:var(--mute)}
+.slot .act{margin-top:auto;padding-top:4px;font:500 10px/1 var(--f-sans);letter-spacing:.18em;text-transform:uppercase;color:var(--char);border-bottom:1px solid currentColor;padding-bottom:2px}
+.slot.has label{border-style:solid;border-color:var(--char);background:#fff;padding:0 0 10px}
+.slot.has img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;max-width:100%}
+.slot.miss label{border-color:var(--warn);border-style:solid;background:#FBF4EC}
+.slot .rm{position:absolute;top:6px;right:6px;width:26px;height:26px;border:0;border-radius:50%;background:rgba(246,243,238,.92);cursor:pointer;font-size:15px;line-height:1}
+.slotcount{margin:0;font-size:13px}
+.wizsum{display:grid;gap:8px;background:var(--ivory);border:1px solid var(--line);padding:14px 16px}.wizsum p{margin:0;font-size:14.5px}
+.wiznav{display:flex;justify-content:space-between;gap:12px;margin-top:6px}.wiznav .btn{min-width:140px}.wiznav .btn[disabled]{opacity:.6;cursor:progress}
+.form .accept{margin:0;font-size:13.5px;line-height:1.55;color:#5E5850;border-left:2px solid var(--champ);padding:2px 0 2px 12px}
+.paych{display:grid;grid-template-columns:1fr 1fr;gap:10px}.payopt{display:grid;gap:4px;border:1px solid var(--line);padding:14px 16px;cursor:pointer;background:#fff;position:relative}.payopt input{position:absolute;opacity:0;pointer-events:none}.payopt b{font-weight:500;font-size:15px}.payopt span{font-size:12.5px;line-height:1.5;color:#6B645B}.fld .payopt{font:400 14px/1.4 var(--f-sans);letter-spacing:normal;text-transform:none;color:var(--char)}.payopt.on{border-color:var(--char);box-shadow:inset 0 0 0 1px var(--char)}.payopt:focus-within{outline:2px solid var(--champ);outline-offset:2px}
+@media (max-width:599px){.paych{grid-template-columns:1fr}}
+.hp{position:absolute!important;left:-9999px;width:1px;height:1px;overflow:hidden}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:#4A443C}
+.check input{margin-top:4px}
+.okbox{border:1px solid var(--champ);background:#FBF8F3;padding:22px;display:grid;gap:10px}
+@media (max-width:900px){.trade{grid-template-columns:1fr}}
+@media (max-width:520px){.form{grid-template-columns:1fr}}
+
+/* merken */
+.brands{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(14px,2vw,26px) clamp(26px,4vw,64px);text-align:center}
+.brands button{all:unset;cursor:pointer;font:400 clamp(26px,3.6vw,52px)/1.1 var(--f-serif);color:var(--char);transition:color .4s,font-style .4s}
+.brands button:hover{color:var(--champ);font-style:italic}
+.brands button small{display:block;font:500 10px/1 var(--f-sans);letter-spacing:.2em;color:var(--mute);margin-top:6px;text-transform:uppercase}
+.brands button:focus-visible{outline:1px solid var(--char);outline-offset:4px}
+
+/* verhaal */
+.story{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(36px,7vw,120px);align-items:center}
+.story .pic{aspect-ratio:4/5;overflow:hidden;background:var(--stone)}
+.story .pic img{width:100%;height:100%;object-fit:cover}
+.story .txt{display:grid;gap:22px;max-width:48ch}
+.story h2{font-size:clamp(36px,4.6vw,64px);line-height:1.04}
+.story p{color:#4A443C;font-size:17px}
+.caption{font-size:12px;color:var(--mute);margin-top:10px}
+@media (max-width:860px){.story{grid-template-columns:1fr}}
+
+/* footer */
+.foot{background:var(--char);color:#E7E0D4}
+.foot .top{display:grid;grid-template-columns:minmax(0,1.3fr) repeat(3,minmax(0,1fr));gap:36px;padding-block:72px 48px}
+.foot h4{font:500 10.5px/1 var(--f-sans);letter-spacing:.24em;text-transform:uppercase;color:#A89A88;margin:0 0 18px}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.foot .fl{all:unset;cursor:pointer;font-size:14.5px}
+.foot .fl:hover{color:#fff;text-decoration:underline;text-underline-offset:4px}
+.foot .fl:focus-visible{outline:1px solid #fff}
+.foot .news{display:grid;gap:14px;max-width:420px}
+.foot .news p{color:#BDB3A5;font-size:14.5px}
+.foot .news>svg{fill:#FFFFFF;display:block}
+.foot form{display:flex;border-bottom:1px solid #6E675E}
+.foot input{flex:1;min-width:0;background:transparent;border:0;color:#fff;padding:12px 0;font:300 15px var(--f-sans)}
+.foot input::placeholder{color:#8F877C}
+.foot input:focus{outline:0}
+.foot form button{all:unset;cursor:pointer;font:500 10.5px/1 var(--f-sans);letter-spacing:.22em;text-transform:uppercase;padding:0 4px}
+.foot .bot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid #3A3835;padding-block:22px calc(22px + env(safe-area-inset-bottom,0px));font-size:12px;color:#9C9387}
+.foot .bot svg{fill:#E7E0D4;height:12px;width:auto}
+@media (max-width:900px){.foot .top{grid-template-columns:1fr 1fr}.foot .top>div:first-child{grid-column:1/-1}}
+
+/* collectiepagina */
+.ph-top{padding-block:clamp(40px,6vw,80px) clamp(24px,3vw,36px);display:grid;gap:14px}
+.ph-top h1{font-size:clamp(44px,6vw,88px);line-height:1}
+.gseg{display:flex;gap:clamp(20px,3vw,36px);margin-top:clamp(8px,1.4vw,18px);flex-wrap:wrap}
+.gseg button{all:unset;cursor:pointer;font:500 12px/1 var(--f-sans);letter-spacing:.22em;text-transform:uppercase;color:var(--mute);padding-bottom:9px;border-bottom:1px solid transparent;transition:color .3s,border-color .3s}
+.gseg button sup{font-size:9.5px;letter-spacing:.06em;margin-left:5px;vertical-align:top;position:relative;top:-2px}
+.gseg button:hover{color:var(--char)}
+.gseg button[aria-pressed="true"]{color:var(--char);border-bottom-color:var(--char)}
+.gseg button:focus-visible{outline:1px solid var(--char);outline-offset:4px}
+.toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding-block:14px;margin-bottom:34px;position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--navh,78px));background:rgba(246,243,238,.94);backdrop-filter:blur(10px);z-index:20}
+.toolbar .sp{flex:1}
+.sel{all:unset;cursor:pointer;font:500 10.5px/1 var(--f-sans);letter-spacing:.2em;text-transform:uppercase;padding:10px 0}
+select.sel{appearance:none;-webkit-appearance:none;padding-right:16px;background:linear-gradient(45deg,transparent 50%,currentColor 50%) right 2px center/5px 5px no-repeat,linear-gradient(-45deg,transparent 50%,currentColor 50%) right 6px center/5px 5px no-repeat}
+.count{font-size:13px;color:var(--mute)}
+.panel{position:fixed;top:0;bottom:0;left:0;width:min(420px,100%);background:var(--ivory);z-index:75;transform:translateX(-102%);transition:transform .55s var(--ease);display:grid;grid-template-rows:auto 1fr auto;padding-top:env(safe-area-inset-top,0px);padding-left:env(safe-area-inset-left,0px);border-right:1px solid var(--line)}
+.panel.right{left:auto;right:0;transform:translateX(102%);border-right:0;border-left:1px solid var(--line);padding-left:0;padding-right:env(safe-area-inset-right,0px)}
+.panel.on{transform:none}
+.panel header{display:flex;justify-content:space-between;align-items:center;padding:20px 26px;border-bottom:1px solid var(--line)}
+.panel .body{overflow:auto;padding:10px 26px 26px;display:grid;gap:26px;align-content:start}
+.panel footer{border-top:1px solid var(--line);padding:18px 26px calc(18px + env(safe-area-inset-bottom,0px));display:grid;gap:12px}
+.fgroup{display:grid;gap:12px}
+.scrim{position:fixed;inset:0;background:rgba(36,36,36,.28);z-index:70;opacity:0;visibility:hidden;transition:opacity .45s,visibility 0s .45s}
+.scrim.on{opacity:1;visibility:visible;transition:opacity .45s}
+.empty{padding:70px 20px;text-align:center;color:var(--mute);display:grid;gap:18px;justify-items:center}
+
+/* productpagina */
+.pd{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(30px,5vw,80px);padding-block:30px 90px;align-items:start}
+.crumbs{display:flex;gap:10px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);padding-top:28px;flex-wrap:wrap}
+.crumbs button{all:unset;cursor:pointer}
+.crumbs button:hover{color:var(--char)}
+.gallery{display:grid;grid-template-columns:76px minmax(0,1fr);gap:14px}
+.gallery .thumbs2{display:grid;gap:10px;align-content:start}
+.gallery .thumbs2 button{all:unset;cursor:pointer;aspect-ratio:4/5;background:#CFD0D2;overflow:hidden;outline:1px solid transparent;outline-offset:2px}
+.gallery .thumbs2 button[aria-current="true"]{outline-color:var(--char)}
+.gallery .thumbs2 img{width:100%;height:100%;object-fit:cover}
+.zoom{position:relative;aspect-ratio:4/5;overflow:hidden;background:#CFD0D2;cursor:zoom-in}
+.zoom img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
+.zoom.on img{transform:scale(2.1)}
+.zoom .hint{position:absolute;right:14px;bottom:14px;background:rgba(246,243,238,.9);font:500 9.5px/1 var(--f-sans);letter-spacing:.2em;text-transform:uppercase;padding:8px 10px}
+@media (max-width:900px){.pd{grid-template-columns:1fr}.gallery{grid-template-columns:1fr}.gallery .thumbs2{grid-auto-flow:column;grid-auto-columns:64px;order:2;overflow-x:auto}}
+.info{display:grid;gap:26px;position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--navh,78px) + 24px)}
+@media (max-width:900px){.info{position:static}}
+.info h1{font-size:clamp(36px,4vw,56px);line-height:1.04}
+.info .pr{font-size:22px;font-variant-numeric:tabular-nums}
+.info .pr s{font-size:14px;color:var(--mute);margin-left:12px}
+.spec{display:grid;grid-template-columns:auto 1fr;gap:12px 28px;margin:0;padding-block:20px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:15px}
+.spec dt{font:500 10.5px/1.9 var(--f-sans);letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
+.spec dd{margin:0}
+.avail{display:flex;gap:10px;align-items:center;font-size:14px}
+.avail i{width:7px;height:7px;border-radius:50%;background:var(--ok)}
+.avail.no i{background:var(--taupe)}
+details{border-bottom:1px solid var(--line);padding-block:16px}
+details summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;font:500 11px/1.4 var(--f-sans);letter-spacing:.2em;text-transform:uppercase}
+details summary::after{content:"+";font-size:16px;line-height:1}
+details[open] summary::after{content:"–"}
+details summary::-webkit-details-marker{display:none}
+details p{margin-top:12px;color:#4A443C;font-size:15px;max-width:60ch}
+.lb{position:fixed;inset:0;z-index:95;background:rgba(246,243,238,.98);display:grid;place-items:center;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
+.lb img{max-height:92svh;max-width:96vw;object-fit:contain;touch-action:pinch-zoom}
+.lb .x{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:calc(14px + env(safe-area-inset-right,0px))}
+.lb .prev,.lb .next{position:absolute;top:50%;transform:translateY(-50%)}
+.lb .prev{left:calc(10px + env(safe-area-inset-left,0px))}.lb .next{right:calc(10px + env(safe-area-inset-right,0px))}
+
+/* snelle blik */
+.modal{position:fixed;inset:0;z-index:85;display:grid;place-items:center;padding:20px var(--gutr) 20px var(--gut);pointer-events:none}
+.modal .box{pointer-events:auto;background:var(--ivory);width:min(940px,100%);max-height:min(90svh,720px);overflow:auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border:1px solid var(--line);position:relative}
+.modal .box .pic{background:#CFD0D2;aspect-ratio:4/5}
+.modal .box .pic img{width:100%;height:100%;object-fit:cover}
+.modal .box .in{padding:clamp(22px,3vw,40px);display:grid;gap:18px;align-content:start}
+.modal .x{position:absolute;top:8px;right:8px;background:rgba(246,243,238,.9)}
+@media (max-width:700px){.modal .box{grid-template-columns:1fr}}
+
+/* tas */
+.line{display:grid;grid-template-columns:72px 1fr auto;gap:16px;align-items:start;padding-block:16px;border-bottom:1px solid var(--line)}
+.line img{width:72px;height:90px;object-fit:cover;background:#CFD0D2}
+.line .nm{display:grid;gap:4px;font-size:14px}
+.line .nm b{font:400 18px/1.2 var(--f-serif)}
+.line .rm{all:unset;cursor:pointer;font-size:12px;color:var(--mute);text-decoration:underline;justify-self:start}
+.tot{display:grid;gap:8px;font-size:14.5px}
+.tot div{display:flex;justify-content:space-between;gap:12px}
+.tot .g{font-size:17px;font-weight:500}
+
+/* afrekenen */
+.co{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.9fr);gap:clamp(30px,5vw,80px);padding-block:clamp(40px,5vw,72px) 90px;align-items:start}
+.co .sum{background:var(--white);border:1px solid var(--line);padding:26px;display:grid;gap:16px;position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--navh,78px) + 24px)}
+@media (max-width:900px){.co{grid-template-columns:1fr}.co .sum{position:static}}
+
+/* zoeken */
+.search{position:fixed;inset:0 0 auto;z-index:82;background:var(--ivory);border-bottom:1px solid var(--line);transform:translateY(-102%);transition:transform .55s var(--ease);padding-top:env(safe-area-inset-top,0px);max-height:100svh;overflow:auto}
+.search.on{transform:none}
+.search .bar{display:flex;gap:14px;align-items:center;min-height:86px}
+.search input{flex:1;min-width:0;border:0;border-bottom:1px solid var(--char);background:transparent;font:400 clamp(24px,3vw,38px)/1.3 var(--f-serif);padding:8px 0;color:var(--char)}
+.search input:focus{outline:0}
+.search .res{padding-block:10px 36px;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,210px),1fr));gap:20px}
+.search .res button{all:unset;cursor:pointer;display:grid;grid-template-columns:64px 1fr;gap:12px;align-items:center}
+.search .res img{width:64px;height:80px;object-fit:cover;background:#CFD0D2}
+.search .res b{font:400 17px/1.2 var(--f-serif);display:block}
+
+.acctp{position:fixed;z-index:83;top:calc(env(safe-area-inset-top,0px) + var(--navh,78px) + 8px);right:var(--gutr);width:min(320px,calc(100% - 32px));background:var(--ivory);border:1px solid var(--line);padding:22px;display:grid;gap:12px;box-shadow:0 20px 50px rgba(36,36,36,.08)}
+.toast{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + var(--navh,78px) + 14px);transform:translate(-50%,-10px);background:var(--char);color:var(--ivory);padding:13px 20px;font-size:13.5px;letter-spacing:.04em;opacity:0;transition:.35s var(--ease);z-index:99;pointer-events:none;max-width:calc(100% - 32px)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.page{animation:pagein .6s var(--ease)}
+@keyframes pagein{from{opacity:.0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.page{animation:none}}
+.text{display:grid;gap:18px;max-width:68ch;padding-block:clamp(40px,6vw,90px)}
+.text h1{font-size:clamp(40px,5vw,72px);line-height:1}
+.text h3{margin-top:14px;font-size:24px}
+.text p{color:#4A443C}
+.ph-note{border:1px dashed var(--line2);padding:16px;font-size:14px;color:var(--mute)}
+</style>
+
+<div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/htm@3.1.1/dist/htm.umd.js"></script>
+<script>
+document.documentElement.classList.add('js');
+const {useState,useEffect,useLayoutEffect,useRef,useMemo,useCallback,Fragment}=React;
+/* direct naar boven, zonder de vloeiende scroll uit de CSS */
+const toTop=()=>{const el=document.documentElement;const prev=el.style.scrollBehavior;el.style.scrollBehavior='auto';try{window.scrollTo({top:0,left:0,behavior:'instant'})}catch(e){window.scrollTo(0,0)}document.body.scrollTop=0;el.scrollTop=0;el.style.scrollBehavior=prev};
+try{if('scrollRestoration' in history)history.scrollRestoration='manual'}catch(e){}
+const html=htm.bind(React.createElement);
+const MONO="M312.74 623.89 Q312.25 624.03 231.62 624.02 Q151.00 624.02 138.88 623.93 Q126.75 623.84 124.12 623.69 L121.50 623.54 L121.26 623.02 Q121.02 622.50 121.07 619.00 Q121.12 615.50 121.31 615.00 L121.50 614.50 L122.00 614.35 Q122.50 614.20 128.50 614.07 Q134.50 613.94 137.50 613.45 Q140.50 612.96 142.62 612.39 Q144.75 611.81 148.25 610.23 Q151.75 608.66 154.12 607.17 Q156.50 605.69 159.00 603.46 Q161.50 601.24 163.50 598.75 Q165.50 596.26 167.64 592.88 Q169.77 589.50 170.72 587.25 Q171.67 585.00 172.70 581.25 Q173.74 577.50 174.20 575.12 Q174.67 572.75 175.06 569.12 Q175.45 565.50 175.62 562.50 Q175.78 559.50 175.84 552.12 Q175.89 544.75 175.86 534.62 Q175.82 524.50 175.66 524.06 L175.50 523.63 L175.25 523.63 L175.00 523.62 L174.75 523.84 Q174.50 524.05 172.91 526.28 Q171.32 528.50 167.91 532.48 Q164.50 536.46 161.84 538.98 Q159.19 541.50 155.59 544.04 Q152.00 546.59 150.38 547.57 Q148.75 548.55 146.12 549.94 Q143.50 551.34 139.56 553.04 Q135.62 554.75 131.19 556.17 Q126.75 557.58 124.25 558.11 Q121.75 558.64 118.62 559.09 Q115.50 559.54 111.50 559.80 Q107.50 560.05 101.75 560.09 Q96.00 560.12 90.62 559.77 Q85.25 559.42 82.12 558.99 Q79.00 558.57 74.12 557.60 Q69.25 556.63 61.50 554.07 Q53.75 551.51 49.25 549.52 Q44.75 547.53 41.27 545.52 Q37.80 543.50 35.55 542.00 Q33.30 540.50 30.65 538.50 Q28.00 536.50 25.62 534.37 Q23.25 532.24 19.64 528.49 Q16.04 524.75 13.60 521.75 Q11.16 518.75 8.64 514.50 Q6.12 510.25 5.06 507.93 Q4.00 505.61 3.05 503.06 Q2.11 500.50 1.55 498.23 Q1.00 495.95 0.47 491.85 Q-0.05 487.75 -0.08 484.88 Q-0.11 482.00 0.20 479.62 Q0.51 477.25 0.87 475.25 Q1.23 473.25 2.11 470.61 Q3.00 467.97 4.00 465.91 Q5.00 463.85 7.07 460.68 Q9.15 457.50 10.62 455.75 Q12.08 454.00 13.54 452.61 Q15.00 451.22 16.94 449.74 Q18.87 448.25 21.37 446.75 Q23.88 445.25 26.06 444.35 Q28.25 443.45 32.09 442.35 Q35.93 441.25 39.59 440.90 Q43.25 440.55 46.38 440.74 Q49.50 440.93 52.50 441.68 Q55.50 442.43 58.12 443.42 Q60.75 444.41 62.55 445.33 Q64.36 446.25 66.55 447.73 Q68.75 449.21 71.20 451.23 Q73.65 453.25 75.20 455.05 Q76.75 456.84 78.25 459.32 Q79.75 461.79 81.19 465.64 Q82.63 469.50 83.15 472.25 Q83.68 475.00 83.69 477.88 Q83.71 480.75 83.33 483.62 Q82.95 486.50 82.33 489.00 Q81.71 491.50 80.73 493.79 Q79.75 496.08 78.25 498.79 Q76.75 501.50 73.43 506.75 Q70.12 512.00 69.82 513.12 Q69.52 514.25 69.54 515.62 Q69.55 517.00 69.83 518.38 Q70.11 519.75 71.06 521.67 Q72.00 523.60 73.12 525.27 Q74.25 526.93 75.25 528.08 Q76.25 529.22 78.00 530.88 Q79.75 532.54 81.02 533.52 Q82.29 534.50 84.40 535.81 Q86.50 537.12 88.25 537.93 Q90.00 538.73 93.88 539.94 Q97.75 541.15 99.75 541.55 Q101.75 541.94 106.88 542.15 Q112.00 542.36 116.00 542.13 Q120.00 541.89 122.74 541.32 Q125.49 540.75 128.49 539.84 Q131.50 538.93 133.88 538.04 Q136.25 537.15 139.75 535.34 Q143.25 533.52 144.55 532.64 Q145.84 531.75 149.67 528.64 Q153.50 525.53 155.06 524.02 Q156.61 522.50 159.14 519.50 Q161.67 516.50 164.88 511.12 Q168.08 505.75 169.23 503.12 Q170.37 500.50 172.05 495.62 Q173.73 490.75 174.20 488.62 Q174.67 486.50 175.10 483.50 Q175.52 480.50 175.62 478.00 Q175.71 475.50 175.63 342.25 Q175.54 209.00 175.72 188.62 Q175.90 168.25 175.77 158.25 Q175.64 148.25 175.40 147.75 L175.15 147.25 L174.57 147.11 Q174.00 146.97 153.88 146.96 Q133.75 146.94 133.50 146.81 L133.25 146.68 L133.11 146.34 Q132.97 146.00 132.89 141.00 Q132.81 136.00 132.84 134.38 Q132.87 132.75 133.06 132.43 L133.25 132.12 L133.62 132.01 Q134.00 131.91 153.88 131.94 Q173.75 131.97 174.25 131.90 Q174.75 131.84 175.09 131.54 L175.43 131.25 L175.60 122.00 Q175.78 112.75 175.74 84.25 Q175.71 55.75 175.52 51.88 Q175.33 48.00 174.93 45.12 Q174.52 42.25 174.12 40.62 Q173.71 39.00 172.59 35.88 Q171.46 32.75 170.09 30.38 Q168.72 28.00 167.23 26.12 Q165.75 24.25 163.75 22.20 Q161.75 20.16 159.12 18.18 Q156.50 16.20 154.50 15.18 Q152.50 14.16 149.62 13.13 Q146.75 12.10 144.38 11.54 Q142.00 10.99 139.38 10.60 Q136.75 10.21 129.12 9.58 L121.50 8.94 L121.25 8.47 Q120.99 8.00 121.02 4.50 Q121.04 1.00 121.15 0.65 L121.25 0.29 L121.50 0.13 Q121.75 -0.04 213.25 -0.13 Q304.75 -0.22 309.00 -0.19 Q313.25 -0.16 313.88 0.00 L314.50 0.16 L314.70 0.58 Q314.89 1.00 314.90 4.38 Q314.91 7.75 314.70 8.29 L314.50 8.82 L313.50 9.07 Q312.50 9.31 305.88 9.63 Q299.25 9.94 294.62 10.52 Q290.00 11.10 287.62 11.65 Q285.25 12.20 283.25 12.94 Q281.25 13.69 278.09 15.34 Q274.93 17.00 273.21 18.20 Q271.50 19.40 269.93 20.82 Q268.35 22.25 266.30 24.88 Q264.25 27.50 262.12 31.32 Q260.00 35.15 259.51 36.57 Q259.01 38.00 258.51 40.26 Q258.00 42.52 257.61 44.88 Q257.22 47.25 257.00 50.50 Q256.79 53.75 256.77 87.75 Q256.75 121.75 256.82 126.12 Q256.88 130.50 257.05 131.00 L257.22 131.50 L257.61 131.66 Q258.00 131.82 260.12 131.87 Q262.25 131.92 296.75 132.01 Q331.25 132.10 344.50 132.54 Q357.75 132.98 363.38 133.48 Q369.00 133.97 373.25 134.49 Q377.50 135.00 385.75 136.46 Q394.00 137.91 394.88 138.24 Q395.75 138.57 396.75 138.69 Q397.75 138.82 403.62 140.26 Q409.50 141.70 417.50 144.40 Q425.50 147.09 431.12 149.56 Q436.75 152.04 443.12 155.58 Q449.50 159.12 456.12 163.67 Q462.75 168.22 468.20 173.11 Q473.65 178.00 476.65 181.12 Q479.64 184.25 485.20 191.71 Q490.75 199.17 492.75 202.43 Q494.75 205.68 496.75 209.47 Q498.76 213.25 500.25 216.65 Q501.75 220.05 502.81 223.02 Q503.87 226.00 505.92 234.12 Q507.96 242.25 508.41 245.75 Q508.86 249.25 509.30 256.62 Q509.73 264.00 509.61 267.25 Q509.49 270.50 509.12 274.62 Q508.74 278.75 507.71 284.12 Q506.68 289.50 505.67 293.62 Q504.67 297.75 503.17 301.75 Q501.66 305.75 499.66 310.25 Q497.66 314.75 494.61 320.12 Q491.57 325.50 488.09 330.50 Q484.61 335.50 482.61 338.00 Q480.61 340.50 477.05 344.36 Q473.50 348.23 469.50 351.99 Q465.50 355.75 460.62 359.68 Q455.75 363.61 448.38 368.55 Q441.00 373.50 435.38 376.62 Q429.75 379.74 424.50 382.17 Q419.25 384.59 414.38 386.64 Q409.50 388.69 405.25 390.15 Q401.00 391.60 392.88 393.99 Q384.75 396.39 381.62 397.13 Q378.50 397.88 370.62 399.32 Q362.75 400.75 360.88 400.94 Q359.00 401.12 357.77 401.44 Q356.55 401.75 353.10 402.25 Q349.66 402.75 339.58 403.73 Q329.50 404.71 315.50 405.04 Q301.50 405.36 283.88 405.30 Q266.25 405.23 262.12 405.42 Q258.00 405.61 257.43 405.93 L256.87 406.25 L256.85 485.38 Q256.84 564.50 257.04 569.62 Q257.23 574.75 257.68 577.88 Q258.12 581.00 259.16 584.50 Q260.20 588.00 261.10 589.77 Q262.00 591.54 264.08 594.90 Q266.16 598.25 267.70 599.98 Q269.25 601.71 272.20 604.23 Q275.15 606.75 276.70 607.75 Q278.25 608.74 280.62 609.78 Q283.00 610.83 286.12 611.77 Q289.25 612.71 291.50 613.18 Q293.75 613.64 296.62 613.90 Q299.50 614.15 305.62 614.13 Q311.75 614.11 312.25 614.23 Q312.75 614.34 313.36 614.79 Q313.98 615.25 314.38 615.88 Q314.78 616.50 314.87 618.75 Q314.95 621.00 314.85 621.50 Q314.75 622.01 314.29 622.63 Q313.82 623.25 313.52 623.50 Q313.22 623.75 312.74 623.89ZM281.16 389.99 Q302.81 390.00 305.03 389.90 Q307.25 389.81 312.62 389.22 Q318.00 388.62 322.75 387.61 Q327.50 386.60 332.62 384.77 Q337.75 382.94 341.50 381.28 Q345.25 379.61 349.00 377.58 Q352.75 375.56 356.30 373.15 Q359.84 370.75 364.55 367.18 Q369.25 363.61 371.38 361.56 Q373.50 359.50 375.96 357.00 Q378.43 354.50 381.48 351.00 Q384.53 347.50 388.51 341.72 Q392.50 335.95 394.00 333.39 Q395.50 330.83 397.52 326.91 Q399.54 323.00 401.06 319.38 Q402.58 315.75 405.11 307.25 Q407.64 298.75 408.62 294.12 Q409.60 289.50 410.15 285.50 Q410.69 281.50 411.12 277.00 Q411.54 272.50 411.64 262.12 Q411.75 251.75 411.66 248.88 Q411.56 246.00 411.15 241.75 Q410.73 237.50 409.73 231.25 Q408.73 225.00 407.16 219.50 Q405.59 214.00 403.12 207.00 Q400.65 200.00 398.11 195.38 Q395.57 190.75 393.60 187.88 Q391.64 185.00 388.57 181.10 Q385.50 177.21 382.00 173.69 Q378.50 170.17 374.75 167.11 Q371.00 164.06 366.37 161.03 Q361.74 158.00 357.75 156.04 Q353.75 154.08 350.75 153.04 Q347.75 151.99 344.50 151.07 Q341.25 150.15 335.38 149.06 Q329.50 147.97 323.62 147.56 Q317.75 147.15 312.12 147.05 Q306.50 146.94 282.12 146.99 Q257.75 147.03 257.50 147.15 L257.25 147.28 L257.07 147.64 Q256.90 148.00 256.85 150.12 Q256.80 152.25 256.85 270.62 Q256.90 389.00 257.20 389.41 L257.50 389.82 L258.50 389.90 Q259.50 389.98 281.16 389.99Z";
+const WORD="M945.62 106.41 Q941.75 107.00 935.38 107.07 Q929.00 107.15 926.50 106.96 Q924.00 106.78 920.62 106.20 Q917.25 105.63 913.88 104.57 Q910.50 103.51 908.38 102.51 Q906.25 101.51 903.62 100.03 Q901.00 98.55 898.88 97.05 Q896.75 95.56 894.97 94.03 Q893.18 92.50 891.71 91.00 Q890.24 89.50 889.16 88.12 Q888.08 86.75 886.98 85.12 Q885.88 83.50 883.88 79.88 Q881.88 76.25 880.68 72.88 Q879.47 69.50 878.45 64.00 Q877.42 58.50 877.36 55.88 Q877.29 53.25 877.45 50.75 Q877.61 48.25 877.95 45.75 Q878.29 43.25 879.12 39.88 Q879.95 36.50 880.91 33.88 Q881.88 31.25 882.93 29.12 Q883.98 27.00 885.49 24.62 Q887.00 22.25 888.62 20.25 Q890.23 18.25 892.63 15.75 Q895.04 13.25 896.89 11.70 Q898.75 10.15 902.00 8.18 Q905.25 6.21 908.25 5.03 Q911.25 3.86 914.12 3.01 Q917.00 2.16 923.12 1.12 Q929.25 0.08 932.25 0.05 Q935.25 0.02 942.38 1.14 Q949.50 2.25 954.88 4.10 Q960.25 5.96 961.38 6.22 Q962.50 6.48 963.38 6.33 Q964.25 6.17 965.40 5.21 Q966.55 4.25 967.15 4.00 Q967.75 3.76 968.62 3.84 L969.50 3.92 L969.86 4.46 Q970.23 5.00 970.50 9.75 Q970.76 14.50 970.95 22.75 Q971.13 31.00 971.06 31.38 Q970.99 31.75 970.74 31.99 L970.50 32.22 L969.50 32.22 Q968.50 32.23 968.25 32.09 Q968.00 31.95 965.25 26.84 Q962.50 21.73 960.12 18.75 Q957.75 15.77 956.08 14.01 Q954.40 12.25 953.08 11.12 Q951.76 10.00 949.76 8.83 Q947.75 7.67 945.62 6.87 Q943.50 6.07 940.50 5.52 Q937.50 4.97 935.88 4.89 Q934.25 4.82 932.25 4.91 Q930.25 5.01 927.25 5.68 Q924.25 6.35 922.18 7.30 Q920.11 8.25 918.05 9.69 Q916.00 11.13 914.00 13.27 Q912.00 15.41 910.00 18.41 Q908.00 21.40 906.90 23.70 Q905.80 26.00 904.94 28.62 Q904.08 31.25 903.21 35.75 Q902.34 40.25 901.98 45.75 Q901.62 51.25 901.67 55.12 Q901.72 59.00 902.42 64.75 Q903.12 70.50 903.53 72.38 Q903.95 74.25 904.90 77.38 Q905.84 80.50 907.37 83.62 Q908.90 86.75 910.97 89.75 Q913.05 92.75 914.52 94.23 Q916.00 95.71 917.25 96.69 Q918.50 97.68 919.35 98.21 Q920.20 98.75 922.35 99.65 Q924.50 100.56 926.25 101.06 Q928.00 101.57 929.62 101.76 Q931.25 101.94 933.50 102.01 Q935.75 102.07 938.12 101.94 Q940.50 101.80 943.25 101.25 Q946.00 100.70 947.25 100.22 Q948.51 99.75 950.50 98.74 Q952.50 97.74 954.00 96.65 Q955.50 95.57 958.50 92.75 Q961.50 89.93 963.54 87.22 Q965.59 84.50 968.00 80.50 L970.41 76.50 L971.08 76.25 Q971.75 76.00 972.38 76.06 Q973.00 76.13 973.25 76.32 L973.50 76.50 L973.60 77.25 Q973.71 78.00 972.82 86.62 Q971.94 95.25 971.72 96.61 Q971.50 97.97 971.00 99.23 L970.50 100.50 L970.00 100.73 Q969.50 100.96 965.88 101.45 Q962.25 101.93 955.88 103.88 Q949.50 105.82 945.62 106.41ZM372.12 106.93 Q367.75 107.25 365.88 107.25 Q364.00 107.24 360.00 106.88 Q356.00 106.53 353.50 106.04 Q351.00 105.55 348.25 104.70 Q345.50 103.85 343.50 103.42 Q341.50 102.99 340.00 103.08 Q338.50 103.16 337.50 103.89 Q336.50 104.62 336.12 104.73 Q335.75 104.84 334.75 104.74 L333.75 104.64 L333.45 104.32 L333.15 104.00 L332.42 92.88 Q331.69 81.75 331.62 79.25 Q331.55 76.75 331.65 76.43 Q331.75 76.10 332.00 75.92 Q332.25 75.73 333.38 75.61 Q334.50 75.48 335.00 75.76 Q335.50 76.04 336.78 78.90 Q338.05 81.75 339.57 84.50 Q341.10 87.25 342.63 89.38 Q344.15 91.50 346.10 93.50 Q348.04 95.50 350.27 97.09 Q352.50 98.68 354.38 99.62 Q356.25 100.55 357.75 101.07 Q359.25 101.60 361.62 102.05 Q364.00 102.51 366.38 102.58 Q368.75 102.64 371.25 102.23 Q373.75 101.82 375.50 101.20 Q377.25 100.58 379.50 99.19 Q381.75 97.81 383.18 96.16 Q384.61 94.50 385.59 92.50 Q386.57 90.50 386.85 89.50 Q387.12 88.50 387.28 86.50 Q387.44 84.50 387.40 82.88 Q387.35 81.25 387.01 79.62 Q386.67 78.00 385.21 75.59 Q383.75 73.18 382.20 71.59 Q380.64 70.00 379.20 69.03 Q377.75 68.05 375.24 66.65 Q372.73 65.25 367.40 63.00 Q362.07 60.75 358.29 58.98 Q354.50 57.22 352.38 56.06 Q350.25 54.90 348.36 53.70 Q346.47 52.50 345.18 51.50 Q343.90 50.50 342.45 49.14 Q341.00 47.79 339.62 46.20 Q338.25 44.62 337.63 43.68 Q337.00 42.75 336.11 40.88 Q335.22 39.00 334.56 36.25 Q333.89 33.50 333.88 29.88 Q333.86 26.25 334.50 23.38 Q335.14 20.50 335.59 19.25 Q336.04 18.00 337.08 16.12 Q338.12 14.25 339.19 12.93 Q340.25 11.61 342.00 9.91 Q343.75 8.21 345.11 7.23 Q346.47 6.25 348.36 5.26 Q350.25 4.28 352.75 3.25 Q355.25 2.22 356.62 1.83 Q358.00 1.44 361.50 0.81 Q365.00 0.17 368.88 0.17 Q372.75 0.17 377.62 1.00 Q382.50 1.84 383.75 2.18 Q385.00 2.53 387.12 3.38 Q389.25 4.23 391.25 4.58 Q393.25 4.93 393.88 4.83 Q394.50 4.72 395.75 3.84 Q397.00 2.95 398.12 2.78 L399.25 2.61 L399.55 2.81 L399.85 3.00 L399.98 3.38 Q400.11 3.75 400.53 11.25 Q400.96 18.75 401.01 23.25 Q401.05 27.75 400.95 28.12 L400.85 28.50 L400.55 28.69 Q400.25 28.88 399.12 29.01 Q398.00 29.13 397.62 28.94 L397.25 28.75 L396.06 25.88 Q394.87 23.00 393.81 21.21 Q392.75 19.43 391.20 17.21 Q389.65 15.00 387.69 13.00 Q385.74 11.00 383.24 9.24 Q380.75 7.49 379.25 6.80 Q377.75 6.11 376.38 5.73 Q375.00 5.35 373.12 5.13 Q371.25 4.90 368.62 4.95 Q366.00 5.00 364.12 5.44 Q362.25 5.88 361.00 6.44 Q359.75 7.00 358.50 7.87 Q357.25 8.73 356.25 9.75 Q355.25 10.77 354.14 12.39 Q353.03 14.00 352.57 15.12 Q352.11 16.25 351.84 17.38 Q351.56 18.50 351.45 19.88 Q351.34 21.25 351.67 23.75 Q352.00 26.24 352.56 27.50 Q353.12 28.75 354.58 30.62 Q356.05 32.50 357.31 33.50 Q358.58 34.50 360.16 35.47 Q361.75 36.44 365.75 38.42 Q369.75 40.40 373.00 41.72 Q376.25 43.03 381.50 45.42 Q386.75 47.81 388.75 48.90 Q390.75 50.00 392.98 51.50 Q395.21 53.00 397.45 55.00 Q399.69 57.00 401.28 59.00 Q402.88 61.00 403.89 63.12 Q404.90 65.25 405.47 67.38 Q406.04 69.50 406.16 73.38 Q406.29 77.25 406.16 78.88 Q406.04 80.50 405.73 82.00 Q405.42 83.50 405.09 84.52 Q404.75 85.54 403.75 87.64 Q402.75 89.75 401.73 91.25 Q400.72 92.75 399.54 94.12 Q398.36 95.50 396.56 97.07 Q394.75 98.64 392.62 100.09 Q390.50 101.55 387.38 103.04 Q384.25 104.53 382.50 105.10 Q380.75 105.67 378.62 106.14 Q376.50 106.61 372.12 106.93ZM1086.25 104.89 Q1080.00 105.00 1071.50 105.12 Q1063.00 105.24 1053.62 105.17 Q1044.25 105.09 1043.87 105.05 Q1043.49 105.00 1043.21 104.75 L1042.94 104.50 L1042.89 103.62 Q1042.85 102.75 1043.07 102.38 L1043.29 102.00 L1047.02 101.33 Q1050.75 100.65 1052.12 100.09 Q1053.50 99.52 1054.65 98.51 Q1055.80 97.50 1056.45 96.00 Q1057.10 94.50 1057.31 92.62 Q1057.52 90.75 1057.59 85.25 Q1057.66 79.75 1057.55 43.88 Q1057.43 8.00 1057.26 7.62 L1057.08 7.25 L1056.67 7.09 Q1056.25 6.92 1052.25 7.03 Q1048.25 7.14 1046.62 7.40 Q1045.00 7.67 1042.00 9.00 Q1039.00 10.33 1037.50 11.45 Q1036.00 12.57 1035.00 13.65 Q1034.00 14.74 1032.59 16.74 Q1031.18 18.75 1028.97 22.68 Q1026.75 26.62 1026.38 26.83 Q1026.00 27.05 1025.38 27.03 Q1024.75 27.02 1024.38 26.79 L1024.00 26.57 L1023.90 26.29 Q1023.79 26.00 1023.97 22.38 Q1024.15 18.75 1024.54 15.75 Q1024.93 12.75 1025.10 9.00 Q1025.27 5.25 1025.44 4.12 Q1025.61 3.00 1025.93 2.53 L1026.25 2.07 L1026.75 1.98 Q1027.25 1.90 1041.12 2.22 Q1055.00 2.54 1063.62 2.40 Q1072.25 2.27 1087.38 2.32 Q1102.50 2.37 1106.25 2.25 Q1110.00 2.12 1110.44 2.19 Q1110.88 2.25 1111.16 2.50 L1111.43 2.75 L1111.87 6.12 Q1112.31 9.50 1112.85 17.62 Q1113.38 25.75 1113.19 26.15 L1113.00 26.56 L1112.38 26.74 Q1111.75 26.93 1111.25 26.91 Q1110.75 26.89 1110.38 26.61 Q1110.00 26.33 1108.75 23.55 Q1107.50 20.77 1106.00 18.53 Q1104.50 16.29 1103.05 14.65 Q1101.60 13.00 1099.97 11.62 Q1098.33 10.25 1095.91 9.14 Q1093.50 8.03 1090.88 7.48 Q1088.25 6.94 1084.62 6.89 Q1081.00 6.85 1080.62 6.97 Q1080.25 7.09 1080.02 7.42 Q1079.79 7.75 1079.67 49.88 Q1079.55 92.00 1080.05 94.12 Q1080.55 96.25 1081.52 97.48 Q1082.50 98.72 1083.23 99.23 Q1083.96 99.75 1084.98 100.20 Q1086.00 100.64 1088.50 101.20 Q1091.00 101.75 1092.00 101.82 Q1093.00 101.90 1093.27 102.08 L1093.55 102.25 L1093.62 102.50 Q1093.69 102.75 1093.56 103.50 L1093.43 104.25 L1092.96 104.52 Q1092.50 104.78 1086.25 104.89ZM24.25 107.01 Q21.50 107.25 18.25 107.16 Q15.00 107.06 12.12 106.37 Q9.25 105.68 8.07 105.09 Q6.89 104.50 5.57 103.44 Q4.25 102.38 3.12 101.09 Q2.00 99.79 1.27 98.27 Q0.54 96.75 0.32 95.25 Q0.09 93.75 0.17 92.90 Q0.25 92.06 0.75 90.64 Q1.25 89.23 1.75 88.42 Q2.25 87.61 3.00 86.88 Q3.75 86.15 4.62 85.57 Q5.48 85.00 6.74 84.50 Q8.00 84.01 8.88 83.92 Q9.75 83.83 10.88 84.01 Q12.00 84.19 13.11 84.72 Q14.23 85.25 15.36 86.34 Q16.50 87.43 17.12 88.45 Q17.75 89.48 18.20 90.87 Q18.65 92.25 18.72 94.00 Q18.79 95.75 18.61 96.62 Q18.43 97.50 17.75 99.00 Q17.08 100.50 17.10 101.00 L17.13 101.50 L18.06 102.05 Q19.00 102.59 20.00 102.64 Q21.00 102.69 22.88 102.17 Q24.75 101.66 25.75 101.10 Q26.75 100.54 27.75 99.73 Q28.75 98.92 29.75 97.56 Q30.75 96.20 31.61 93.85 Q32.48 91.50 32.79 89.50 Q33.11 87.50 33.23 83.00 Q33.36 78.50 33.37 46.38 Q33.39 14.25 32.94 12.58 Q32.50 10.90 31.50 9.57 Q30.50 8.25 28.75 7.44 Q27.00 6.63 23.50 6.07 L20.00 5.51 L19.62 5.01 L19.24 4.50 L19.28 3.62 Q19.32 2.75 19.53 2.49 L19.75 2.24 L20.12 2.16 Q20.50 2.09 29.75 2.19 Q39.00 2.29 52.25 2.21 Q65.50 2.13 67.38 2.23 L69.25 2.33 L69.44 2.54 Q69.64 2.75 69.72 3.25 Q69.80 3.75 69.53 4.50 L69.25 5.24 L65.75 6.02 Q62.25 6.80 60.88 7.38 Q59.50 7.96 58.43 9.11 Q57.37 10.25 56.64 11.88 Q55.92 13.50 55.78 15.25 Q55.65 17.00 55.60 44.88 Q55.55 72.75 54.93 76.75 Q54.32 80.75 53.59 83.12 Q52.86 85.50 52.11 87.38 Q51.36 89.25 50.40 90.88 Q49.44 92.50 47.66 94.62 Q45.89 96.75 44.82 97.72 Q43.75 98.68 40.75 100.69 Q37.75 102.70 36.00 103.64 Q34.25 104.58 32.75 105.13 Q31.25 105.69 29.12 106.23 Q27.00 106.76 24.25 107.01ZM178.94 104.66 L178.50 105.07 L153.62 105.04 Q128.75 105.00 128.38 104.75 L128.00 104.50 L127.98 103.62 L127.95 102.75 L128.22 102.38 L128.50 102.02 L130.38 101.77 Q132.25 101.53 134.00 101.12 Q135.75 100.71 137.00 100.13 Q138.25 99.56 139.00 98.97 Q139.75 98.39 140.25 97.75 Q140.75 97.11 141.22 96.05 Q141.69 95.00 141.96 93.50 Q142.23 92.00 142.31 90.25 Q142.39 88.50 142.36 59.12 Q142.33 29.75 142.20 21.50 Q142.07 13.25 141.42 11.62 Q140.77 10.00 140.13 9.25 Q139.50 8.50 138.75 7.93 Q138.00 7.36 136.38 6.81 Q134.75 6.27 132.12 5.86 Q129.50 5.45 129.12 5.28 Q128.75 5.11 128.54 4.80 Q128.34 4.50 128.29 4.02 Q128.25 3.54 128.38 3.03 Q128.50 2.52 128.75 2.32 L129.00 2.11 L134.50 2.27 Q140.00 2.43 161.38 2.37 Q182.75 2.30 185.12 2.43 Q187.50 2.55 189.62 2.91 Q191.75 3.26 195.62 4.17 Q199.50 5.08 201.50 5.80 Q203.50 6.52 205.00 7.31 Q206.50 8.11 208.51 9.55 Q210.52 11.00 211.64 12.07 Q212.75 13.14 213.75 14.38 Q214.75 15.62 215.74 17.31 Q216.73 19.00 217.41 20.50 Q218.08 22.00 218.60 24.12 Q219.11 26.25 219.11 29.38 Q219.11 32.50 218.75 34.75 Q218.39 37.00 217.72 39.12 Q217.05 41.25 216.39 42.38 Q215.73 43.50 214.58 45.00 Q213.43 46.50 211.82 48.12 Q210.21 49.75 207.98 51.17 Q205.75 52.58 202.75 54.00 Q199.75 55.42 196.62 56.49 Q193.50 57.56 190.75 58.05 Q188.00 58.54 186.50 58.65 Q185.00 58.76 175.50 58.85 Q166.00 58.94 165.62 59.02 Q165.25 59.10 165.06 59.30 Q164.86 59.50 164.75 60.00 Q164.63 60.50 164.58 75.50 Q164.53 90.50 164.56 91.50 Q164.58 92.50 164.89 94.25 Q165.20 96.00 166.14 97.25 Q167.09 98.50 168.12 99.12 Q169.15 99.75 172.20 100.58 Q175.25 101.41 177.19 101.71 L179.12 102.00 L179.29 102.25 Q179.46 102.50 179.41 103.38 L179.37 104.25 L178.94 104.66ZM542.50 105.07 Q542.00 105.27 526.50 105.06 Q511.00 104.86 496.50 104.99 Q482.00 105.12 471.00 105.01 Q460.00 104.91 459.58 104.70 L459.15 104.50 L459.09 103.75 Q459.02 103.00 459.26 102.59 L459.50 102.17 L463.12 101.43 Q466.75 100.69 468.00 100.15 Q469.25 99.62 470.00 99.05 Q470.75 98.47 471.62 96.99 Q472.49 95.50 472.73 94.00 Q472.96 92.50 473.02 90.25 Q473.08 88.00 473.02 51.00 Q472.96 14.00 472.42 12.25 Q471.88 10.50 470.81 9.29 Q469.75 8.07 468.38 7.39 Q467.00 6.70 463.38 5.96 L459.75 5.21 L459.47 4.73 L459.20 4.25 L459.47 3.48 L459.75 2.71 L460.12 2.56 Q460.50 2.40 467.38 2.31 Q474.25 2.23 492.62 2.31 Q511.00 2.39 525.00 2.21 Q539.00 2.03 539.50 2.26 L540.00 2.48 L540.24 3.99 Q540.48 5.50 540.72 9.88 Q540.95 14.25 541.04 19.88 Q541.13 25.50 540.94 25.96 L540.75 26.42 L540.38 26.54 Q540.00 26.67 539.38 26.64 Q538.75 26.62 538.38 26.37 Q538.00 26.11 536.28 22.56 Q534.57 19.00 532.53 16.07 Q530.50 13.14 529.00 11.77 Q527.50 10.40 525.62 9.34 Q523.75 8.28 521.62 7.65 Q519.50 7.01 517.75 6.86 Q516.00 6.71 506.38 6.76 Q496.75 6.81 496.28 6.90 Q495.82 7.00 495.53 7.30 L495.25 7.59 L495.06 11.42 Q494.86 15.25 494.84 27.25 Q494.81 39.25 494.83 43.62 Q494.85 48.00 495.05 48.72 L495.25 49.44 L496.00 49.62 Q496.75 49.80 501.25 49.88 Q505.75 49.96 507.75 49.61 Q509.75 49.27 510.88 48.89 Q512.00 48.52 513.25 47.68 Q514.50 46.84 515.50 45.67 Q516.51 44.50 517.10 43.38 Q517.70 42.25 518.60 39.40 L519.50 36.55 L520.00 36.34 Q520.50 36.13 521.25 36.21 Q522.00 36.29 522.27 36.52 L522.55 36.75 L522.65 37.25 Q522.75 37.75 522.66 51.00 Q522.58 64.25 522.44 66.50 Q522.29 68.75 522.12 69.12 L521.95 69.50 L521.35 69.60 Q520.75 69.69 520.00 69.42 L519.25 69.15 L518.54 66.45 Q517.83 63.75 517.25 62.50 Q516.67 61.25 515.71 60.11 Q514.75 58.97 513.12 57.79 Q511.50 56.60 510.00 56.05 Q508.50 55.50 506.62 55.35 Q504.75 55.21 500.62 55.24 Q496.50 55.27 495.84 55.64 L495.18 56.00 L495.01 60.12 Q494.85 64.25 494.87 78.38 Q494.89 92.50 495.04 94.00 Q495.18 95.50 495.52 96.75 Q495.85 98.00 496.54 98.75 Q497.22 99.50 497.61 99.67 Q498.00 99.84 500.62 99.98 Q503.25 100.11 509.38 100.11 Q515.50 100.10 518.12 99.99 Q520.75 99.89 521.88 99.64 Q523.00 99.40 524.38 99.00 Q525.75 98.60 527.62 97.63 Q529.50 96.67 531.48 95.09 Q533.45 93.50 535.09 91.38 Q536.72 89.25 538.73 85.88 Q540.75 82.50 541.43 81.00 Q542.12 79.50 542.43 79.32 Q542.75 79.13 543.62 79.15 Q544.50 79.17 544.88 79.40 L545.25 79.62 L545.40 80.06 Q545.54 80.50 545.13 86.75 Q544.73 93.00 544.09 98.50 Q543.46 104.00 543.23 104.44 L543.00 104.88 L542.50 105.07ZM687.12 104.96 Q685.75 105.00 680.38 105.10 Q675.00 105.20 641.12 105.14 Q607.25 105.08 605.25 105.04 Q603.25 105.00 602.88 104.78 L602.50 104.57 L602.44 103.78 L602.38 103.00 L602.69 102.54 L603.00 102.08 L604.62 101.84 Q606.25 101.60 608.25 101.08 Q610.25 100.56 611.50 100.08 Q612.75 99.61 613.72 98.80 Q614.70 98.00 615.39 96.50 Q616.07 95.00 616.38 93.25 Q616.69 91.50 616.75 89.62 Q616.82 87.75 616.76 51.38 Q616.71 15.00 616.27 13.00 Q615.84 11.00 615.33 10.12 Q614.82 9.25 614.30 8.75 Q613.79 8.25 612.77 7.66 Q611.75 7.07 610.75 6.76 Q609.75 6.45 606.50 5.96 Q603.25 5.47 602.99 5.23 Q602.74 5.00 602.62 4.62 Q602.50 4.25 602.78 3.50 L603.05 2.75 L603.52 2.59 Q604.00 2.43 615.62 2.31 Q627.25 2.19 639.12 2.24 Q651.00 2.30 651.56 2.52 L652.11 2.75 L652.23 3.50 Q652.34 4.25 652.00 4.88 L651.66 5.50 L648.33 6.14 Q645.00 6.78 643.50 7.50 Q642.00 8.22 641.09 9.24 Q640.18 10.25 639.55 12.12 Q638.92 14.00 638.78 16.12 Q638.65 18.25 638.67 48.38 Q638.70 78.50 638.82 85.62 Q638.94 92.75 639.27 95.25 Q639.59 97.75 639.80 98.16 Q640.00 98.57 640.58 99.03 Q641.15 99.50 641.95 99.69 Q642.75 99.89 653.88 99.90 Q665.00 99.91 666.50 99.73 Q668.00 99.55 669.30 99.15 Q670.59 98.75 672.67 97.68 Q674.75 96.61 676.63 95.18 Q678.51 93.75 680.03 92.00 Q681.55 90.25 683.02 88.25 Q684.50 86.25 686.02 83.88 Q687.53 81.50 688.02 80.38 Q688.50 79.25 689.00 78.97 Q689.50 78.69 690.25 78.76 Q691.00 78.83 691.25 78.97 L691.50 79.10 L691.59 79.43 Q691.67 79.75 691.53 82.75 Q691.38 85.75 691.12 88.88 Q690.86 92.00 690.10 98.00 Q689.33 104.00 689.17 104.33 Q689.00 104.66 688.75 104.79 Q688.50 104.92 687.12 104.96ZM819.86 104.76 Q819.50 105.01 788.12 105.05 Q756.75 105.09 747.12 104.92 Q737.50 104.76 737.00 104.54 L736.50 104.32 L736.42 103.66 L736.33 103.00 L736.61 102.62 L736.89 102.25 L739.07 101.91 Q741.25 101.57 742.66 101.16 Q744.07 100.75 745.28 100.19 Q746.50 99.62 747.12 99.10 Q747.75 98.58 748.22 98.04 Q748.69 97.50 749.20 96.50 Q749.70 95.50 749.95 92.75 Q750.20 90.00 750.10 51.75 Q750.01 13.50 749.45 11.75 Q748.89 10.00 748.18 9.12 Q747.47 8.25 746.74 7.75 Q746.00 7.25 744.88 6.80 Q743.75 6.35 740.50 5.80 L737.25 5.25 L736.99 4.62 L736.73 4.00 L736.99 3.24 L737.25 2.48 L739.00 2.32 Q740.75 2.17 757.38 2.26 Q774.00 2.36 795.00 2.23 Q816.00 2.10 816.52 2.30 L817.04 2.50 L817.21 2.88 Q817.38 3.25 817.60 6.62 Q817.81 10.00 817.99 17.75 Q818.16 25.50 817.96 25.97 L817.75 26.44 L817.38 26.56 Q817.00 26.68 816.25 26.67 Q815.50 26.67 815.20 26.46 Q814.90 26.25 812.74 21.75 Q810.57 17.25 809.12 15.12 Q807.66 13.00 806.13 11.62 Q804.61 10.25 803.06 9.32 Q801.50 8.39 799.88 7.83 Q798.25 7.27 795.75 6.99 Q793.25 6.71 783.50 6.81 Q773.75 6.91 773.25 7.07 Q772.75 7.24 772.57 7.49 Q772.38 7.75 772.23 16.25 Q772.08 24.75 772.10 34.62 Q772.13 44.50 772.26 46.75 L772.39 49.00 L772.95 49.29 Q773.50 49.58 778.62 49.68 Q783.75 49.77 785.62 49.42 Q787.50 49.07 788.88 48.54 Q790.25 48.02 791.00 47.42 Q791.75 46.82 792.75 45.42 Q793.75 44.02 794.29 42.88 Q794.83 41.75 795.54 39.29 L796.25 36.82 L796.62 36.61 Q797.00 36.39 797.62 36.37 L798.25 36.36 L798.62 36.66 L799.00 36.97 L799.08 37.36 Q799.15 37.75 799.30 47.62 Q799.44 57.50 799.28 63.12 Q799.11 68.75 798.93 69.31 L798.75 69.86 L798.25 70.09 L797.75 70.32 L797.25 70.19 Q796.75 70.06 796.46 69.78 Q796.17 69.50 795.41 66.75 Q794.66 64.00 793.75 62.12 Q792.84 60.25 791.92 59.12 Q791.01 58.00 790.26 57.43 Q789.50 56.87 788.00 56.22 Q786.50 55.58 784.88 55.28 Q783.25 54.99 780.25 55.05 Q777.25 55.10 775.38 55.29 Q773.50 55.48 773.06 55.74 L772.63 56.00 L772.49 56.50 Q772.36 57.00 772.27 62.12 Q772.19 67.25 772.17 79.88 Q772.15 92.50 772.62 95.25 Q773.08 98.00 773.66 98.60 Q774.25 99.21 774.75 99.50 Q775.25 99.79 777.50 99.94 Q779.75 100.08 786.62 100.11 Q793.50 100.14 796.50 99.91 Q799.50 99.67 802.38 98.66 Q805.25 97.64 806.88 96.59 Q808.50 95.53 810.12 93.79 Q811.75 92.06 813.17 90.15 Q814.60 88.25 816.29 85.38 Q817.97 82.50 818.61 80.93 L819.25 79.36 L819.50 79.23 Q819.75 79.11 820.75 79.10 L821.75 79.10 L822.12 79.55 Q822.48 80.00 822.51 81.38 Q822.54 82.75 822.10 88.12 Q821.67 93.50 821.07 98.62 Q820.47 103.75 820.35 104.12 Q820.23 104.50 819.86 104.76ZM175.82 53.87 Q177.65 53.75 178.66 53.62 Q179.66 53.50 181.08 53.04 Q182.50 52.59 185.25 51.08 Q188.00 49.58 189.38 48.15 Q190.75 46.72 192.25 44.44 Q193.75 42.15 194.37 40.32 Q194.99 38.50 195.51 35.50 Q196.03 32.50 195.98 29.12 Q195.93 25.75 195.48 23.50 Q195.03 21.25 194.39 19.59 Q193.75 17.93 192.22 15.59 Q190.70 13.25 189.48 12.12 Q188.25 11.00 186.49 10.00 Q184.72 9.00 182.73 8.31 Q180.75 7.62 179.00 7.31 Q177.25 6.99 174.00 6.82 Q170.75 6.65 168.12 6.70 Q165.50 6.75 165.19 7.00 L164.89 7.25 L164.78 7.75 Q164.67 8.25 164.64 30.62 Q164.60 53.00 164.80 53.32 L165.00 53.63 L165.38 53.76 Q165.75 53.89 169.88 53.94 Q174.00 53.99 175.82 53.87Z";
+
+/* ---------------- teksten ---------------- */
+const T={
+nl:{
+ notice:'Prototype van de nieuwe website · bestellen, betalen en formulieren zijn nog niet gekoppeld',noticeLive:'Webshop in opbouw · verkopen aan ons kan al, online bestellen volgt binnenkort',
+ nav:{new:'Nieuw binnen',shoes:'Schoenen',clothing:'Kleding',brands:'Merken',story:'Ons verhaal',sell:'Verkoop aan ons'},
+ search:'Zoeken',account:'Account',bag:'Tas',menu:'Menu',close:'Sluiten',
+ brandLine:'Luxury fashion — new & pre-owned',
+ heroH:'Geselecteerde luxe.<br>Tijdloze stijl.',heroSub:'Nieuwe en tweedehands designermode',explore:'Ontdek de collectie',sellCta:'Verkoop aan ons',
+ pause:'Animatie pauzeren',play:'Animatie afspelen',pauseV:'Video pauzeren',playV:'Video afspelen',scroll:'Scroll',
+ manEy:'Over JP SELECT',manT:'Geen massa, maar een selectie. Ontdek nieuwe en pre-owned designermode, zelf uitgekozen en tot in de details gecontroleerd. Of geef je eigen stukken een nieuwe eigenaar.',
+ philoEy:'De JP SELECT-filosofie',philoH:'Uitzonderlijke stukken. <em>Zorgvuldig geselecteerd.</em>',
+ philoP:['JP SELECT brengt nieuwe en tweedehands designermode samen, met oog voor vakmanschap, staat en tijdloze stijl.','We kiezen merken die we kennen, kijken elk stuk na en beschrijven eerlijk wat je krijgt. Vaak is er maar één stuk, in één maat. Wie het ziet, beslist.'],
+ catEy:'Shop',cats:{men:'Heren sneakers',women:'Dames sneakers',clothing:'Kleding'},
+ featEy:'Collectie',featH:'Nu in de collectie',featP:'Een selectie uit de collectie. Stukken met het label Demo zijn voorbeelden om de shop te tonen; die zijn niet te koop.',viewAll:'Bekijk alles',
+ hzEy:'Onze werkwijze',hzH:'Van selectie tot je deur.',
+ hz:[['Selectie','We kiezen merken en modellen die we kennen: Hogan, Santoni, Moorer en andere Italiaanse huizen. Kwaliteit en pasvorm gaan voor volume.'],['Controle','Elk stuk wordt nagekeken op staat, details en echtheidskenmerken voordat het online komt. Gebruikssporen benoemen we gewoon.'],['Presentatie','We fotograferen in onze vaste studiostijl: koel lichtgrijs, een gebroken witte sokkel, eerlijke kleuren.'],['Verzending','Zorgvuldig verpakt en verzonden vanuit Nederland. Vragen? Je krijgt antwoord van degene die het stuk in handen had.']],
+ banH:'Redefined luxury',banQ:'Nieuw & pre-owned. Tijdloze luxe, klaar voor een nieuw hoofdstuk.',
+ revEy:'Beoordelingen',revRead:'Lees de reviews',revPageH:'Wat kopers zeggen',revPageP:'Een greep uit de beoordelingen die kopers ons gaven op Vinted, letterlijk overgenomen.',revTr:'Vertaald uit het {l}',revBuyer:'Koper via Vinted',revCnt:'{n} beoordelingen van kopers',revSrc:'Verzameld via onze verkopen op Vinted',revAll:'Bekijk alle beoordelingen',revAsOf:'Stand: oktober 2026',revLine:'{s} · {n} beoordelingen via Vinted',
+ tradeEy:'Inruilen & verkopen',tradeGo:'Start je aanvraag',tradeH:'Trade in. Step up.',tradeP:'Heb je designerschoenen of -kleding die je niet meer draagt? Verkoop ze aan ons, of ruil ze in voor iets uit de collectie.',
+ steps:[['Dien je stuk in','Vul merk, model, maat en staat in, en maak de vaste foto’s: zijkant, voorkant, zool, binnenzool en maatlabel.'],['Ontvang een bod','We bekijken je foto’s en mailen je een voorstel.'],['Laat je uitbetalen of ruil in','Kies voor uitbetaling, of voor tegoed met 20% extra voor een stuk uit de collectie.']],
+ form:{stepsL:'Stappen',stepN:['Item','Foto’s','Gegevens'],next:'Volgende',back:'Terug',sizeShoe:'Maat (EU)',sizeCloth:'Maat',boxQ:'Doos of stofzak',boxNone:'Geen van beide',boxBox:'Originele doos',boxBoth:'Doos en stofzak',phShoeH:'Foto’s van je schoenen',phClothH:'Foto’s van je kledingstuk',phIntro:'Maak de foto’s bij daglicht, tegen een effen achtergrond. Tik op een vak om een foto te maken of te kiezen. De vakken zonder ‘optioneel’ zijn nodig voor een bod.',optional:'optioneel',addPhoto:'Foto toevoegen',replace:'Vervangen',reqDone:'verplichte foto’s toegevoegd',stillNeed:'Nog nodig:',sumH:'Je aanvraag',photosN:'foto’s',
+  slot:{side:['Zijkant','Buitenkant van de rechterschoen, neus naar rechts'],front:['Voorkant','Beide schoenen recht van voren'],sole:['Zool','Onderkant, zodat we de slijtage zien'],insole:['Binnenzool','Van bovenaf in de schoen, logo zichtbaar'],label:['Maatlabel','Label in de tong of binnenkant, goed leesbaar'],heel:['Achterkant','De hielen van achteren'],wear:['Details','Gebruikssporen of beschadigingen van dichtbij'],box:['Doos en stofzak','Als je die hebt'],cfront:['Voorkant','Het hele kledingstuk plat of op een hanger'],cback:['Achterkant','Het hele kledingstuk van achteren'],brand:['Merklabel','Het label in de hals of zijnaad'],care:['Maat- en wasetiket','Met maat en materiaal leesbaar']},
+  brand:'Merk',chooseBrand:'Kies een merk',other:'Ander merk',model:'Model',cat:'Categorie',size:'Maat',cond:'Staat',photos:'Foto’s',addPhotos:'Foto’s toevoegen',photoHint:'Zijkant, zool, binnenkant en label. Maximaal 6.',name:'Naam',email:'E-mail',phone:'Telefoon (optioneel)',msg:'Opmerking (optioneel)',consent:'Ik ga ermee akkoord dat JP SELECT mijn gegevens en foto’s gebruikt om een bod te doen. Zonder deal verwijderen we mijn aanvraag na 90 dagen.',send:'Aanvraag versturen',accept:'Wat we aannemen: designerschoenen en -kleding in minimaal goede staat, alleen origineel. Ons bod geldt onder voorbehoud van controle bij ontvangst.',payH:'Hoe wil je het ontvangen?',payCash:['Uitbetaling','We maken het bedrag over zodra je stuk binnen is en gecontroleerd.'],payCredit:['Tegoed + {b}%','{b}% extra bovenop ons bod (max. €{m}), te besteden bij JP SELECT. 12 maanden geldig.'],sending:'Versturen…',sendingPh:'Foto’s uploaden',sendFail:'Versturen is niet gelukt. Controleer je verbinding en probeer het opnieuw; wat al verstuurd is, gaat niet verloren.',rateLim:'Er zijn net te veel aanvragen binnengekomen. Probeer het later opnieuw of mail info@jpselect.nl.',badPhoto:'Deze foto kunnen we niet lezen. Kies een JPG of PNG.',okLiveCap:'Aanvraag ontvangen',okLiveH:'Bedankt, we hebben je aanvraag {r} ontvangen.',okLiveP:'We bekijken je foto’s en mailen ons bod naar {e}. Het bod geldt onder voorbehoud van controle bij ontvangst.',req:'Vul dit in',badMail:'Vul een geldig e-mailadres in',needPhoto:'Voeg minstens één foto toe',needConsent:'Geef toestemming om verder te gaan',
+   okH:'Bedankt, je aanvraag is compleet.',okP:'Let op: dit is een prototype. Je aanvraag is niet verzonden en niet opgeslagen. In de live versie komt hij direct bij JP SELECT binnen.',again:'Nieuwe aanvraag'},
+ brandsEy:'Merken',brandsH:'Merken die we voeren',brandsNote:'JP SELECT is een onafhankelijke verkoper en geen officiële dealer of partner van deze merken.',items:n=>n===1?'1 stuk':n+' stukken',noneYet:'binnenkort',
+ storyEy:'Ons verhaal',storyH:'Onafhankelijk. Persoonlijk. Zorgvuldig.',
+ storyP:['JP SELECT is een onafhankelijk modebedrijf uit Nederland, gebouwd op drie dingen: selectie, kwaliteit en persoonlijke service.','Je koopt niet van een anoniem platform, maar van iemand die elk stuk zelf heeft uitgekozen en nagekeken. Vragen over pasvorm, staat of maat beantwoorden we persoonlijk.'],
+ storyCap:'Sfeerbeeld, digitaal gemaakt door JP SELECT.',readMore:'Lees ons verhaal',
+ f:{shop:'Shop',about:'Over JP SELECT',service:'Service',contact:'Contact',ship:'Verzenden & retourneren',terms:'Algemene voorwaarden',privacy:'Privacybeleid',insta:'Instagram',instaSoon:'Instagram (link volgt)',news:'Nieuwsbrief',newsP:'Als eerste weten wat er binnenkomt. Eén mail per nieuwe collectie.',newsPh:'Je e-mailadres',newsBtn:'Aanmelden',newsOk:'Prototype: je aanmelding is niet opgeslagen.',all:'Alle stukken',kvk:'KVK',btw:'Btw-id'},
+ col:{sneakers:'Sneakers','men-shoes':'Herenschoenen','women-shoes':'Damesschoenen',all:'Collectie',new:'Nieuw binnen',shoes:'Schoenen',clothing:'Kleding',brand:'Merk','men-sneakers':'Heren sneakers','women-sneakers':'Dames sneakers'},
+ filters:'Filters',sort:'Sorteren',sNew:'Nieuwste',sLow:'Prijs laag–hoog',sHigh:'Prijs hoog–laag',
+ fCat:'Categorie',fBrand:'Merk',fSize:'Maat',fCond:'Staat',fPrice:'Prijs',fAvail:'Beschikbaarheid',fGender:'Voor',men:'Heren',women:'Dames',gAll:'Alle',mAllShoes:'Alle schoenen',
+ price:[['all','Alle prijzen'],['0-100','Tot € 100'],['100-150','€ 100 – 150'],['150-250','€ 150 – 250'],['250-9999','Vanaf € 250']],
+ av:{available:'Op voorraad',coming:'Binnenkort',sold:'Verkocht'},soldH:'Recent verkocht',
+ catN:{sneakers:'Sneakers',footwear:'Schoenen',clothing:'Kleding'},
+ cond:{'new-tags':'Nieuw met label','new':'Nieuw zonder label','very-good':'Zeer goed','good':'Goed'},
+ isNew:'Nieuw',pre:'Pre-owned',
+ clear:'Wis filters',show:n=>'Toon '+n+(n===1?' stuk':' stukken'),results:n=>n+(n===1?' stuk':' stukken'),noRes:'Geen stukken gevonden met deze filters.',
+ qv:'Snel bekijken',add:'In de tas',inBag:'In je tas',soonBtn:'Binnenkort beschikbaar',soldBtn:'Verkocht',demoBtn:'Demoproduct, niet te koop',details:'Bekijk details',
+ tagDemo:'Demo',tagSoon:'Binnenkort',tagSold:'Verkocht',priceTba:'Prijs volgt',retail:'Nieuwprijs',
+ photoFollows:'Demo · foto volgt', photoSoon:'Foto volgt',
+ pSize:'Maat',pCond:'Staat',pColor:'Kleur',pMat:'Materiaal',pSku:'Artikelnummer',pAvail:{available:'Op voorraad · uniek stuk',coming:'Onderweg naar ons',sold:'Verkocht',demo:'Demoproduct'},
+ descT:'Omschrijving',shipT:'Verzenden & retourneren',vatT:'Prijs & btw',
+ shipP:'Verzonden vanuit Nederland, zorgvuldig verpakt. Verzendkosten en levertijd zie je bij het afrekenen zodra de webshop live is. Je hebt wettelijk 14 dagen bedenktijd; de volledige retourvoorwaarden volgen voor de lancering.',
+ vatP:'Prijs inclusief btw. Tweedehands stukken vallen onder de margeregeling; de btw staat dan niet apart op de factuur.',
+ soonNote:'Dit stuk is onderweg naar ons. De foto is een studiobeeld; foto’s van het echte stuk volgen zodra het binnen is.',
+ demoNote:'Dit is een demoproduct om de shop te tonen. Merk, model en prijs zijn een voorbeeld; het stuk is niet te koop.',
+ related:'Misschien ook iets voor jou',zoom:'Klik om te vergroten',
+ bagT:'Je tas',bagEmpty:'Je tas is leeg.',unique:'Uniek stuk · max. 1',remove:'Verwijderen',sub:'Subtotaal',shipCalc:'Verzending',shipLater:'Bij afrekenen',checkout:'Afrekenen',continue:'Verder winkelen',onlyOne:'Dit is een uniek stuk; het zit al in je tas.',added:'Toegevoegd aan je tas',removed:'Verwijderd uit je tas',
+ coH:'Afrekenen',coDemo:'Demonstratie',coIntro:'Dit is een demonstratie van het afrekenen. Er wordt niets besteld, niets betaald en niets opgeslagen.',
+ coDetails:'Gegevens',coName:'Naam',coEmail:'E-mail',coStreet:'Straat en huisnummer',coZip:'Postcode',coCity:'Plaats',coCountry:'Land',countries:{NL:'Nederland',BE:'België',DE:'Duitsland',FR:'Frankrijk',OTHER:'Ander EU-land'},
+ coNext:'Naar betalen',coPayH:'Betaalstap (nog niet gekoppeld)',coPayP:'Hier ga je in de live versie naar de beveiligde betaalpagina van de betaalpartner. Er is in dit prototype geen betaling gedaan en er is geen bestelling geplaatst.',coEdit:'Gegevens wijzigen',coSum:'Overzicht',coEmpty:'Je tas is leeg.',total:'Totaal',
+ acctH:'Account',acctP:'Inloggen en bestelgeschiedenis komen in de live versie.',
+ sH:'Zoek op merk, model of maat',sNone:'Geen resultaten.',sTips:'Bijvoorbeeld: Hogan, Interactive, 44',
+ pages:{ship:'Verzenden & retourneren',terms:'Algemene voorwaarden',privacy:'Privacybeleid',contact:'Contact'},
+ shipBody:['Bestellingen worden zorgvuldig verpakt en verzonden vanuit Nederland.','Je hebt wettelijk 14 dagen bedenktijd nadat je je bestelling hebt ontvangen.','Tarieven, levertijden en de volledige retourvoorwaarden worden hier gepubliceerd voordat de webshop live gaat.'],
+ termsBody:['De algemene voorwaarden worden hier gepubliceerd voordat de webshop live gaat.'],
+ privacyBody:['Het privacybeleid wordt hier gepubliceerd voordat de webshop live gaat.'],
+ contactBody:['Vragen over een stuk, je maat of verkopen aan JP SELECT? Mail ons.'],
+ copy:'Kopieer',copied:'E-mailadres gekopieerd',copyFail:'Selecteer het adres en kopieer het zelf',
+ placeholder:'Volgt voor livegang'},
+en:{
+ notice:'Prototype of the new website · ordering, payment and forms are not connected yet',noticeLive:'Shop under construction · selling to us works now, online ordering follows soon',
+ nav:{new:'New arrivals',shoes:'Shoes',clothing:'Clothing',brands:'Brands',story:'Our story',sell:'Sell to us'},
+ search:'Search',account:'Account',bag:'Bag',menu:'Menu',close:'Close',
+ brandLine:'Luxury fashion — new & pre-owned',
+ heroH:'Curated luxury.<br>Timeless style.',heroSub:'New & Pre-Owned Designer Fashion',explore:'Explore collection',sellCta:'Sell to us',
+ pause:'Pause animation',play:'Play animation',pauseV:'Pause video',playV:'Play video',scroll:'Scroll',
+ manEy:'About JP SELECT',manT:'Not mass, but a selection. Discover new and pre-owned designer fashion, hand-picked and checked down to the details. Or give your own pieces a new owner.',
+ philoEy:'The JP SELECT philosophy',philoH:'Exceptional pieces. <em>Carefully selected.</em>',
+ philoP:['JP SELECT brings together new and pre-owned designer fashion, with attention to craftsmanship, condition and timeless style.','We choose brands we know, check every piece and describe honestly what you get. Often there is just one piece, in one size. Whoever sees it, decides.'],
+ catEy:'Shop',cats:{men:'Men’s sneakers',women:'Women’s sneakers',clothing:'Clothing'},
+ featEy:'Collection',featH:'Now in the collection',featP:'A selection from the collection. Pieces labelled Demo are examples to show the shop; they are not for sale.',viewAll:'View all',
+ hzEy:'How we work',hzH:'From selection to your door.',
+ hz:[['Selection','We choose brands and models we know: Hogan, Santoni, Moorer and other Italian houses. Quality and fit come before volume.'],['Inspection','Every piece is checked for condition, details and authenticity features before it goes online. Signs of wear are simply stated.'],['Presentation','We photograph in our consistent studio style: cool light grey, an off-white pedestal, true colours.'],['Shipping','Carefully packed and shipped from the Netherlands. Questions? You get an answer from the person who handled the piece.']],
+ banH:'Redefined luxury',banQ:'New & pre-owned. Remarkable pieces deserve a second life.',
+ revEy:'Reviews',revRead:'Read the reviews',revPageH:'What buyers say',revPageP:'A selection of the reviews buyers left for us on Vinted, quoted word for word.',revTr:'Translated from {l}',revBuyer:'Buyer on Vinted',revCnt:'{n} reviews from buyers',revSrc:'Collected through our sales on Vinted',revAll:'See all reviews',revAsOf:'As of October 2026',revLine:'{s} · {n} reviews via Vinted',
+ tradeEy:'Trade in & sell',tradeGo:'Start your request',tradeH:'Trade in. Step up.',tradeP:'Have designer shoes or clothing you no longer wear? Sell them to us, or trade them in for something from the collection.',
+ steps:[['Submit your item','Enter brand, model, size and condition, and take the set photos: side, front, sole, insole and size label.'],['Receive an offer','We review your photos and email you a proposal.'],['Get paid or trade up','Take the payout, or choose credit with 20% extra towards a piece from the collection.']],
+ form:{stepsL:'Steps',stepN:['Item','Photos','Details'],next:'Next',back:'Back',sizeShoe:'Size (EU)',sizeCloth:'Size',boxQ:'Box or dust bag',boxNone:'Neither',boxBox:'Original box',boxBoth:'Box and dust bag',phShoeH:'Photos of your shoes',phClothH:'Photos of your item',phIntro:'Take the photos in daylight against a plain background. Tap a tile to take or choose a photo. Tiles without ‘optional’ are needed for an offer.',optional:'optional',addPhoto:'Add photo',replace:'Replace',reqDone:'required photos added',stillNeed:'Still needed:',sumH:'Your request',photosN:'photos',
+  slot:{side:['Side','Outside of the right shoe, toe pointing right'],front:['Front','Both shoes straight from the front'],sole:['Sole','Underside, so we can see the wear'],insole:['Insole','From above into the shoe, logo visible'],label:['Size label','Label in the tongue or inside, clearly readable'],heel:['Back','The heels from behind'],wear:['Details','Close-ups of any wear or damage'],box:['Box and dust bag','If you have them'],cfront:['Front','The whole item flat or on a hanger'],cback:['Back','The whole item from behind'],brand:['Brand label','The label at the neck or side seam'],care:['Size and care label','With size and material readable']},
+  brand:'Brand',chooseBrand:'Choose a brand',other:'Other brand',model:'Model',cat:'Category',size:'Size',cond:'Condition',photos:'Photos',addPhotos:'Add photos',photoHint:'Side, sole, inside and label. Up to 6.',name:'Name',email:'Email',phone:'Phone (optional)',msg:'Note (optional)',consent:'I agree that JP SELECT uses my details and photos to make an offer. Without a deal, my request is deleted after 90 days.',send:'Send request',accept:'What we accept: designer shoes and clothing in at least good condition, authentic only. Our offer is subject to inspection on arrival.',payH:'How would you like to be paid?',payCash:['Payout','We transfer the amount once your item has arrived and been checked.'],payCredit:['Credit + {b}%','{b}% extra on top of our offer (max. €{m}), to spend at JP SELECT. Valid for 12 months.'],sending:'Sending…',sendingPh:'Uploading photos',sendFail:'Sending failed. Check your connection and try again; nothing already sent will be lost.',rateLim:'We just received too many requests. Please try again later or email info@jpselect.nl.',badPhoto:'We can’t read this photo. Please choose a JPG or PNG.',okLiveCap:'Request received',okLiveH:'Thank you, we received your request {r}.',okLiveP:'We’ll review your photos and email our offer to {e}. The offer is subject to inspection on arrival.',req:'Please fill this in',badMail:'Please enter a valid email address',needPhoto:'Add at least one photo',needConsent:'Please give consent to continue',
+   okH:'Thank you, your request is complete.',okP:'Please note: this is a prototype. Your request has not been sent or stored. In the live version it goes straight to JP SELECT.',again:'New request'},
+ brandsEy:'Brands',brandsH:'Brands we carry',brandsNote:'JP SELECT is an independent reseller and not an official dealer or partner of these brands.',items:n=>n===1?'1 piece':n+' pieces',noneYet:'coming soon',
+ storyEy:'Our story',storyH:'Independent. Personal. Considered.',
+ storyP:['JP SELECT is an independent fashion business from the Netherlands, built on three things: selection, quality and personal service.','You are not buying from an anonymous platform, but from someone who chose and checked every piece. Questions about fit, condition or size are answered personally.'],
+ storyCap:'Mood image, digitally created by JP SELECT.',readMore:'Read our story',
+ f:{shop:'Shop',about:'About JP SELECT',service:'Service',contact:'Contact',ship:'Shipping & returns',terms:'Terms & conditions',privacy:'Privacy policy',insta:'Instagram',instaSoon:'Instagram (link to follow)',news:'Newsletter',newsP:'Be the first to know what arrives. One email per new collection.',newsPh:'Your email address',newsBtn:'Sign up',newsOk:'Prototype: your sign-up has not been stored.',all:'All pieces',kvk:'Chamber of Commerce',btw:'VAT ID'},
+ col:{sneakers:'Sneakers','men-shoes':'Men’s shoes','women-shoes':'Women’s shoes',all:'Collection',new:'New arrivals',shoes:'Shoes',clothing:'Clothing',brand:'Brand','men-sneakers':'Men’s sneakers','women-sneakers':'Women’s sneakers'},
+ filters:'Filters',sort:'Sort',sNew:'Newest',sLow:'Price low–high',sHigh:'Price high–low',
+ fCat:'Category',fBrand:'Brand',fSize:'Size',fCond:'Condition',fPrice:'Price',fAvail:'Availability',fGender:'For',men:'Men',women:'Women',gAll:'All',mAllShoes:'All shoes',
+ price:[['all','All prices'],['0-100','Up to € 100'],['100-150','€ 100 – 150'],['150-250','€ 150 – 250'],['250-9999','From € 250']],
+ av:{available:'In stock',coming:'Coming soon',sold:'Sold'},soldH:'Recently sold',
+ catN:{sneakers:'Sneakers',footwear:'Footwear',clothing:'Clothing'},
+ cond:{'new-tags':'New with tags','new':'New without tags','very-good':'Very good','good':'Good'},
+ isNew:'New',pre:'Pre-owned',
+ clear:'Clear filters',show:n=>'Show '+n+(n===1?' piece':' pieces'),results:n=>n+(n===1?' piece':' pieces'),noRes:'No pieces match these filters.',
+ qv:'Quick view',add:'Add to bag',inBag:'In your bag',soonBtn:'Available soon',soldBtn:'Sold',demoBtn:'Demo product, not for sale',details:'View details',
+ tagDemo:'Demo',tagSoon:'Coming soon',tagSold:'Sold',priceTba:'Price to follow',retail:'Retail',
+ photoFollows:'Demo · photo to follow', photoSoon:'Photo coming soon',
+ pSize:'Size',pCond:'Condition',pColor:'Colour',pMat:'Material',pSku:'Item number',pAvail:{available:'In stock · one of a kind',coming:'On its way to us',sold:'Sold',demo:'Demo product'},
+ descT:'Description',shipT:'Shipping & returns',vatT:'Price & VAT',
+ shipP:'Shipped from the Netherlands, carefully packed. Shipping costs and delivery times are shown at checkout once the shop is live. You have a statutory 14-day withdrawal period; the full return conditions will be published before launch.',
+ vatP:'Price includes VAT. Pre-owned pieces are sold under the margin scheme, so VAT is not shown separately on the invoice.',
+ soonNote:'This piece is on its way to us. The photo is a studio image; photos of the actual piece follow once it arrives.',
+ demoNote:'This is a demo product to show the shop. Brand, model and price are examples; the piece is not for sale.',
+ related:'You may also like',zoom:'Click to enlarge',
+ bagT:'Your bag',bagEmpty:'Your bag is empty.',unique:'One of a kind · max. 1',remove:'Remove',sub:'Subtotal',shipCalc:'Shipping',shipLater:'At checkout',checkout:'Checkout',continue:'Continue shopping',onlyOne:'This is a one-of-a-kind piece; it is already in your bag.',added:'Added to your bag',removed:'Removed from your bag',
+ coH:'Checkout',coDemo:'Demonstration',coIntro:'This is a demonstration of the checkout. Nothing is ordered, paid or stored.',
+ coDetails:'Details',coName:'Name',coEmail:'Email',coStreet:'Street and number',coZip:'Postcode',coCity:'City',coCountry:'Country',countries:{NL:'Netherlands',BE:'Belgium',DE:'Germany',FR:'France',OTHER:'Other EU country'},
+ coNext:'Continue to payment',coPayH:'Payment step (not connected yet)',coPayP:'In the live version you go to the secure payment page of the payment provider here. No payment has been made and no order has been placed in this prototype.',coEdit:'Edit details',coSum:'Summary',coEmpty:'Your bag is empty.',total:'Total',
+ acctH:'Account',acctP:'Sign-in and order history arrive with the live version.',
+ sH:'Search by brand, model or size',sNone:'No results.',sTips:'For example: Hogan, Interactive, 44',
+ pages:{ship:'Shipping & returns',terms:'Terms & conditions',privacy:'Privacy policy',contact:'Contact'},
+ shipBody:['Orders are carefully packed and shipped from the Netherlands.','You have a statutory 14-day withdrawal period after receiving your order.','Rates, delivery times and the full return conditions will be published here before the shop goes live.'],
+ termsBody:['The terms and conditions will be published here before the shop goes live.'],
+ privacyBody:['The privacy policy will be published here before the shop goes live.'],
+ contactBody:['Questions about a piece, your size or selling to JP SELECT? Email us.'],
+ copy:'Copy',copied:'Email address copied',copyFail:'Select the address and copy it yourself',
+ placeholder:'To follow before launch'}
+};
+const CO={email:'info@jpselect.nl',kvk:'42155019',btw:'NL005540814B59',city:'Nijkerk'};
+/* Beoordelingen: cijfers zoals opgegeven door JP SELECT op 23-10-2026, bron: verkopersprofiel op Vinted. Handmatig bijwerken. */
+const REV={score:4.9,count:283,url:'https://www.vinted.nl/member/100090723-jpselect'};
+/* Echte reviews van het Vinted-profiel (screenshots 23-10-2026), tekst letterlijk overgenomen. Gebruikersnamen ingekort. */
+const REVS=[
+ {u:'rob…',lang:'nl',t:'Zeer tevreden met deze aankoop! De Hogan schoenen zijn prachtig en precies zoals beschreven. JP SELECT is een vriendelijke en betrouwbare verkoper, het contact verliep erg prettig en alles was netjes verzorgd. Bedankt voor de fijne transactie, ik kan JP SELECT zeker aanbevelen!',
+  tr:{en:'Very happy with this purchase! The Hogan shoes are beautiful and exactly as described. JP SELECT is a friendly and reliable seller, communication was very pleasant and everything was neatly taken care of. Thanks for the smooth transaction, I can definitely recommend JP SELECT!'}},
+ {u:'rom…',lang:'fr',t:'Envoi rapide, réactif dans les échanges et qualité au rendez-vous! Parfait!',
+  tr:{nl:'Snelle verzending, reageert snel op berichten en de kwaliteit is zoals beloofd. Perfect!',en:'Fast shipping, quick to reply and the quality is as promised. Perfect!'}},
+ {u:'rvz…',lang:'nl',t:'Snelle levering, precies zoals op de foto’s, prettig contact. Ik kan de verkoper zeker aanraden 👍',
+  tr:{en:'Fast delivery, exactly as in the photos, pleasant contact. I can definitely recommend this seller 👍'}},
+ {u:'jkr…',lang:'nl',t:'Eerlijke en fijne verkoper met mooie schoenen, bedankt!!',
+  tr:{en:'Honest and pleasant seller with beautiful shoes, thanks!!'}},
+ {u:'ame…',lang:'it',t:'Tutto perfetto. Super affidabile',
+  tr:{nl:'Alles perfect. Super betrouwbaar.',en:'Everything perfect. Super reliable.'}},
+ {u:'gas…',lang:'nl',t:'Perfect. Mooie sneakers. Snelle verzending. Goed contact.',
+  tr:{en:'Perfect. Beautiful sneakers. Fast shipping. Good contact.'}}];
+const LANGN={nl:{nl:'Nederlands',fr:'Frans',it:'Italiaans'},en:{nl:'Dutch',fr:'French',it:'Italian'}};
+const BRANDS=['Hogan','Santoni','Moorer','Gran Sasso','Falconeri','Fusalp','Mauro Ottaviani'];
+
+/* ---------------- hulpjes ---------------- */
+const ls={get(k,d){try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const fmt=(v,L)=>v==null?null:new Intl.NumberFormat(L==='nl'?'nl-NL':'en-IE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(v);
+const szl=(p,L)=>(p.sizeSystem?p.sizeSystem+' ':'')+String(p.size).replace('.',L==='nl'?',':'.');
+const reduced=()=>{try{return matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){return false}};
+const Ic={
+ search:html`<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.8"/><path d="M13 13l4.5 4.5"/></svg>`,
+ user:html`<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="7" r="3.6"/><path d="M3.2 17.5c1.2-3.3 3.8-4.8 6.8-4.8s5.6 1.5 6.8 4.8"/></svg>`,
+ bag:html`<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 6.5h12l-.9 11H4.9zM7 6.5V5a3 3 0 016 0v1.5"/></svg>`,
+ menu:html`<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M2.5 7h15M2.5 13h15"/></svg>`,
+ x:html`<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 4.5l11 11M15.5 4.5l-11 11"/></svg>`,
+ l:html`<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4l-6 6 6 6"/></svg>`,
+ r:html`<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4l6 6-6 6"/></svg>`,
+ pause:html`<svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true" style=${{stroke:'currentColor',strokeWidth:1.4}}><path d="M7 4.5v11M13 4.5v11"/></svg>`,
+ play:html`<svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true"><path d="M6.5 4.5l9 5.5-9 5.5z" fill="currentColor"/></svg>`};
+const Mono=({h})=>html`<svg viewBox="0 0 510 624" style=${{height:h,width:'auto'}} aria-hidden="true"><path fillRule="evenodd" d=${MONO}/></svg>`;
+const Word=({h,cls})=>html`<svg className=${cls||''} viewBox="0 0 1114 108" style=${{height:h,width:'auto'}} aria-hidden="true"><path fillRule="evenodd" d=${WORD}/></svg>`;
+
+/* ---------------- routes (#token, deelbaar) ---------------- */
+const ROUTES={'':['home'],'heren-sneakers':['col','men-sneakers'],'herenschoenen':['col','men-shoes'],'damesschoenen':['col','women-shoes'],'dames-sneakers':['col','women-sneakers'],'nieuw':['col','new'],'schoenen':['col','shoes'],'kleding':['col','clothing'],'collectie':['col','all'],'merken':['brands'],'verhaal':['story'],'verkopen':['sell'],'reviews':['reviews'],'afrekenen':['checkout'],'verzenden':['info','ship'],'voorwaarden':['info','terms'],'privacy':['info','privacy'],'contact':['info','contact']};
+function parseHash(products){const h=(location.hash||'').slice(1).toLowerCase();
+  if(ROUTES[h])return {v:ROUTES[h][0],p:ROUTES[h][1]||''};
+  if(h.startsWith('merk-'))return {v:'col',p:'brand',b:h.slice(5)};
+  if(products.find(x=>x.id===h))return {v:'product',p:h};
+  return {v:'home',p:''}}
+function hashOf(r){if(r.v==='product')return r.p;if(r.v==='col'&&r.p==='brand')return 'merk-'+r.b;
+  const e=Object.entries(ROUTES).find(([k,v])=>v[0]===r.v&&(v[1]||'')===(r.p||''));return e?e[0]:''}
+
+/* ---------------- app ---------------- */
+function App(){
+  /* Engels is de hoofdtaal; Nederlands alleen als de bezoeker dat zelf kiest */
+  const [L,setL]=useState(()=>{const s=ls.get('jps3-lang',null);return s==='nl'?'nl':'en'});
+  const t=T[L];
+  const [products,setProducts]=useState([]);const [loadErr,setLoadErr]=useState('');
+  const [route,setRoute]=useState({v:'home',p:''});
+  const [bag,setBag]=useState(()=>ls.get('jps2-bag',[]));
+  const [ui,setUi]=useState({menu:false,search:false,bag:false,acct:false,quick:null});
+  const [toast,setToast]=useState('');const tt=useRef(0);
+  const say=m=>{setToast(m);clearTimeout(tt.current);tt.current=setTimeout(()=>setToast(''),2400)};
+  useEffect(()=>{fetch('data/products.json?v='+Date.now()).then(r=>r.json()).then(d=>{setProducts(d.products);setRoute(parseHash(d.products))}).catch(()=>setLoadErr('load'))},[]);
+  useEffect(()=>{const on=()=>{setRoute(parseHash(products))};window.addEventListener('hashchange',on);return()=>window.removeEventListener('hashchange',on)},[products]);
+  useEffect(()=>{document.documentElement.lang=L;ls.set('jps3-lang',L)},[L]);
+  useEffect(()=>{ls.set('jps2-bag',bag)},[bag]);
+  useEffect(()=>{if(products.length)setBag(b=>b.filter(id=>{const p=products.find(x=>x.id===id);return p&&p.status==='available'}))},[products]);
+  const go=useCallback((r)=>{setUi({menu:false,search:false,bag:false,acct:false,quick:null});setRoute(r);
+    try{const h=hashOf(r);history.replaceState(null,'',h?'#'+h:location.pathname+location.search)}catch(e){}
+    toTop()},[]);
+  /* na elke paginawissel bovenaan beginnen, ook na het renderen (iOS) */
+  useLayoutEffect(()=>{toTop();const r=requestAnimationFrame(toTop);const tm=setTimeout(toTop,60);return()=>{cancelAnimationFrame(r);clearTimeout(tm)}},[route.v,route.p,route.b]);
+  const add=p=>{if(p.status!=='available')return;if(bag.includes(p.id)){say(t.onlyOne);setUi(u=>({...u,bag:true,quick:null}));return}
+    /* Voorraadlogica: één stuk per artikel. In de live versie reserveert de backend het stuk bij het afrekenen
+       en zet het na betaling op 'verkocht', zodat het niet twee keer verkocht kan worden. */
+    setBag(b=>[...b,p.id]);say(t.added);setUi(u=>({...u,bag:true,quick:null}))};
+  const rm=id=>{setBag(b=>b.filter(x=>x!==id));say(t.removed)};
+  const open=k=>setUi(u=>({menu:false,search:false,bag:false,acct:false,quick:null,[k]:true}));
+  const close=()=>setUi({menu:false,search:false,bag:false,acct:false,quick:null});
+  useEffect(()=>{const k=e=>{if(e.key==='Escape')close()};document.addEventListener('keydown',k);return()=>document.removeEventListener('keydown',k)},[]);
+  const ctx={L,setL,t,products,go,route,bag,add,rm,open,close,ui,setUi,say};
+  const anyOverlay=ui.menu||ui.bag||ui.search||ui.quick;
+  useEffect(()=>{document.body.style.overflow=(ui.menu||ui.lb)?'hidden':'';},[ui.menu,ui.lb]);
+  const page=route.v==='home'?html`<${Home} ctx=${ctx}/>`:route.v==='col'?html`<${Collection} ctx=${ctx} key=${route.p+(route.b||'')}/>`:route.v==='product'?html`<${Product} ctx=${ctx} key=${route.p}/>`:route.v==='brands'?html`<${BrandsPage} ctx=${ctx}/>`:route.v==='story'?html`<${StoryPage} ctx=${ctx}/>`:route.v==='sell'?html`<${SellPage} ctx=${ctx}/>`:route.v==='reviews'?html`<${ReviewsPage} ctx=${ctx}/>`:route.v==='checkout'?html`<${Checkout} ctx=${ctx}/>`:html`<${Info} ctx=${ctx} k=${route.p}/>`;
+  useEffects(route,products,L);
+  return html`<${Fragment}>
+    <div className="notice">${LIVE?t.noticeLive:t.notice}</div>
+    <${Nav} ctx=${ctx}/>
+    <main id="main" key=${route.v+route.p+(route.b||'')} className="page">${loadErr?html`<div className="wrap empty"><p>De collectie kon niet worden geladen.</p></div>`:page}</main>
+    <${Footer} ctx=${ctx}/>
+    <div className=${'scrim'+(ui.bag||ui.quick||ui.filters||ui.menu?' on':'')} onClick=${close}></div>
+    <${MobileMenu} ctx=${ctx}/>
+    <${Search} ctx=${ctx}/>
+    <${Bag} ctx=${ctx}/>
+    ${ui.acct&&html`<div className="acctp" role="dialog" aria-label=${t.acctH}><div style=${{display:'flex',justifyContent:'space-between',alignItems:'center'}}><span className="cap">${t.acctH}</span><button className="icon" onClick=${close} aria-label=${t.close}>${Ic.x}</button></div><p className="mute" style=${{fontSize:14.5}}>${t.acctP}</p></div>`}
+    ${ui.quick&&html`<${Quick} ctx=${ctx} id=${ui.quick}/>`}
+    <div className=${'toast'+(toast?' on':'')} role="status" aria-live="polite">${toast}</div>
+  <//>`;
+}
+
+/* scroll-effecten: navigatie, onthullen, parallax, achtergrondtint */
+function useEffects(route,products,L){
+  useEffect(()=>{
+    const nav=document.querySelector('.nav');
+    const setH=()=>{if(nav)document.documentElement.style.setProperty('--navh',nav.offsetHeight+'px')};setH();
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px',threshold:.08});
+    document.querySelectorAll('.rv:not(.in),.rv-img:not(.in)').forEach(el=>io.observe(el));
+    const tones=[...document.querySelectorAll('[data-tone]')];
+    /* achtergrond blijft overal ivoor: geen kleurwissel bij scrollen */
+    const tio={disconnect(){}};document.body.style.backgroundColor='#F6F3EE';
+    const par=[...document.querySelectorAll('[data-par]')];const hz=null;
+    let raf=0;const tick=()=>{raf=0;const y=window.scrollY,vh=window.innerHeight;
+      if(!reduced()){par.forEach(el=>{const r=el.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>vh)return;const k=+el.dataset.par;el.style.transform=`translate3d(0,${(-r.top)*k}px,0)`})}
+      if(hz){const r=hz.getBoundingClientRect();const tr=hz.querySelector('.track');const max=tr.scrollWidth-tr.clientWidth+Math.min(120,window.innerWidth*.08);
+        const prog=Math.min(1,Math.max(0,-r.top/(hz.offsetHeight-vh)));tr.style.transform=`translate3d(${-prog*Math.max(0,max)}px,0,0)`}};
+    const on=()=>{if(!raf)raf=requestAnimationFrame(tick)};
+    window.addEventListener('scroll',on,{passive:true});window.addEventListener('resize',()=>{setH();on()});tick();
+    return()=>{io.disconnect();tio.disconnect();window.removeEventListener('scroll',on)}},[route,products,L]);
+}
+
+function Nav({ctx}){const {t,go,route,open,bag,L}=ctx;
+  const [solid,setSolid]=useState(route.v!=='home');
+  useEffect(()=>{const on=()=>{const hero=document.querySelector('.hero');const nav=document.querySelector('.nav');setSolid(!hero||window.innerWidth<900||window.scrollY>4)};on();window.addEventListener('scroll',on,{passive:true});return()=>window.removeEventListener('scroll',on)},[route.v,route.p]);
+  const items=[['new',{v:'col',p:'new'}],['shoes',{v:'col',p:'shoes'}],['clothing',{v:'col',p:'clothing'}],['brands',{v:'brands'}],['sell',{v:'sell'}],['story',{v:'story'}]];
+  const cur=r=>route.v===r.v&&((r.p||'')===(route.p||'')||(r.p==='shoes'&&(route.p==='men-shoes'||route.p==='women-shoes')));
+  return html`<header className=${'nav'+(solid?' glass':'')}><div className="wrap row">
+    <div style=${{display:'flex',alignItems:'center',gap:6}}>
+      <button className="icon burger" onClick=${()=>open('menu')} aria-label=${t.menu}>${Ic.menu}</button><button className="icon msearch" onClick=${()=>open('search')} aria-label=${t.search}>${Ic.search}</button>
+      <nav className="links" aria-label="Hoofdmenu">${items.slice(0,3).map(([k,r])=>html`<button key=${k} onClick=${()=>go(r)} aria-current=${cur(r)?'page':null}>${t.nav[k]}</button>`)}</nav>
+    </div>
+    <button className="brand" onClick=${()=>go({v:'home'})} aria-label="JP SELECT, home"><${Mono} h=${24}/><${Word} h=${8.5} cls="word"/></button>
+    <div className="tools">
+      <nav className="links" aria-label="Meer" style=${{marginRight:18}}>${items.slice(3).map(([k,r])=>html`<button key=${k} onClick=${()=>go(r)} aria-current=${cur(r)?'page':null}>${t.nav[k]}</button>`)}</nav>
+      <div className="langs" role="group" aria-label="Taal / Language">${['nl','en'].map(l=>html`<button key=${l} aria-pressed=${L===l} onClick=${()=>ctx.setL?ctx.setL(l):null}>${l.toUpperCase()}</button>`)}</div>
+      <button className="icon tsearch" onClick=${()=>open('search')} aria-label=${t.search}>${Ic.search}</button>
+      <button className="icon acct" onClick=${()=>open('acct')} aria-label=${t.account}>${Ic.user}</button>
+      <button className="icon" onClick=${()=>open('bag')} aria-label=${t.bag+' ('+bag.length+')'}>${Ic.bag}${bag.length>0&&html`<span className="n">${bag.length}</span>`}</button>
+    </div></div></header>`}
+
+function MobileMenu({ctx}){const {t,go,ui,close,L}=ctx;const [sub,setSub]=useState(false);
+  useEffect(()=>{if(!ui.menu)setSub(false)},[ui.menu]);
+  const ti=ui.menu?0:-1;
+  const row=(k,r)=>html`<button key=${k} className="mrow" onClick=${()=>go(r)} tabIndex=${ti}><span>${t.nav[k]}</span>${Ic.r}</button>`;
+  return html`<div className=${'mmenu'+(ui.menu?' on':'')} aria-hidden=${!ui.menu} role="dialog" aria-label=${t.menu}>
+    <div className="top"><button className="icon" onClick=${close} aria-label=${t.close} tabIndex=${ti}>${Ic.x}</button>
+      <button className="mlogo" onClick=${()=>go({v:'home'})} aria-label="JP SELECT" tabIndex=${ti}><${Word} h=${13}/></button>
+      <div className="langs" role="group" aria-label="Taal / Language">${['nl','en'].map(l=>html`<button key=${l} aria-pressed=${L===l} onClick=${()=>ctx.setL&&ctx.setL(l)} tabIndex=${ti}>${l.toUpperCase()}</button>`)}</div></div>
+    <nav className="mlist">
+      ${row('new',{v:'col',p:'new'})}
+      <div className=${'mgrp'+(sub?' open':'')}>
+        <button className="mrow" onClick=${()=>setSub(s=>!s)} aria-expanded=${sub} tabIndex=${ti}><span>${t.nav.shoes}</span>${Ic.r}</button>
+        <div className="msub">${[['all',t.mAllShoes,{v:'col',p:'shoes'}],['men',t.men,{v:'col',p:'men-shoes'}],['women',t.women,{v:'col',p:'women-shoes'}]].map(([k,l,r])=>html`<button key=${k} onClick=${()=>go(r)} tabIndex=${sub?ti:-1}>${l}</button>`)}</div>
+      </div>
+      ${row('clothing',{v:'col',p:'clothing'})}${row('brands',{v:'brands'})}${row('sell',{v:'sell'})}${row('story',{v:'story'})}
+    </nav>
+    <div className="foot"><span>Trade in. Step up.</span></div>
+  </div>`}
+
+/* ---------------- hero ---------------- */
+function Scene({kind}){
+  if(kind==='banner')return html`<div className="scene" data-par="0.12" aria-hidden="true">
+    <div className="l wall"></div><div className="l slats"></div><div className="l lvb" style=${{backgroundImage:'url(scene/leaves-b.webp)'}}></div><div className="l lva" style=${{backgroundImage:'url(scene/leaves-a.webp)',opacity:.8}}></div><div className="l grain"></div></div>`;
+  return html`<div className="scene" data-par="0.18" aria-hidden="true">
+    <div className="l wall" style=${{backgroundImage:'url(scene/wall.jpg)'}}></div>
+    <div className="l bloom"></div>
+    <div className="l arch" style=${{backgroundImage:'url(scene/arch.webp)'}}></div>
+    <div className="l lvb" style=${{backgroundImage:'url(scene/leaves-b.webp)'}}></div>
+    <div className="l lva" style=${{backgroundImage:'url(scene/leaves-a.webp)'}}></div>
+    <div className="l grain"></div></div>`}
+function HeroMedia({paused}){const ref=useRef(null);const [on,setOn]=useState(false);const [base,setBase]=useState('media/hero-port');
+  useEffect(()=>{const el=ref.current;if(!el)return;const hero=el.closest('.hero');const b='media/hero-port';setBase(b);
+    el.muted=true;el.defaultMuted=true;el.setAttribute('muted','');el.setAttribute('playsinline','');
+    if(reduced())return;
+    const ext=el.canPlayType('video/mp4; codecs="avc1.640028"')?'.mp4':'.webm';el.src=b+ext+'?v=3';
+    const pr=el.play();if(pr&&pr.catch)pr.catch(()=>{})},[]);
+  useEffect(()=>{const el=ref.current;if(!el||!el.getAttribute('src'))return;if(paused)el.pause();else{const pr=el.play();if(pr&&pr.catch)pr.catch(()=>{})}},[paused]);
+  return html`<div className="hmedia" data-par="0.06" aria-hidden="true">
+    <img className="hpost" src=${base+'.jpg?v=3'} alt=""/>
+    <video ref=${ref} className=${'hv'+(on?' on':'')} muted loop playsInline preload="auto" tabIndex="-1" onPlaying=${()=>setOn(true)}></video>
+  </div>`}
+function Hero({ctx}){const {t,go}=ctx;const [paused,setPaused]=useState(()=>reduced()||ls.get('jps2-pause',false));
+  useEffect(()=>{ls.set('jps2-pause',paused)},[paused]);
+  /* Achtergrondfilm: close-ups uit een video van Bas (gebruikt met toestemming), vertraagd tot slow motion
+     en als naadloze lus gemonteerd. Aparte uitsnede voor staande schermen. */
+  return html`<section className=${'hero'+(paused?' paused':'')} aria-label="JP SELECT">
+    <${HeroMedia} paused=${paused}/>
+    <div className="veil"></div>
+    <div className="wrap copy"><div>
+      <h1 className="sr">JP SELECT · Redefined Luxury</h1>
+      <p className="claim st d1">Redefined Luxury</p>
+      <p className="quote st d2">${t.banQ}</p>
+      <div className="ctas st d3"><button className="btn solid" onClick=${()=>go({v:'col',p:'all'})}>${t.explore}</button><button className="btn" onClick=${()=>go({v:'sell'})}>${t.sellCta}</button></div>
+    </div></div>
+    <button className="pause" onClick=${()=>setPaused(!paused)} aria-label=${paused?t.playV:t.pauseV}>${paused?Ic.play:Ic.pause}</button>
+  </section>`}
+
+/* ---------------- producttegel ---------------- */
+function Card({ctx,p}){const {t,L,go,setUi,bag}=ctx;
+  const tag=p.demo?html`<span className="tag demo">${t.tagDemo}</span>`:p.status==='coming'?html`<span className="tag soon">${t.tagSoon}</span>`:p.status==='sold'?html`<span className="tag sold">${t.tagSold}</span>`:html`<span className="tag">${p.condition.startsWith('new')?t.isNew:t.pre}</span>`;
+  const clickable=p.status!=='sold';
+  return html`<article className=${'pc rv'+(p.status==='sold'?' sold':'')}>
+    <button className="ph" onClick=${()=>clickable&&go({v:'product',p:p.id})} aria-label=${p.brand+' '+p.model+(p.size?', '+szl(p,L):'')} disabled=${!clickable}>
+      <img src=${p.images[0]} alt="" loading="lazy" width="900" height="1125"/>
+      ${p.images[1]&&!p.demo&&html`<img className="alt" src=${p.images[1]} alt="" loading="lazy"/>`}
+      ${(p.demo||p.nophoto)&&html`<div className="demo-ov"><${Mono} h=${44}/><span className="cap" style=${{fontSize:9.5}}>${p.demo?t.photoFollows:t.photoSoon}</span></div>`}
+      ${tag}
+    </button>
+    ${clickable&&html`<button className="qv" onClick=${()=>setUi(u=>({...u,quick:p.id}))}>${t.qv}</button>`}
+    <div className="meta">
+      <div className="r"><span className="brandn">${p.brand}</span><span className="price">${p.status==='sold'?t.tagSold:html`${p.retail&&html`<s>${fmt(p.retail,L)}</s>`}${fmt(p.price,L)||t.priceTba}`}</span></div>
+      <span className="model">${p.model}</span>
+      <span className="det">${[p.size?szl(p,L):'',p.condition?t.cond[p.condition]:'',bag.includes(p.id)?t.inBag:''].filter(Boolean).join(' · ')}</span>
+    </div></article>`}
+
+/* ---------------- home ---------------- */
+function Home({ctx}){const {t,L,products,go}=ctx;
+  /* volgorde op de homepage: veld 'feat' in products.json (lager = eerder) */
+  const featured=useMemo(()=>products.filter(p=>(p.status==='available'||p.status==='coming')&&p.category!=='clothing').sort((a,b)=>(a.feat??99)-(b.feat??99)).slice(0,8),[products]);
+  const recentSold=useMemo(()=>products.filter(p=>p.status==='sold').sort((a,b)=>(a.soldFeat??99)-(b.soldFeat??99)||String(b.soldAt||'').localeCompare(String(a.soldAt||''))||((b.category==='clothing')-(a.category==='clothing'))||a.id.localeCompare(b.id)).slice(0,4),[products]);
+  const counts=useMemo(()=>{const m={};products.filter(p=>p.status!=='sold').forEach(p=>{m[p.brand]=(m[p.brand]||0)+1});return m},[products]);
+  return html`<${Fragment}>
+    <${Hero} ctx=${ctx}/>
+    <section className="wrap" style=${{paddingBlock:'clamp(48px,7vw,96px) var(--secY)'}} data-tone="ivory">
+      <div className="head rv"><div className="t"><span className="eyebrow cap">${t.catEy}</span></div></div>
+      <div className="cats">${[['men','img/cat-men.jpg',{v:'col',p:'men-sneakers'}],['women','img/cat-women.jpg',{v:'col',p:'women-sneakers'}],['clothing','img/jp-2610-004-1.jpg',{v:'col',p:'clothing'}]].map(([k,src,r])=>html`<button key=${k} className="cat" onClick=${()=>go(r)}><span className="im rv-img"><img src=${src} alt="" loading="lazy"/></span><span className="lbl"><b>${t.cats[k]}</b><span>→</span></span></button>`)}</div>
+    </section>
+    <section className="wrap sec" data-tone="ivory"><div className="manifest rv">
+      <span className="eyebrow cap mid">${t.manEy}</span>
+      <p className="mt">${t.manT}</p>
+      <button className="lnk" onClick=${()=>go({v:'story'})}>${t.readMore}</button>
+    </div></section>
+    <section className="sec" data-tone="beige"><div className="wrap">
+      <div className="shead rv"><h2>${t.featH}</h2><button className="lnk" onClick=${()=>go({v:'col',p:'all'})}>${t.viewAll}</button></div>
+      <div className="grid">${featured.map(p=>html`<${Card} key=${p.id} ctx=${ctx} p=${p}/>`)}</div>
+    
+      ${recentSold.length>0&&html`<div className="shead rv" style=${{marginTop:'clamp(56px,7vw,96px)'}}><h2>${t.soldH}</h2><button className="lnk" onClick=${()=>go({v:'reviews'})}>${t.revRead}</button></div>
+      <div className="grid">${recentSold.map(p=>html`<${Card} key=${p.id} ctx=${ctx} p=${p}/>`)}</div>`}
+    </div></section>
+    <section className="wrap" style=${{paddingBlock:'calc(var(--secY) * .5)'}} data-tone="ivory"><${Reviews} ctx=${ctx}/></section>
+    <section className="wrap sec" data-tone="ivory" id="trade"><${TradeIn} ctx=${ctx} teaser=${true}/></section>
+    <section className="sec" data-tone="beige"><div className="wrap" style=${{display:'grid',gap:44}}>
+      <div className="head rv" style=${{justifyContent:'center',textAlign:'center',marginBottom:0}}><div className="t" style=${{justifyItems:'center'}}><span className="eyebrow cap mid">${t.brandsEy}</span><h2>${t.brandsH}</h2></div></div>
+      <div className="brands rv">${BRANDS.map(b=>html`<button key=${b} onClick=${()=>go({v:'col',p:'brand',b:b.toLowerCase().replace(/\s+/g,'-')})}>${b}<small>${counts[b]?t.items(counts[b]):t.noneYet}</small></button>`)}</div>
+      <p className="mute" style=${{textAlign:'center',fontSize:13}}>${t.brandsNote}</p>
+    </div></section>
+    <section className="wrap sec" data-tone="ivory"><${StoryBlock} ctx=${ctx} teaser=${true}/></section>
+  <//>`}
+
+function Approach({ctx}){const {t}=ctx;
+  const steps=t.hz.map((x,i)=>html`<div className="hzp" key=${i}><span className="no">0${i+1}</span><h3>${x[0]}</h3><p>${x[1]}</p></div>`);
+  /* overal dezelfde opbouw: kop, dan de stappen (laptop 4 naast elkaar, tablet 2, telefoon onder elkaar) */
+  return html`<section className="hzg wrap" aria-label=${t.hzH}>
+    <div className="intro"><span className="eyebrow cap">${t.hzEy}</span><h2>${t.hzH}</h2></div>
+    <div className="steps">${steps}</div>
+  </section>`}
+
+function StoryBlock({ctx,teaser}){const {t,go}=ctx;
+  return html`<div className="story">
+    <div><div className="pic rv-img"><img src="scene/story-hogan.jpg" alt="Hogan sneakers op een stapel boeken" loading="lazy"/></div></div>
+    <div className="txt rv"><span className="eyebrow cap">${t.storyEy}</span><h2>${t.storyH}</h2>${t.storyP.map((x,i)=>html`<p key=${i}>${x}</p>`)}
+      ${teaser&&html`<div><button className="lnk" onClick=${()=>go({v:'story'})}>${t.readMore}</button></div>`}</div>
+  </div>`}
+
+/* ---------------- inruilen ---------------- */
+const rnum=(v,L)=>L==='nl'?String(v).replace('.',','):String(v);
+function Stars({v,size}){const sz=size||18;return html`<span className="stars" role="img" aria-label=${v+' / 5'}>${[0,1,2,3,4].map(i=>{const f=Math.max(0,Math.min(1,v-i));const id='sg'+sz+'-'+i;
+  return html`<svg key=${i} width=${sz} height=${sz} viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id=${id}><stop offset=${f} stopColor="var(--champ)"/><stop offset=${f} stopColor="rgba(36,36,36,.14)"/></linearGradient></defs><path fill=${'url(#'+id+')'} d="M12 2.4l2.95 6.2 6.8.82-5 4.68 1.3 6.73L12 17.5l-6.05 3.33 1.3-6.73-5-4.68 6.8-.82z"/></svg>`})}</span>`}
+function Reviews({ctx,full}){const {t,L,go}=ctx;
+  return html`<${Fragment}><div className="revband rv" aria-label=${t.revEy}>
+    <div className="score"><b>${rnum(REV.score,L)}</b><span>/ 5</span></div>
+    <div className="meta">${!full&&html`<span className="eyebrow cap">${t.revEy}</span>`}<${Stars} v=${REV.score} size=${20}/>
+      <p className="cnt">${t.revCnt.replace('{n}',REV.count)}</p>
+      <p className="src">${t.revSrc}${full&&html` · <a href=${REV.url} target="_blank" rel="noopener noreferrer">${t.revAll} ↗</a>`}<br/><span>${t.revAsOf}</span></p>
+      ${!full&&html`<button className="lnk" onClick=${()=>go({v:'reviews'})}>${t.revRead}</button>`}</div>
+  </div>
+  ${full&&html`<div className="revs">${REVS.map((r,i)=>html`<figure className="rq rv" key=${i} style=${{transitionDelay:(i%3)*80+'ms'}}>
+    <${Stars} v=${5} size=${13}/>
+    <blockquote lang=${r.lang}>“${r.t}”</blockquote>
+    ${r.lang!==L&&r.tr[L]&&html`<p className="tr"><span>${t.revTr.replace('{l}',LANGN[L][r.lang])}</span>${r.tr[L]}</p>`}
+    <figcaption>${r.u} · ${t.revBuyer}</figcaption></figure>`)}</div>`}<//>`}
+function ReviewsPage({ctx}){const {t}=ctx;
+  return html`<section className="wrap sec" style=${{paddingTop:'clamp(36px,4.5vw,64px)'}}>
+    <div className="head" style=${{marginBottom:'clamp(28px,3.5vw,48px)'}}><div className="t"><span className="eyebrow cap">${t.revEy}</span><h1 style=${{fontSize:'clamp(40px,5vw,72px)',lineHeight:1.02}}>${t.revPageH}</h1><p>${t.revPageP}</p></div></div>
+    <${Reviews} ctx=${ctx} full=${true}/></section>`}
+/* Koppeling met de database (Supabase). De website mag alleen aanvragen toevoegen, nooit lezen. */
+const SB={url:'https://tcusxrslzoldpmjbpzxu.supabase.co',key:'sb_publishable_We895pN8IHd57yFPcSMB_Q__rIngR2T'};
+const LIVE=(()=>{try{return /(^|\.)jpselect\.nl$|\.netlify\.app$|^localhost$|^127\.0\.0\.1$/.test(location.hostname)}catch(e){return false}})();
+const TI={bonus:20,max:50};
+const uuid=()=>{try{if(crypto.randomUUID)return crypto.randomUUID()}catch(e){}const b=new Uint8Array(16);crypto.getRandomValues(b);b[6]=b[6]&15|64;b[8]=b[8]&63|128;const h=[...b].map(x=>x.toString(16).padStart(2,'0')).join('');return h.slice(0,8)+'-'+h.slice(8,12)+'-'+h.slice(12,16)+'-'+h.slice(16,20)+'-'+h.slice(20)};
+async function sbInsert(table,row){const r=await fetch(SB.url+'/rest/v1/'+table,{method:'POST',headers:{apikey:SB.key,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify(row)});
+  if(!r.ok){let m='';try{m=(await r.json()).message||''}catch(e){}const er=new Error(m||('HTTP '+r.status));er.status=r.status;throw er}}
+function loadImg(file){return new Promise((res,rej)=>{const u=URL.createObjectURL(file);const i=new Image();i.onload=()=>res({i,u});i.onerror=()=>{URL.revokeObjectURL(u);rej(new Error('img'))};i.src=u})}
+function toB64(img,max,q){const s=Math.min(1,max/Math.max(img.naturalWidth,img.naturalHeight));const w=Math.max(1,Math.round(img.naturalWidth*s)),h=Math.max(1,Math.round(img.naturalHeight*s));
+  const c=document.createElement('canvas');c.width=w;c.height=h;const g=c.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,w,h);g.drawImage(img,0,0,w,h);return c.toDataURL('image/jpeg',q).split(',')[1]}
+async function prepPhoto(file){const {i,u}=await loadImg(file);try{let d='';for(const [m,q] of [[1400,.8],[1200,.72],[1000,.65],[800,.6]]){d=toB64(i,m,q);if(d.length<=880000)break}
+  let th='';for(const [m,q] of [[360,.7],[280,.6]]){th=toB64(i,m,q);if(th.length<=78000)break}return {data:d,thumb:th}}finally{URL.revokeObjectURL(u)}}
+function TradeIn({ctx,teaser}){const {t,go,L}=ctx;const F=t.form;
+  if(teaser)return html`<div className="trade teaser">
+    <div className="rv" style=${{display:'grid',gap:28,alignContent:'start'}}><span className="eyebrow cap">${t.tradeEy}</span><h2>${t.tradeH}</h2><p style=${{fontSize:17,color:'#4A443C',maxWidth:'44ch'}}>${t.tradeP}</p>
+      <div><button className="btn solid" onClick=${()=>go({v:'sell'})}>${t.tradeGo}</button></div></div>
+    <ol className="steps rv">${t.steps.map((x,i)=>html`<li key=${i}><div><b>${x[0]}</b><p>${x[1]}</p></div></li>`)}</ol>
+  </div>`;
+  const blank={brand:'',brandOther:'',model:'',cat:'sneakers',size:'',cond:'very-good',box:'',name:'',email:'',phone:'',msg:'',consent:false,payout:'cash',hp:''};
+  const [f,setF]=useState(blank);const [ph,setPh]=useState({});const [err,setErr]=useState({});const [done,setDone]=useState(null);const [step,setStep]=useState(1);const [busy,setBusy]=useState(null);
+  const sendRef=useRef({id:null,req:false,sent:{}});
+  const formRef=useRef(null);
+  const s=k=>e=>{const v=e.target.type==='checkbox'?e.target.checked:e.target.value;setF(o=>({...o,[k]:v}));setErr(o=>o[k]?{...o,[k]:null}:o)};
+  const shoe=f.cat!=='clothing';
+  /* vaste foto-posities: zo stuurt iedereen dezelfde, bruikbare foto's */
+  const SLOTS=shoe?[['side',1],['front',1],['sole',1],['insole',1],['label',1],['heel',0],['wear',0],['box',0]]:[['cfront',1],['cback',1],['brand',1],['care',1],['wear',0]];
+  const need=SLOTS.filter(([k,r])=>r&&!ph[k]).map(([k])=>k);
+  const pick=k=>e=>{const x=e.target.files&&e.target.files[0];if(x&&x.type.startsWith('image/')){setPh(o=>{if(o[k])URL.revokeObjectURL(o[k].url);return {...o,[k]:{name:x.name,url:URL.createObjectURL(x),file:x}}});sendRef.current.sent[k]=false;setErr(o=>({...o,files:null}))}e.target.value=''};
+  const drop=k=>{sendRef.current.sent[k]=false;setPh(o=>{if(o[k])URL.revokeObjectURL(o[k].url);const n={...o};delete n[k];return n})};
+  const toForm=()=>{const el=formRef.current;if(!el)return;const y=el.getBoundingClientRect().top+window.scrollY-(parseInt(getComputedStyle(document.documentElement).getPropertyValue('--navh'))||70)-16;if(window.scrollY>y)toTop2(y)};
+  const toTop2=y=>{const el=document.documentElement;const p=el.style.scrollBehavior;el.style.scrollBehavior='auto';window.scrollTo(0,y);el.style.scrollBehavior=p};
+  const focusErr=()=>setTimeout(()=>{const el=document.querySelector('.form [aria-invalid="true"]');if(el)el.focus()},0);
+  const v1=()=>{const er={};if(!f.brand)er.brand=F.req;if(f.brand==='other'&&!f.brandOther.trim())er.brandOther=F.req;if(!f.model.trim())er.model=F.req;if(!f.size.trim())er.size=F.req;return er};
+  const v3=()=>{const er={};if(!f.name.trim())er.name=F.req;if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.trim()))er.email=F.badMail;if(!f.consent)er.consent=F.needConsent;return er};
+  const next=()=>{if(step===1){const er=v1();setErr(er);if(Object.keys(er).length){focusErr();return}}
+    if(step===2&&need.length){setErr({files:F.stillNeed+' '+need.map(k=>F.slot[k][0]).join(', ')});return}
+    setErr({});setStep(st=>st+1);toForm()};
+  const back=()=>{setErr({});setStep(st=>Math.max(1,st-1));toForm()};
+  const submit=async e=>{e.preventDefault();if(busy)return;if(step<3){next();return}const er=v3();setErr(er);if(Object.keys(er).length){focusErr();return}
+    if(f.hp){setDone({live:false});return} /* spam-val: echte bezoekers zien dit veld niet */
+    if(!LIVE){setDone({live:false});return} /* prototype op Claude: hier wordt niets verstuurd of opgeslagen */
+    const st=sendRef.current;if(!st.id)st.id=uuid();
+    const list=SLOTS.filter(([k])=>ph[k]).map(([k])=>k);
+    try{setBusy({n:list.filter(k=>st.sent[k]).length,tot:list.length});
+      if(!st.req){await sbInsert('tradein_requests',{id:st.id,lang:L==='en'?'en':'nl',category:f.cat,brand:brandName.trim().slice(0,80),model:f.model.trim().slice(0,120),size:f.size.trim().slice(0,20),
+        box:shoe&&f.box?f.box:null,condition:f.cond,payout:f.payout,name:f.name.trim().slice(0,120),email:f.email.trim().slice(0,200),phone:f.phone.trim().slice(0,40)||null,message:f.msg.trim().slice(0,2000)||null,consent:true,photos_expected:list.length});st.req=true}
+      for(const k of list){if(st.sent[k])continue;let p;try{p=await prepPhoto(ph[k].file)}catch(x){setBusy(null);setErr({send:F.badPhoto+' ('+F.slot[k][0]+')'});return}
+        await sbInsert('tradein_photos',{request_id:st.id,slot:k,mime:'image/jpeg',data:p.data,thumb:p.thumb});st.sent[k]=true;setBusy(b=>b&&({...b,n:b.n+1}))}
+      setBusy(null);setDone({live:true,ref:'JPS-'+st.id.replace(/-/g,'').slice(0,6).toUpperCase(),email:f.email.trim()});toForm()}
+    catch(x){setBusy(null);setErr({send:/rate_limited/.test(String(x&&x.message))?F.rateLim:F.sendFail})}};
+  const reset=()=>{Object.values(ph).forEach(x=>URL.revokeObjectURL(x.url));sendRef.current={id:null,req:false,sent:{}};setDone(null);setF(blank);setPh({});setStep(1);setErr({})};
+  const fld=(k,label,type,full,ac)=>html`<div className=${'fld'+(full?' full':'')}><label htmlFor=${'ti-'+k}>${label}</label><input id=${'ti-'+k} type=${type||'text'} autoComplete=${ac||'off'} value=${f[k]} onInput=${s(k)} aria-invalid=${err[k]?'true':null}/>${err[k]&&html`<span className="err">${err[k]}</span>`}</div>`;
+  const brandName=f.brand==='other'?f.brandOther:f.brand;
+  return html`<div className="trade">
+    <div className="rv" style=${{display:'grid',gap:28}}><span className="eyebrow cap">${t.tradeEy}</span><h2>${t.tradeH}</h2><p style=${{fontSize:17,color:'#4A443C',maxWidth:'44ch'}}>${t.tradeP}</p>
+      <ol className="steps">${t.steps.map((x,i)=>html`<li key=${i}><div><b>${x[0]}</b><p>${x[1]}</p></div></li>`)}</ol></div>
+    ${done?(done.live?html`<div className="okbox rv in" role="status"><span className="cap" style=${{color:'var(--champ)'}}>${F.okLiveCap}</span><h3 style=${{fontSize:28}}>${F.okLiveH.replace('{r}',done.ref)}</h3><p className="mute">${F.okLiveP.replace('{e}',done.email)}</p><div><button className="btn" onClick=${reset}>${F.again}</button></div></div>`
+      :html`<div className="okbox rv in" role="status"><span className="cap" style=${{color:'var(--champ)'}}>Prototype</span><h3 style=${{fontSize:28}}>${F.okH}</h3><p className="mute">${F.okP}</p><div><button className="btn" onClick=${reset}>${F.again}</button></div></div>`)
+    :html`<form className="form rv" ref=${formRef} onSubmit=${submit} noValidate>
+      <ol className="wiz" aria-label=${F.stepsL}>${F.stepN.map((x,i)=>html`<li key=${i} className=${(step===i+1?'on':'')+(step>i+1?' ok':'')} aria-current=${step===i+1?'step':null}><span className="n">${step>i+1?'✓':i+1}</span><span className="l">${x}</span></li>`)}</ol>
+      ${step===1&&html`<${Fragment}>
+        <p className="full accept">${F.accept}</p>
+        <div className="fld full"><span className="lab">${F.cat}</span><div className="chips" role="group" aria-label=${F.cat}>${Object.entries(t.catN).map(([k,v])=>html`<button type="button" key=${k} className="chip" aria-pressed=${f.cat===k} onClick=${()=>setF(o=>({...o,cat:k}))}>${v}</button>`)}</div></div>
+        <div className="fld"><label htmlFor="ti-brand">${F.brand}</label><select id="ti-brand" value=${f.brand} onChange=${s('brand')} aria-invalid=${err.brand?'true':null}><option value="">${F.chooseBrand}</option>${BRANDS.map(b=>html`<option key=${b} value=${b}>${b}</option>`)}<option value="other">${F.other}</option></select>${err.brand&&html`<span className="err">${err.brand}</span>`}</div>
+        ${f.brand==='other'?fld('brandOther',F.other):fld('model',F.model)}
+        ${f.brand==='other'&&fld('model',F.model)}
+        ${fld('size',shoe?F.sizeShoe:F.sizeCloth)}
+        ${shoe&&html`<div className="fld"><label htmlFor="ti-box">${F.boxQ}</label><select id="ti-box" value=${f.box} onChange=${s('box')}><option value="">${F.boxNone}</option><option value="box">${F.boxBox}</option><option value="both">${F.boxBoth}</option></select></div>`}
+        <div className="fld full"><span className="lab">${F.cond}</span><div className="chips" role="group" aria-label=${F.cond}>${Object.entries(t.cond).map(([k,v])=>html`<button type="button" key=${k} className="chip" aria-pressed=${f.cond===k} onClick=${()=>setF(o=>({...o,cond:k}))}>${v}</button>`)}</div></div>
+      <//>`}
+      ${step===2&&html`<${Fragment}>
+        <div className="full wizintro"><h3>${shoe?F.phShoeH:F.phClothH}</h3><p>${F.phIntro}</p></div>
+        <div className="slots full">${SLOTS.map(([k,r])=>{const x=ph[k];const miss=err.files&&r&&!x;return html`<div key=${k} className=${'slot'+(x?' has':'')+(miss?' miss':'')}>
+          <label htmlFor=${'ti-ph-'+k}>
+            ${x?html`<img src=${x.url} alt=${F.slot[k][0]}/>`:html`<span className="ico" aria-hidden="true">${SLOTICO[k]}</span>`}
+            <b>${F.slot[k][0]}${r?'':html` <em>${F.optional}</em>`}</b>
+            ${!x&&html`<small>${F.slot[k][1]}</small>`}
+            <span className="act">${x?F.replace:F.addPhoto}</span>
+          </label>
+          <input id=${'ti-ph-'+k} className="sr" type="file" accept="image/*" onChange=${pick(k)}/>
+          ${x&&html`<button type="button" className="rm" aria-label=${t.remove+': '+F.slot[k][0]} onClick=${()=>drop(k)}>×</button>`}
+        </div>`})}</div>
+        <p className="full slotcount mute">${SLOTS.filter(([k,r])=>r&&ph[k]).length} / ${SLOTS.filter(([k,r])=>r).length} ${F.reqDone}</p>
+        ${err.files&&html`<p className="full err" role="alert" style=${{color:'var(--warn)',fontSize:13.5,margin:0}}>${err.files}</p>`}
+      <//>`}
+      ${step===3&&html`<${Fragment}>
+        <div className="full wizsum"><span className="cap mute">${F.sumH}</span><p><b>${brandName} ${f.model}</b> · ${shoe?F.sizeShoe:F.sizeCloth} ${f.size} · ${t.cond[f.cond]} · ${Object.keys(ph).length} ${F.photosN}</p><div className="thumbs">${SLOTS.filter(([k])=>ph[k]).map(([k])=>html`<div key=${k}><img src=${ph[k].url} alt=${F.slot[k][0]}/></div>`)}</div></div>
+        <div className="fld full"><span className="lab">${F.payH}</span><div className="paych" role="radiogroup" aria-label=${F.payH}>
+          ${[['cash',F.payCash],['credit',F.payCredit]].map(([k,x])=>html`<label key=${k} className=${'payopt'+(f.payout===k?' on':'')}><input type="radio" name="ti-payout" value=${k} checked=${f.payout===k} onChange=${()=>setF(o=>({...o,payout:k}))}/><b>${x[0].replace('{b}',TI.bonus)}</b><span>${x[1].replace(/\{b\}/g,TI.bonus).replace('{m}',TI.max)}</span></label>`)}
+        </div></div>
+        <div className="hp" aria-hidden="true"><label htmlFor="ti-hp">Website</label><input id="ti-hp" tabIndex="-1" autoComplete="off" value=${f.hp} onInput=${s('hp')}/></div>
+        ${fld('name',F.name,'text',false,'name')}${fld('email',F.email,'email',false,'email')}
+        ${fld('phone',F.phone,'tel',false,'tel')}
+        <div className="fld"><label htmlFor="ti-msg">${F.msg}</label><textarea id="ti-msg" rows="1" value=${f.msg} onInput=${s('msg')}></textarea></div>
+        <label className="check full"><input type="checkbox" checked=${f.consent} onChange=${s('consent')} aria-invalid=${err.consent?'true':null}/><span>${F.consent}${err.consent&&html`<br/><span className="err" style=${{color:'var(--warn)',fontSize:12.5}}>${err.consent}</span>`}</span></label>
+      <//>`}
+      ${err.send&&html`<p className="full err" role="alert" style=${{color:'var(--warn)',fontSize:13.5,margin:0}}>${err.send}</p>`}
+      <div className="full wiznav">${step>1?html`<button type="button" className="btn" onClick=${back} disabled=${!!busy}>${F.back}</button>`:html`<span></span>`}
+        ${step<3?html`<button type="button" className="btn solid" onClick=${next}>${F.next}</button>`:html`<button className="btn solid" type="submit" disabled=${!!busy} aria-busy=${busy?'true':null}>${busy?(busy.tot&&busy.n<busy.tot&&busy.n>0?F.sendingPh+' '+busy.n+'/'+busy.tot:F.sending):F.send}</button>`}</div>
+    </form>`}
+  </div>`}
+
+/* lijn-iconen per foto-positie */
+const ico=d=>html`<svg viewBox="0 0 48 48">${d}</svg>`;
+const SLOTICO={
+ side:ico(html`<path d="M5 31c0-4 2-8 5-10l7-6c2-2 5-1 6 1l3 4c3 3 8 4 13 5 3 1 4 3 4 6v3H5z"/><path d="M5 34h38"/><path d="M15 19l3 3M18 16l3 3"/>`),
+ front:ico(html`<path d="M10 36V20c0-5 3-8 6-8s6 3 6 8v16z"/><path d="M26 36V20c0-5 3-8 6-8s6 3 6 8v16z"/><path d="M13 22h6M29 22h6"/>`),
+ sole:ico(html`<path d="M24 5c7 0 10 6 10 13 0 5-3 8-3 13 0 6-2 12-7 12s-7-6-7-12c0-5-3-8-3-13 0-7 3-13 10-13z"/><path d="M18 14h12M17 20h14M19 33h10M20 38h8"/>`),
+ insole:ico(html`<path d="M24 5c6 0 9 6 9 13 0 5-2 8-2 13 0 6-2 12-7 12s-7-6-7-12c0-5-2-8-2-13 0-7 3-13 9-13z"/><path d="M21 15h6M22 18h4"/>`),
+ label:ico(html`<rect x="11" y="9" width="26" height="30" rx="2"/><path d="M16 17h16M16 23h10"/><text x="16" y="34" font-size="8" fill="currentColor" stroke="none" font-family="sans-serif">EU 42</text>`),
+ heel:ico(html`<path d="M14 36V16c0-5 4-9 10-9s10 4 10 9v20z"/><path d="M14 30h20M20 12h8"/>`),
+ wear:ico(html`<circle cx="21" cy="21" r="11"/><path d="M29 29l10 10"/><path d="M16 21h10"/>`),
+ box:ico(html`<path d="M6 17l18-8 18 8v18l-18 8-18-8z"/><path d="M6 17l18 8 18-8M24 25v18"/>`),
+ cfront:ico(html`<path d="M17 7l-9 5 3 9 4-2v22h18V19l4 2 3-9-9-5c-1 3-4 5-7 5s-6-2-7-5z"/>`),
+ cback:ico(html`<path d="M17 7l-9 5 3 9 4-2v22h18V19l4 2 3-9-9-5c-2 1-4 2-7 2s-5-1-7-2z"/><path d="M24 12v28"/>`),
+ brand:ico(html`<rect x="10" y="15" width="28" height="16" rx="2"/><path d="M16 23h16"/>`),
+ care:ico(html`<rect x="13" y="7" width="22" height="34" rx="2"/><path d="M18 14h12M18 19h12M18 24h8"/><path d="M18 32l3 3 3-3 3 3 3-3"/>`)};
+
+/* ---------------- collectie ---------------- */
+function Collection({ctx}){const {t,L,products,route,go}=ctx;
+  const preset=route.p;const brandSlug=route.b||'';
+  const brandName=BRANDS.find(b=>b.toLowerCase().replace(/\s+/g,'-')===brandSlug)||'';
+  const init=()=>({cats:(preset==='shoes'||preset==='men-shoes'||preset==='women-shoes')?['sneakers','footwear']:preset==='clothing'?['clothing']:(preset==='men-sneakers'||preset==='women-sneakers')?['sneakers']:[],brands:brandName?[brandName]:[],sizes:[],conds:[],gender:(preset==='men-sneakers'||preset==='men-shoes')?'men':(preset==='women-sneakers'||preset==='women-shoes')?'women':'',price:'all',avail:preset==='new'?['available','coming']:['available','coming','sold'],sort:'new'});
+  const [f,setF]=useState(init);const [open,setOpen]=useState(false);
+  const pool=products;
+  /* alle filters behalve heren/dames: basis voor de lijst én de aantallen bij Alle/Heren/Dames */
+  const pre=useMemo(()=>{let l=pool.filter(p=>f.avail.includes(p.status));
+    if(f.cats.length)l=l.filter(p=>f.cats.includes(p.category));if(f.brands.length)l=l.filter(p=>f.brands.includes(p.brand));
+    if(f.sizes.length)l=l.filter(p=>f.sizes.includes(szl(p,'en')));if(f.conds.length)l=l.filter(p=>f.conds.includes(p.condition));
+    if(f.price!=='all'){const [a,b]=f.price.split('-').map(Number);l=l.filter(p=>p.price!=null&&p.price>=a&&p.price<b)}
+    return l},[pool,f]);
+  const list=useMemo(()=>{let l=[...pre];
+    if(f.gender)l=l.filter(p=>p.gender===f.gender);
+    const rank={available:0,coming:1,demo:2,sold:3};
+    if(f.sort==='low')l.sort((a,b)=>(a.price??1e9)-(b.price??1e9));else if(f.sort==='high')l.sort((a,b)=>(b.price??-1)-(a.price??-1));
+    else l.sort((a,b)=>rank[a.status]-rank[b.status]||(a.feat??99)-(b.feat??99)||String(b.soldAt||b.added).localeCompare(String(a.soldAt||a.added)));
+    return l},[pre,f.gender,f.sort]);
+  const tog=(k,v)=>setF(o=>({...o,[k]:o[k].includes(v)?o[k].filter(x=>x!==v):[...o[k],v]}));
+  const sizes=useMemo(()=>[...new Set(pool.filter(p=>f.cats.length?f.cats.includes(p.category):true).filter(p=>p.size).map(p=>szl(p,'en')))].sort((a,b)=>parseFloat(a.replace(/[^\d.]/g,''))-parseFloat(b.replace(/[^\d.]/g,''))||a.localeCompare(b)),[pool,f.cats]);
+  const brands=useMemo(()=>[...new Set(pool.map(p=>p.brand))].sort(),[pool]);
+  const sneak=preset==='men-sneakers'||preset==='women-sneakers';
+  const shoeG=preset==='shoes'||preset==='men-shoes'||preset==='women-shoes';
+  const title=brandName||(sneak?(f.gender?t.col[f.gender+'-sneakers']:t.col.sneakers):shoeG?(f.gender?t.col[f.gender+'-shoes']:t.col.shoes):t.col[preset])||t.col.all;
+  const showG=preset!=='clothing'&&pre.some(p=>p.gender==='men')&&pre.some(p=>p.gender==='women');
+  const gcount=g=>g?pre.filter(p=>p.gender===g).length:pre.length;
+  const nf=f.cats.length+f.brands.length+f.sizes.length+f.conds.length+(f.gender&&!showG?1:0)+(f.price!=='all'?1:0);
+  const chips=(k,opts)=>html`<div className="chips">${opts.map(([v,l])=>html`<button key=${v} type="button" className="chip" aria-pressed=${f[k].includes(v)} onClick=${()=>tog(k,v)}>${l}</button>`)}</div>`;
+  return html`<div className="wrap">
+    <div className="ph-top"><span className="eyebrow cap">JP SELECT</span><h1>${title}</h1>
+      ${showG&&html`<div className="gseg" role="group" aria-label=${t.fGender}>${[['',t.gAll],['men',t.men],['women',t.women]].map(([v,l])=>html`<button key=${v||'all'} type="button" aria-pressed=${f.gender===v} onClick=${()=>setF(o=>({...o,gender:v}))}>${l}<sup>${gcount(v)}</sup></button>`)}</div>`}</div>
+    <div className="toolbar">
+      <button className="sel" onClick=${()=>setOpen(true)} aria-expanded=${open}>${t.filters}${nf?' ('+nf+')':''}</button>
+      <span className="count">${t.results(list.length)}</span><span className="sp"></span>
+      <label className="sr" htmlFor="c-sort">${t.sort}</label>
+      <select id="c-sort" className="sel" value=${f.sort} onChange=${e=>setF(o=>({...o,sort:e.target.value}))}><option value="new">${t.sNew}</option><option value="low">${t.sLow}</option><option value="high">${t.sHigh}</option></select>
+    </div>
+    ${list.length?html`<div className="grid" style=${{paddingBottom:100}}>${list.map(p=>html`<${Card} key=${p.id} ctx=${ctx} p=${p}/>`)}</div>`
+      :html`<div className="empty"><p>${t.noRes}</p><button className="btn" onClick=${()=>setF(init())}>${t.clear}</button></div>`}
+    <div className=${'scrim'+(open?' on':'')} onClick=${()=>setOpen(false)}></div>
+    <aside className=${'panel'+(open?' on':'')} aria-hidden=${!open} aria-label=${t.filters}>
+      <header><span className="cap">${t.filters}</span><button className="icon" onClick=${()=>setOpen(false)} aria-label=${t.close}>${Ic.x}</button></header>
+      <div className="body">
+        <div className="fgroup"><span className="cap mute">${t.fCat}</span>${chips('cats',Object.entries(t.catN))}</div>
+        <div className="fgroup"><span className="cap mute">${t.fGender}</span><div className="chips">${[['men',t.men],['women',t.women]].map(([v,l])=>html`<button key=${v} type="button" className="chip" aria-pressed=${f.gender===v} onClick=${()=>setF(o=>({...o,gender:o.gender===v?'':v}))}>${l}</button>`)}</div></div>
+        <div className="fgroup"><span className="cap mute">${t.fBrand}</span>${chips('brands',brands.map(b=>[b,b]))}</div>
+        <div className="fgroup"><span className="cap mute">${t.fSize}</span>${chips('sizes',sizes.map(s=>[s,s.replace('.',L==='nl'?',':'.')]))}</div>
+        <div className="fgroup"><span className="cap mute">${t.fCond}</span>${chips('conds',Object.entries(t.cond))}</div>
+        <div className="fgroup"><span className="cap mute">${t.fPrice}</span><div className="chips">${t.price.map(([v,l])=>html`<button key=${v} type="button" className="chip" aria-pressed=${f.price===v} onClick=${()=>setF(o=>({...o,price:v}))}>${l}</button>`)}</div></div>
+        <div className="fgroup"><span className="cap mute">${t.fAvail}</span>${chips('avail',Object.entries(t.av))}</div>
+      </div>
+      <footer><button className="btn solid full" onClick=${()=>setOpen(false)}>${t.show(list.length)}</button><button className="lnk" style=${{justifySelf:'center'}} onClick=${()=>setF(init())}>${t.clear}</button></footer>
+    </aside>
+  </div>`}
+
+/* ---------------- product ---------------- */
+function desc(p,t,L){const n=L==='nl';const base=n?`${p.condition.startsWith('new')?'Nieuw':'Tweedehands'} ${p.brand} ${p.model} in ${p.color[L].toLowerCase()}, maat ${szl(p,L)}. Staat: ${t.cond[p.condition].toLowerCase()}.`
+  :`${p.condition.startsWith('new')?'New':'Pre-owned'} ${p.brand} ${p.model} in ${p.color[L].toLowerCase()}, size ${szl(p,L)}. Condition: ${t.cond[p.condition].toLowerCase()}.`;
+  return base+(p.note?' '+p.note[L]:'')}
+function Buy({ctx,p}){const {t,L,add,bag,open}=ctx;
+  if(p.demo)return html`<button className="btn full" disabled>${t.demoBtn}</button>`;
+  if(p.status==='coming')return html`<button className="btn full" disabled>${t.soonBtn}</button>`;
+  if(p.status==='sold')return html`<button className="btn full" disabled>${t.soldBtn}</button>`;
+  if(bag.includes(p.id))return html`<button className="btn full" onClick=${()=>open('bag')}>${t.inBag} ✓</button>`;
+  return html`<button className="btn solid full" onClick=${()=>add(p)}>${t.add} · ${fmt(p.price,L)}</button>`}
+function Product({ctx}){const {t,L,products,route,go}=ctx;const p=products.find(x=>x.id===route.p);
+  const [gi,setGi]=useState(0);const [zoom,setZoom]=useState(false);const [lb,setLb]=useState(false);const zr=useRef(null);
+  useEffect(()=>{const k=e=>{if(!lb)return;if(e.key==='Escape')setLb(false);if(e.key==='ArrowRight')setGi(i=>(i+1)%p.images.length);if(e.key==='ArrowLeft')setGi(i=>(i-1+p.images.length)%p.images.length)};document.addEventListener('keydown',k);return()=>document.removeEventListener('keydown',k)},[lb,p]);
+  if(!p)return html`<div className="wrap empty"><p>${t.noRes}</p></div>`;
+  const rel=products.filter(x=>x.id!==p.id&&x.status!=='sold'&&(x.category===p.category||x.brand===p.brand)).slice(0,4);
+  const move=e=>{if(!zoom||!zr.current)return;const r=zr.current.getBoundingClientRect();const x=(e.clientX-r.left)/r.width*100,y=(e.clientY-r.top)/r.height*100;zr.current.querySelector('img').style.transformOrigin=x+'% '+y+'%'};
+  const fine=(()=>{try{return matchMedia('(hover:hover) and (pointer:fine)').matches}catch(e){return false}})();
+  return html`<div className="wrap">
+    <nav className="crumbs" aria-label="Kruimelpad"><button onClick=${()=>go({v:'col',p:'all'})}>${t.col.all}</button><span>/</span><button onClick=${()=>go({v:'col',p:'brand',b:p.brand.toLowerCase().replace(/\s+/g,'-')})}>${p.brand}</button><span>/</span><span>${p.model}</span></nav>
+    <div className="pd">
+      <div className="gallery">
+        ${p.images.length>1?html`<div className="thumbs2">${p.images.map((src,i)=>html`<button key=${src} aria-current=${i===gi} aria-label=${'Foto '+(i+1)} onClick=${()=>setGi(i)}><img src=${src} alt=""/></button>`)}</div>`:html`<div></div>`}
+        <div className=${'zoom'+(zoom?' on':'')} ref=${zr} onMouseEnter=${()=>fine&&setZoom(true)} onMouseLeave=${()=>setZoom(false)} onMouseMove=${move} onClick=${()=>setLb(true)} role="button" tabIndex="0" aria-label=${t.zoom} onKeyDown=${e=>{if(e.key==='Enter')setLb(true)}}>
+          <img src=${p.images[gi]} alt=${p.brand+' '+p.model}/>
+          ${(p.demo||p.nophoto)&&html`<div className="demo-ov"><${Mono} h=${64}/><span className="cap">${p.demo?t.photoFollows:t.photoSoon}</span></div>`}
+          <span className="hint">${t.zoom}</span></div>
+      </div>
+      <div className="info">
+        <div style=${{display:'grid',gap:12}}><span className="cap">${p.brand}${p.demo?' · '+t.tagDemo:''}</span><h1>${p.model}</h1>
+          <div className="pr">${fmt(p.price,L)||t.priceTba}${p.retail&&html`<s>${t.retail} ${fmt(p.retail,L)}</s>`}</div></div>
+        <div className=${'avail'+(p.status==='available'?'':' no')}><i></i><span>${t.pAvail[p.status]}</span></div>
+        <dl className="spec"><dt>${t.pSize}</dt><dd>${szl(p,L)}</dd><dt>${t.pCond}</dt><dd>${t.cond[p.condition]} · ${p.condition.startsWith('new')?t.isNew:t.pre}</dd><dt>${t.pColor}</dt><dd>${p.color[L]}</dd>${p.material&&html`<dt>${t.pMat}</dt><dd>${p.material[L]}</dd>`}<dt>${t.pSku}</dt><dd>${p.sku}</dd></dl>
+        <${Buy} ctx=${ctx} p=${p}/>
+        <a className="rateln" href="#reviews"><${Stars} v=${REV.score} size=${13}/><span>${t.revLine.replace('{s}',rnum(REV.score,L)).replace('{n}',REV.count)}</span></a>
+        ${(p.status==='coming'||p.demo)&&html`<p className="ph-note">${p.demo?t.demoNote:t.soonNote}</p>`}
+        <div><details open><summary>${t.descT}</summary><p>${desc(p,t,L)}</p></details>
+          <details><summary>${t.shipT}</summary><p>${t.shipP}</p></details>
+          <details><summary>${t.vatT}</summary><p>${t.vatP}</p></details></div>
+      </div>
+    </div>
+    ${rel.length>0&&html`<section style=${{paddingBottom:100}}><div className="head"><div className="t"><h2 style=${{fontSize:'clamp(28px,3vw,40px)'}}>${t.related}</h2></div></div><div className="grid">${rel.map(x=>html`<${Card} key=${x.id} ctx=${ctx} p=${x}/>`)}</div></section>`}
+    ${lb&&html`<div className="lb" role="dialog" aria-label=${p.brand+' '+p.model}>
+      <img src=${p.images[gi]} alt=${p.brand+' '+p.model}/>
+      <button className="icon x" onClick=${()=>setLb(false)} aria-label=${t.close}>${Ic.x}</button>
+      ${p.images.length>1&&html`<button className="icon prev" onClick=${()=>setGi((gi-1+p.images.length)%p.images.length)} aria-label="Vorige">${Ic.l}</button><button className="icon next" onClick=${()=>setGi((gi+1)%p.images.length)} aria-label="Volgende">${Ic.r}</button>`}
+    </div>`}
+  </div>`}
+
+function Quick({ctx,id}){const {t,L,products,go,close}=ctx;const p=products.find(x=>x.id===id);if(!p)return null;
+  return html`<div className="modal" role="dialog" aria-label=${p.brand+' '+p.model}><div className="box">
+    <div className="pic" style=${{position:'relative'}}><img src=${p.images[0]} alt=""/>${(p.demo||p.nophoto)&&html`<div className="demo-ov"><${Mono} h=${50}/><span className="cap" style=${{fontSize:9.5}}>${p.demo?t.photoFollows:t.photoSoon}</span></div>`}</div>
+    <div className="in"><span className="cap">${p.brand}${p.demo?' · '+t.tagDemo:''}</span><h2 style=${{fontSize:34,lineHeight:1.05}}>${p.model}</h2>
+      <div style=${{fontSize:19}}>${fmt(p.price,L)||t.priceTba}</div>
+      <dl className="spec"><dt>${t.pSize}</dt><dd>${szl(p,L)}</dd><dt>${t.pCond}</dt><dd>${t.cond[p.condition]}</dd><dt>${t.pColor}</dt><dd>${p.color[L]}</dd></dl>
+      <${Buy} ctx=${ctx} p=${p}/>
+      <button className="lnk" style=${{justifySelf:'start'}} onClick=${()=>go({v:'product',p:p.id})}>${t.details}</button>
+    </div>
+    <button className="icon x" onClick=${close} aria-label=${t.close}>${Ic.x}</button>
+  </div></div>`}
+
+/* ---------------- tas ---------------- */
+function Bag({ctx}){const {t,L,products,bag,rm,ui,close,go}=ctx;const items=bag.map(id=>products.find(p=>p.id===id)).filter(Boolean);const sub=items.reduce((a,p)=>a+(p.price||0),0);
+  return html`<aside className=${'panel right'+(ui.bag?' on':'')} aria-hidden=${!ui.bag} aria-label=${t.bagT}>
+    <header><span className="cap">${t.bagT} (${items.length})</span><button className="icon" onClick=${close} aria-label=${t.close} tabIndex=${ui.bag?0:-1}>${Ic.x}</button></header>
+    <div className="body">${items.length?items.map(p=>html`<div className="line" key=${p.id}><img src=${p.images[0]} alt=""/><div className="nm"><span className="cap" style=${{fontSize:9.5}}>${p.brand}</span><b>${p.model}</b><span className="mute">${szl(p,L)} · ${t.cond[p.condition]}</span><span className="mute" style=${{fontSize:12}}>${t.unique}</span><button className="rm" onClick=${()=>rm(p.id)}>${t.remove}</button></div><span>${fmt(p.price,L)}</span></div>`)
+      :html`<div className="empty" style=${{padding:'50px 0'}}><p>${t.bagEmpty}</p><button className="btn" onClick=${()=>go({v:'col',p:'all'})}>${t.continue}</button></div>`}</div>
+    ${items.length>0&&html`<footer><div className="tot"><div><span>${t.sub}</span><span>${fmt(sub,L)}</span></div><div className="mute"><span>${t.shipCalc}</span><span>${t.shipLater}</span></div></div><button className="btn solid full" onClick=${()=>go({v:'checkout'})}>${t.checkout}</button></footer>`}
+  </aside>`}
+
+function Checkout({ctx}){const {t,L,products,bag,go}=ctx;const items=bag.map(id=>products.find(p=>p.id===id)).filter(Boolean);const sub=items.reduce((a,p)=>a+(p.price||0),0);
+  const [f,setF]=useState({name:'',email:'',street:'',zip:'',city:'',country:'NL'});const [err,setErr]=useState({});const [step,setStep]=useState('form');
+  const s=k=>e=>setF(o=>({...o,[k]:e.target.value}));
+  const next=e=>{e.preventDefault();const er={};['name','street','zip','city'].forEach(k=>{if(!f[k].trim())er[k]=t.form.req});if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.trim()))er.email=t.form.badMail;setErr(er);if(!Object.keys(er).length)setStep('pay')};
+  if(!items.length)return html`<div className="wrap text"><h1>${t.coH}</h1><p>${t.coEmpty}</p><div><button className="btn" onClick=${()=>go({v:'col',p:'all'})}>${t.continue}</button></div></div>`;
+  const fld=(k,label,full,ac,type)=>html`<div className=${'fld'+(full?' full':'')}><label htmlFor=${'co-'+k}>${label}</label><input id=${'co-'+k} type=${type||'text'} autoComplete=${ac} value=${f[k]} onInput=${s(k)} aria-invalid=${err[k]?'true':null}/>${err[k]&&html`<span className="err">${err[k]}</span>`}</div>`;
+  return html`<div className="wrap co">
+    <div style=${{display:'grid',gap:24}}><span className="eyebrow cap">${t.coDemo}</span><h1 style=${{fontSize:'clamp(40px,5vw,64px)'}}>${t.coH}</h1><p className="ph-note">${t.coIntro}</p>
+      ${step==='form'?html`<form className="form" onSubmit=${next} noValidate><span className="cap full">${t.coDetails}</span>${fld('name',t.coName,true,'name')}${fld('email',t.coEmail,true,'email','email')}${fld('street',t.coStreet,true,'street-address')}${fld('zip',t.coZip,false,'postal-code')}${fld('city',t.coCity,false,'address-level2')}
+        <div className="fld full"><label htmlFor="co-country">${t.coCountry}</label><select id="co-country" value=${f.country} onChange=${s('country')}>${Object.entries(t.countries).map(([k,v])=>html`<option key=${k} value=${k}>${v}</option>`)}</select></div>
+        <div className="full"><button className="btn solid full" type="submit">${t.coNext}</button></div></form>`
+      :html`<div className="okbox"><span className="cap" style=${{color:'var(--champ)'}}>Prototype</span><h3 style=${{fontSize:26}}>${t.coPayH}</h3><p className="mute">${t.coPayP}</p><p style=${{fontSize:14}}>${f.name} · ${f.email}<br/>${f.street}, ${f.zip} ${f.city}, ${t.countries[f.country]}</p><div><button className="btn" onClick=${()=>setStep('form')}>${t.coEdit}</button></div></div>`}
+    </div>
+    <aside className="sum"><span className="cap">${t.coSum}</span>${items.map(p=>html`<div className="line" key=${p.id} style=${{paddingBlock:10}}><img src=${p.images[0]} alt=""/><div className="nm"><span className="cap" style=${{fontSize:9.5}}>${p.brand}</span><b>${p.model}</b><span className="mute">${szl(p,L)}</span></div><span>${fmt(p.price,L)}</span></div>`)}
+      <div className="tot"><div><span>${t.sub}</span><span>${fmt(sub,L)}</span></div><div className="mute"><span>${t.shipCalc}</span><span>${t.placeholder}</span></div><div className="g"><span>${t.total}</span><span>${fmt(sub,L)} + ${L==='nl'?'verzending':'shipping'}</span></div><p className="mute" style=${{fontSize:12.5}}>${t.vatP}</p></div></aside>
+  </div>`}
+
+/* ---------------- zoeken ---------------- */
+function Search({ctx}){const {t,L,products,ui,close,go}=ctx;const [q,setQ]=useState('');const ref=useRef(null);
+  useEffect(()=>{if(ui.search)setTimeout(()=>ref.current&&ref.current.focus(),250);else setQ('')},[ui.search]);
+  const res=useMemo(()=>{const s=q.trim().toLowerCase();if(!s)return [];return products.filter(p=>p.status!=='sold').filter(p=>[p.brand,p.model,p.sku,szl(p,'en'),p.color.nl,p.color.en,t.catN[p.category]].join(' ').toLowerCase().includes(s)).slice(0,12)},[q,products,L]);
+  return html`<div className=${'search'+(ui.search?' on':'')} aria-hidden=${!ui.search} role="dialog" aria-label=${t.search}><div className="wrap">
+    <div className="bar"><label className="sr" htmlFor="q">${t.sH}</label><input id="q" ref=${ref} value=${q} onInput=${e=>setQ(e.target.value)} placeholder=${t.sH} autoComplete="off" tabIndex=${ui.search?0:-1}/><button className="icon" onClick=${close} aria-label=${t.close} tabIndex=${ui.search?0:-1}>${Ic.x}</button></div>
+    ${q.trim()?(res.length?html`<div className="res">${res.map(p=>html`<button key=${p.id} onClick=${()=>go({v:'product',p:p.id})}><img src=${p.images[0]} alt=""/><span><span className="cap" style=${{fontSize:9.5}}>${p.brand}${p.demo?' · Demo':''}</span><b>${p.model}</b><span className="mute" style=${{fontSize:13}}>${szl(p,L)} · ${fmt(p.price,L)||t.priceTba}</span></span></button>`)}</div>`:html`<p className="mute" style=${{paddingBlock:'10px 30px'}}>${t.sNone}</p>`):html`<p className="mute" style=${{paddingBlock:'10px 30px'}}>${t.sTips}</p>`}
+  </div></div>`}
+
+/* ---------------- losse pagina's ---------------- */
+function BrandsPage({ctx}){const {t,products,go}=ctx;const counts={};products.filter(p=>p.status!=='sold').forEach(p=>{counts[p.brand]=(counts[p.brand]||0)+1});
+  return html`<div className="wrap sec" style=${{display:'grid',gap:50}}><div className="ph-top" style=${{padding:0,justifyItems:'center',textAlign:'center'}}><span className="eyebrow cap mid">${t.brandsEy}</span><h1>${t.brandsH}</h1></div>
+    <div className="brands">${BRANDS.map(b=>html`<button key=${b} onClick=${()=>go({v:'col',p:'brand',b:b.toLowerCase().replace(/\s+/g,'-')})}>${b}<small>${counts[b]?t.items(counts[b]):t.noneYet}</small></button>`)}</div>
+    <p className="mute" style=${{textAlign:'center',fontSize:13}}>${t.brandsNote}</p></div>`}
+function StoryPage({ctx}){const {t}=ctx;return html`<${Fragment}><section className="wrap sec"><${StoryBlock} ctx=${ctx}/></section><${Approach} ctx=${ctx}/><section className="wrap sec"><div className="philo"><div style=${{display:'grid',gap:28}}><span className="eyebrow cap">${t.philoEy}</span><h2 dangerouslySetInnerHTML=${{__html:t.philoH}}></h2></div><div className="txt">${t.philoP.map((x,i)=>html`<p key=${i}>${x}</p>`)}</div></div></section><//>`}
+function SellPage({ctx}){return html`<section className="wrap sec" style=${{paddingTop:'clamp(36px,4.5vw,64px)'}}><${TradeIn} ctx=${ctx}/></section>`}
+function Info({ctx,k}){const {t,say}=ctx;const body={ship:t.shipBody,terms:t.termsBody,privacy:t.privacyBody,contact:t.contactBody}[k]||[];
+  const copy=()=>{try{navigator.clipboard.writeText(CO.email).then(()=>say(t.copied),()=>say(t.copyFail))}catch(e){say(t.copyFail)}};
+  return html`<div className="wrap"><div className="text"><span className="eyebrow cap">JP SELECT</span><h1>${t.pages[k]||''}</h1>${body.map((x,i)=>html`<p key=${i}>${x}</p>`)}
+    ${k==='contact'&&html`<div style=${{display:'flex',gap:14,alignItems:'center',flexWrap:'wrap'}}><code style=${{fontSize:18,userSelect:'all'}}>${CO.email}</code><button className="btn" style=${{minHeight:40}} onClick=${copy}>${t.copy}</button></div><p className="mute" style=${{fontSize:14}}>${t.f.kvk} ${CO.kvk} · ${t.f.btw} ${CO.btw} · ${CO.city}</p>`}
+    ${(k==='terms'||k==='privacy')&&html`<p className="ph-note">${t.placeholder}</p>`}</div></div>`}
+
+function Footer({ctx}){const {t,go,say}=ctx;const [m,setM]=useState('');
+  const L2=(label,r)=>html`<li><button className="fl" onClick=${()=>go(r)}>${label}</button></li>`;
+  return html`<footer className="foot"><div className="wrap">
+    <div className="top">
+      <div className="news"><${Word} h=${13}/><h4 style=${{marginTop:18}}>${t.f.news}</h4><p>${t.f.newsP}</p><form onSubmit=${e=>{e.preventDefault();say(t.f.newsOk);setM('')}}><label className="sr" htmlFor="nl-mail">${t.f.newsPh}</label><input id="nl-mail" type="email" placeholder=${t.f.newsPh} value=${m} onInput=${e=>setM(e.target.value)}/><button type="submit">${t.f.newsBtn}</button></form></div>
+      <div><h4>${t.f.shop}</h4><ul>${L2(t.f.all,{v:'col',p:'all'})}${L2(t.nav.new,{v:'col',p:'new'})}${L2(t.nav.shoes,{v:'col',p:'shoes'})}${L2(t.nav.clothing,{v:'col',p:'clothing'})}${L2(t.nav.brands,{v:'brands'})}</ul></div>
+      <div><h4>${t.f.about}</h4><ul>${L2(t.nav.story,{v:'story'})}${L2(t.nav.sell,{v:'sell'})}${L2(t.revEy,{v:'reviews'})}${L2(t.f.contact,{v:'info',p:'contact'})}<li><span className="fl" style=${{cursor:'default',color:'#9C9387'}}>${t.f.instaSoon}</span></li></ul></div>
+      <div><h4>${t.f.service}</h4><ul>${L2(t.f.ship,{v:'info',p:'ship'})}${L2(t.f.terms,{v:'info',p:'terms'})}${L2(t.f.privacy,{v:'info',p:'privacy'})}</ul></div>
+    </div>
+    <div className="bot"><span>© 2026 JP SELECT · ${t.f.kvk} ${CO.kvk} · ${t.f.btw} ${CO.btw}</span><span>Trade in. Step up.</span></div>
+  </div></footer>`}
+
+ReactDOM.createRoot(document.getElementById('root')).render(html`<${App}/>`);
+</script>
+</body></html>
