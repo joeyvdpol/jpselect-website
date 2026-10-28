@@ -182,7 +182,8 @@ p{margin:0}
   .hero .claim{margin-top:0;font-size:25px;letter-spacing:.08em}
   .hero .quote{font-size:18px;margin-top:2px}
   .hero .ctas{display:grid;grid-template-columns:1fr;gap:10px;max-width:min(420px,calc(100% - 64px));margin-top:12px}
-  .hero .ctas .btn{width:100%;box-sizing:border-box}
+  .hero .ctas .btn{width:100%;box-sizing:border-box;min-height:44px;padding:0 20px;font-size:10.5px;letter-spacing:.2em}
+  .hero .ctas{gap:8px;max-width:min(320px,calc(100% - 96px))}
 }
 
 /* zichtbaar in rust; bij binnenkomen schuift het iets omhoog */
@@ -882,7 +883,7 @@ function Hero({ctx}){const {t,go}=ctx;const [paused,setPaused]=useState(()=>redu
       <h1 className="sr">JP SELECT · Redefined Luxury</h1>
       <p className="claim st d1">Redefined Luxury</p>
       <p className="quote st d2">${t.banQ}</p>
-      <div className="ctas st d3"><button className="btn solid" onClick=${()=>go({v:'col',p:'all'})}>${t.explore}</button><button className="btn" onClick=${()=>go({v:'sell'})}>${t.sellCta}</button></div>
+      <div className="ctas st d3"><button className="btn" onClick=${()=>go({v:'col',p:'all'})}>${t.explore}</button><button className="btn solid" onClick=${()=>go({v:'sell'})}>${t.sellCta}</button></div>
     </div></div>
     <button className="pause" onClick=${()=>setPaused(!paused)} aria-label=${paused?t.playV:t.pauseV}>${paused?Ic.play:Ic.pause}</button>
   </section>`}
