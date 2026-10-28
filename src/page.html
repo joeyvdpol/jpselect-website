@@ -37,7 +37,7 @@ p{margin:0}
 .rule{height:1px;background:var(--line);border:0;margin:0}
 
 /* knoppen: rechthoekig, dun, hoofdletters */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:0 30px;border:1px solid var(--char);background:transparent;color:var(--char);font:500 11.5px/1 var(--f-sans);letter-spacing:.22em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:background .35s var(--ease),color .35s var(--ease),border-color .35s}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:0 30px;border:1px solid var(--char);background:transparent;color:var(--char);font:500 11.5px/1 var(--f-sans);letter-spacing:.22em;text-transform:uppercase;cursor:pointer;text-decoration:none;border-radius:999px;transition:background .35s var(--ease),color .35s var(--ease),border-color .35s}
 .btn:hover{background:var(--char);color:var(--ivory)}
 .btn.solid{background:var(--char);color:var(--ivory)}
 .btn.solid:hover{background:transparent;color:var(--char)}
@@ -154,7 +154,7 @@ p{margin:0}
 .st{opacity:0;animation:rise .9s ease forwards}
 .st.d1,.st.d2,.st.d3,.st.d4{animation-delay:0s}
 @keyframes rise{to{opacity:1}}
-.pause{position:absolute;z-index:2;right:var(--gutr);bottom:clamp(40px,9vh,96px);width:44px;height:44px;border:1px solid rgba(36,36,36,.35);display:grid;place-items:center;cursor:pointer;background:rgba(246,243,238,.4);backdrop-filter:blur(6px)}
+.pause{position:absolute;z-index:2;right:var(--gutr);bottom:clamp(40px,9vh,96px);width:44px;height:44px;border:1px solid rgba(36,36,36,.35);display:grid;place-items:center;cursor:pointer;border-radius:50%;background:rgba(246,243,238,.4);backdrop-filter:blur(6px)}
 @media (min-width:800px){.pause{right:max(40px,env(safe-area-inset-right,0px))}}
 .paused .scene .l{animation-play-state:paused}
 .scroll-cue{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:1;display:grid;justify-items:center;gap:8px;color:#4A443C}
