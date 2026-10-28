@@ -914,7 +914,7 @@ function Home({ctx}){const {t,L,products,go}=ctx;
   const shownBrands=BRANDS.filter(b=>counts[b]);
   return html`<${Fragment}>
     <${Hero} ctx=${ctx}/>
-    <section className="wrap" style=${{paddingBlock:'clamp(48px,7vw,96px) clamp(24px,3.5vw,52px)'}} data-tone="ivory">
+    <section className="wrap" style=${{paddingBlock:'clamp(48px,7vw,96px) clamp(44px,5vw,72px)'}} data-tone="ivory">
       <div className="shead rv"><h2>${t.catEy}</h2><button className="lnk" onClick=${()=>go({v:'col',p:'all'})}>${t.viewAll}</button></div>
       <div className="cats">${[['men','img/cat-men.jpg',{v:'col',p:'men-sneakers'}],['women','img/cat-women.jpg',{v:'col',p:'women-sneakers'}],['clothing','img/jp-2610-029-0n.jpg',{v:'col',p:'clothing'}]].map(([k,src,r])=>html`<button key=${k} className="cat" onClick=${()=>go(r)}><span className="im rv-img"><img ...${imp(src,800)} alt="" loading="lazy"/></span><span className="lbl"><b>${t.cats[k]}</b><span>→</span></span></button>`)}</div>
     </section>
