@@ -912,16 +912,16 @@ function Home({ctx}){const {t,L,products,go}=ctx;
   const counts=useMemo(()=>{const m={};products.filter(p=>p.status!=='sold').forEach(p=>{m[p.brand]=(m[p.brand]||0)+1});return m},[products]);
   return html`<${Fragment}>
     <${Hero} ctx=${ctx}/>
-    <section className="wrap" style=${{paddingBlock:'clamp(48px,7vw,96px) var(--secY)'}} data-tone="ivory">
+    <section className="wrap" style=${{paddingBlock:'clamp(48px,7vw,96px) clamp(24px,3.5vw,52px)'}} data-tone="ivory">
       <div className="head rv"><div className="t"><span className="eyebrow cap">${t.catEy}</span></div></div>
       <div className="cats">${[['men','img/cat-men.jpg',{v:'col',p:'men-sneakers'}],['women','img/cat-women.jpg',{v:'col',p:'women-sneakers'}],['clothing','img/jp-2610-029-0n.jpg',{v:'col',p:'clothing'}]].map(([k,src,r])=>html`<button key=${k} className="cat" onClick=${()=>go(r)}><span className="im rv-img"><img ...${imp(src,800)} alt="" loading="lazy"/></span><span className="lbl"><b>${t.cats[k]}</b><span>→</span></span></button>`)}</div>
     </section>
-    <section className="wrap sec" data-tone="ivory"><div className="manifest rv">
+    <section className="wrap" style=${{paddingBlock:'clamp(40px,6vw,88px)'}} data-tone="ivory"><div className="manifest rv">
       <span className="eyebrow cap mid">${t.manEy}</span>
       <p className="mt">${t.manT}</p>
       <button className="lnk" onClick=${()=>go({v:'story'})}>${t.readMore}</button>
     </div></section>
-    <section className="sec" data-tone="beige"><div className="wrap">
+    <section style=${{paddingBlock:'clamp(48px,7vw,110px) var(--secY)'}} data-tone="beige"><div className="wrap">
       <div className="shead rv"><h2>${t.featH}</h2><button className="lnk" onClick=${()=>go({v:'col',p:'all'})}>${t.viewAll}</button></div>
       <div className="grid">${featured.map(p=>html`<${Card} key=${p.id} ctx=${ctx} p=${p}/>`)}</div>
     
