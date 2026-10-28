@@ -1,4 +1,4 @@
-<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><style>:root{color-scheme:light;box-sizing:border-box}body{margin:0;padding:0}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body><title>JP SELECT</title>
+<title>JP SELECT</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="JP SELECT: geselecteerde nieuwe en tweedehands designermode. Hogan, Santoni, Moorer, Gran Sasso en andere Italiaanse huizen. Trade in. Step up.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -421,6 +421,7 @@ p{margin:0}
 
 /* collectiepagina */
 .ph-top{padding-block:clamp(40px,6vw,80px) clamp(24px,3vw,36px);display:grid;gap:14px}
+.colintro{max-width:64ch;margin:0;color:var(--mute);font-size:14.5px;line-height:1.65}
 .ph-top h1{font-size:clamp(44px,6vw,88px);line-height:1}
 .gseg{display:flex;gap:clamp(20px,3vw,36px);margin-top:clamp(8px,1.4vw,18px);flex-wrap:wrap}
 .gseg button{all:unset;cursor:pointer;font:500 12px/1 var(--f-sans);letter-spacing:.22em;text-transform:uppercase;color:var(--mute);padding-bottom:9px;border-bottom:1px solid transparent;transition:color .3s,border-color .3s}
@@ -534,6 +535,7 @@ details p{margin-top:12px;color:#4A443C;font-size:15px;max-width:60ch}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/htm@3.1.1/dist/htm.umd.js"></script>
+<script src="seo.js"></script>
 <script>
 document.documentElement.classList.add('js');
 const {useState,useEffect,useLayoutEffect,useRef,useMemo,useCallback,Fragment}=React;
@@ -683,7 +685,7 @@ const REVS=[
  {u:'gas…',lang:'nl',t:'Perfect. Mooie sneakers. Snelle verzending. Goed contact.',
   tr:{en:'Perfect. Beautiful sneakers. Fast shipping. Good contact.'}}];
 const LANGN={nl:{nl:'Nederlands',fr:'Frans',it:'Italiaans'},en:{nl:'Dutch',fr:'French',it:'Italian'}};
-const BRANDS=['Hogan','Santoni','Moorer','Gran Sasso','Falconeri','Fusalp','Boggi Milano'];
+const BRANDS=(window.JPSEO&&JPSEO.BRANDS)||['Hogan','Santoni','Moorer','Gran Sasso','Falconeri','Fusalp','Boggi Milano'];
 
 /* ---------------- hulpjes ---------------- */
 const ls={get(k,d){try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
@@ -703,8 +705,12 @@ const Ic={
 const Mono=({h})=>html`<svg viewBox="0 0 510 624" style=${{height:h,width:'auto'}} aria-hidden="true"><path fillRule="evenodd" d=${MONO}/></svg>`;
 const Word=({h,cls})=>html`<svg className=${cls||''} viewBox="0 0 1114 108" style=${{height:h,width:'auto'}} aria-hidden="true"><path fillRule="evenodd" d=${WORD}/></svg>`;
 
-/* ---------------- routes (#token, deelbaar) ---------------- */
-const ROUTES={'':['home'],'heren-sneakers':['col','men-sneakers'],'herenschoenen':['col','men-shoes'],'damesschoenen':['col','women-shoes'],'dames-sneakers':['col','women-sneakers'],'nieuw':['col','new'],'schoenen':['col','shoes'],'kleding':['col','clothing'],'collectie':['col','all'],'merken':['brands'],'verhaal':['story'],'verkopen':['sell'],'reviews':['reviews'],'afrekenen':['checkout'],'verzenden':['info','ship'],'voorwaarden':['info','terms'],'privacy':['info','privacy'],'contact':['info','contact']};
+/* ---------------- routes ----------------
+   Live (jpselect.nl / netlify.app): echte adressen zoals /nl/kleding/ en /product/hogan-...-jp-2610-024/ (vindbaar in Google).
+   Prototype (claude.ai): #token zoals voorheen. Adressen, titels en teksten komen uit seo.js (ook gebruikt door de build). */
+const SEO=window.JPSEO;
+const PATHS=(()=>{try{return !!window.JPS_PATHS||/(^|\.)jpselect\.nl$|\.netlify\.app$/.test(location.hostname)}catch(e){return false}})();
+const ROUTES=SEO.ROUTES.nl;
 function parseHash(products){const h=(location.hash||'').slice(1).toLowerCase();
   if(ROUTES[h])return {v:ROUTES[h][0],p:ROUTES[h][1]||''};
   if(h.startsWith('merk-'))return {v:'col',p:'brand',b:h.slice(5)};
@@ -712,11 +718,23 @@ function parseHash(products){const h=(location.hash||'').slice(1).toLowerCase();
   return {v:'home',p:''}}
 function hashOf(r){if(r.v==='product')return r.p;if(r.v==='col'&&r.p==='brand')return 'merk-'+r.b;
   const e=Object.entries(ROUTES).find(([k,v])=>v[0]===r.v&&(v[1]||'')===(r.p||''));return e?e[0]:''}
+/* huidige route uit het adres; onbekend product -> collectie */
+function readRoute(products){
+  if(!PATHS)return {r:parseHash(products)};
+  const pp=SEO.parsePath(location.pathname,products);const lg=SEO.parseLegacyHash(location.hash,products);
+  let r=lg||pp.r;if(r.v==='product'&&!r.p)r={v:'col',p:'all'};
+  return {L:pp.L,r}}
+/* Afbeeldingen op de live site via Netlify Image CDN: juiste breedte en automatisch WebP/AVIF (sneller op mobiel). Valt terug op het origineel. */
+const IM=(src,w)=>(!PATHS||!src||/^(data:|https?:|\/\.netlify)/.test(src))?src:'/.netlify/images?url='+encodeURIComponent('/'+String(src).replace(/^\//,''))+'&w='+w+'&q=78';
+const imFallback=e=>{const el=e.currentTarget,o=el.getAttribute('data-o');if(o&&el.getAttribute('src')!==o){el.removeAttribute('srcset');el.setAttribute('src',o)}};
+const imp=(src,w)=>({src:IM(src,w),'data-o':src,onError:imFallback});
 
 /* ---------------- app ---------------- */
 function App(){
   /* Engels is de hoofdtaal; Nederlands alleen als de bezoeker dat zelf kiest */
-  const [L,setL]=useState(()=>{const s=ls.get('jps3-lang',null);return s==='nl'?'nl':'en'});
+  const [L,setL]=useState(()=>{const s=ls.get('jps3-lang',null);
+    if(PATHS){try{const pp=SEO.parsePath(location.pathname,[]);if(pp.L==='en'&&location.pathname==='/'&&!location.hash&&s==='nl')return 'nl';return pp.L}catch(e){}}
+    return s==='nl'?'nl':'en'});
   const t=T[L];
   const [products,setProducts]=useState([]);const [loadErr,setLoadErr]=useState('');
   const [route,setRoute]=useState({v:'home',p:''});
@@ -724,14 +742,24 @@ function App(){
   const [ui,setUi]=useState({menu:false,search:false,bag:false,acct:false,quick:null});
   const [toast,setToast]=useState('');const tt=useRef(0);
   const say=m=>{setToast(m);clearTimeout(tt.current);tt.current=setTimeout(()=>setToast(''),2400)};
-  useEffect(()=>{fetch('data/products.json?v='+Date.now()).then(r=>r.json()).then(d=>{setProducts(d.products);setRoute(parseHash(d.products))}).catch(()=>setLoadErr('load'))},[]);
-  useEffect(()=>{const on=()=>{setRoute(parseHash(products))};window.addEventListener('hashchange',on);return()=>window.removeEventListener('hashchange',on)},[products]);
+  const Lref=useRef(L);Lref.current=L;const pref=useRef(products);pref.current=products;const rref=useRef(route);rref.current=route;
+  useEffect(()=>{fetch('data/products.json?v='+Date.now()).then(r=>r.json()).then(d=>{setProducts(d.products);const rr=readRoute(d.products);setRoute(rr.r);
+    if(PATHS){try{const want=SEO.pathOf(rr.r,Lref.current,d.products);if(location.pathname!==want||location.hash)history.replaceState(null,'',want+location.search)}catch(e){}}}).catch(()=>setLoadErr('load'))},[]);
+  useEffect(()=>{if(PATHS){const on=()=>{const rr=readRoute(pref.current);setRoute(rr.r);if(rr.L)setL(rr.L);setUi({menu:false,search:false,bag:false,acct:false,quick:null})};window.addEventListener('popstate',on);return()=>window.removeEventListener('popstate',on)}
+    const on=()=>{setRoute(parseHash(products))};window.addEventListener('hashchange',on);return()=>window.removeEventListener('hashchange',on)},[products]);
+  /* paginatitel, omschrijving en canonieke link per pagina */
+  useEffect(()=>{if(!products.length)return;try{const c0=document.querySelector('link[rel="canonical"]');const origin=c0&&c0.href?new URL(c0.href).origin:location.origin;
+    const m=SEO.meta(route,L,products,origin);document.title=m.title;const md=document.querySelector('meta[name="description"]');if(md)md.setAttribute('content',m.description);
+    if(PATHS&&c0)c0.setAttribute('href',m.canonical)}catch(e){}},[route,L,products]);
   useEffect(()=>{document.documentElement.lang=L;ls.set('jps3-lang',L)},[L]);
   useEffect(()=>{ls.set('jps2-bag',bag)},[bag]);
   useEffect(()=>{if(products.length)setBag(b=>b.filter(id=>{const p=products.find(x=>x.id===id);return p&&p.status==='available'}))},[products]);
   const go=useCallback((r)=>{setUi({menu:false,search:false,bag:false,acct:false,quick:null});setRoute(r);
-    try{const h=hashOf(r);history.replaceState(null,'',h?'#'+h:location.pathname+location.search)}catch(e){}
+    try{if(PATHS){const want=SEO.pathOf(r,Lref.current,pref.current);if(want!==location.pathname)history.pushState(null,'',want)}
+      else{const h=hashOf(r);history.replaceState(null,'',h?'#'+h:location.pathname+location.search)}}catch(e){}
     toTop()},[]);
+  /* taal wisselen: op de live site naar hetzelfde adres in de andere taal */
+  const setLang=useCallback(l=>{setL(l);if(PATHS){try{history.replaceState(null,'',SEO.pathOf(rref.current,l,pref.current))}catch(e){}}},[]);
   /* na elke paginawissel bovenaan beginnen, ook na het renderen (iOS) */
   useLayoutEffect(()=>{toTop();const r=requestAnimationFrame(toTop);const tm=setTimeout(toTop,60);return()=>{cancelAnimationFrame(r);clearTimeout(tm)}},[route.v,route.p,route.b]);
   const add=p=>{if(p.status!=='available')return;if(bag.includes(p.id)){say(t.onlyOne);setUi(u=>({...u,bag:true,quick:null}));return}
@@ -742,7 +770,7 @@ function App(){
   const open=k=>setUi(u=>({menu:false,search:false,bag:false,acct:false,quick:null,[k]:true}));
   const close=()=>setUi({menu:false,search:false,bag:false,acct:false,quick:null});
   useEffect(()=>{const k=e=>{if(e.key==='Escape')close()};document.addEventListener('keydown',k);return()=>document.removeEventListener('keydown',k)},[]);
-  const ctx={L,setL,t,products,go,route,bag,add,rm,open,close,ui,setUi,say};
+  const ctx={L,setL:setLang,t,products,go,route,bag,add,rm,open,close,ui,setUi,say};
   const anyOverlay=ui.menu||ui.bag||ui.search||ui.quick;
   useEffect(()=>{document.body.style.overflow=(ui.menu||ui.lb)?'hidden':'';},[ui.menu,ui.lb]);
   const page=route.v==='home'?html`<${Home} ctx=${ctx}/>`:route.v==='col'?html`<${Collection} ctx=${ctx} key=${route.p+(route.b||'')}/>`:route.v==='product'?html`<${Product} ctx=${ctx} key=${route.p}/>`:route.v==='brands'?html`<${BrandsPage} ctx=${ctx}/>`:route.v==='story'?html`<${StoryPage} ctx=${ctx}/>`:route.v==='sell'?html`<${SellPage} ctx=${ctx}/>`:route.v==='reviews'?html`<${ReviewsPage} ctx=${ctx}/>`:route.v==='checkout'?html`<${Checkout} ctx=${ctx}/>`:html`<${Info} ctx=${ctx} k=${route.p}/>`;
@@ -864,8 +892,8 @@ function Card({ctx,p}){const {t,L,go,setUi,bag}=ctx;
   const clickable=p.status!=='sold';
   return html`<article className=${'pc rv'+(p.status==='sold'?' sold':'')}>
     <button className="ph" onClick=${()=>clickable&&go({v:'product',p:p.id})} aria-label=${p.brand+' '+p.model+(p.size?', '+szl(p,L):'')} disabled=${!clickable}>
-      <img src=${p.images[0]} alt="" loading="lazy" width="900" height="1125"/>
-      ${p.images[1]&&!p.demo&&html`<img className="alt" src=${p.images[1]} alt="" loading="lazy"/>`}
+      <img ...${imp(p.images[0],700)} alt="" loading="lazy" width="900" height="1125"/>
+      ${p.images[1]&&!p.demo&&html`<img className="alt" ...${imp(p.images[1],700)} alt="" loading="lazy"/>`}
       ${(p.demo||p.nophoto)&&html`<div className="demo-ov"><${Mono} h=${44}/><span className="cap" style=${{fontSize:9.5}}>${p.demo?t.photoFollows:t.photoSoon}</span></div>`}
       ${tag}
     </button>
@@ -886,7 +914,7 @@ function Home({ctx}){const {t,L,products,go}=ctx;
     <${Hero} ctx=${ctx}/>
     <section className="wrap" style=${{paddingBlock:'clamp(48px,7vw,96px) var(--secY)'}} data-tone="ivory">
       <div className="head rv"><div className="t"><span className="eyebrow cap">${t.catEy}</span></div></div>
-      <div className="cats">${[['men','img/cat-men.jpg',{v:'col',p:'men-sneakers'}],['women','img/cat-women.jpg',{v:'col',p:'women-sneakers'}],['clothing','img/jp-2610-029-0n.jpg',{v:'col',p:'clothing'}]].map(([k,src,r])=>html`<button key=${k} className="cat" onClick=${()=>go(r)}><span className="im rv-img"><img src=${src} alt="" loading="lazy"/></span><span className="lbl"><b>${t.cats[k]}</b><span>→</span></span></button>`)}</div>
+      <div className="cats">${[['men','img/cat-men.jpg',{v:'col',p:'men-sneakers'}],['women','img/cat-women.jpg',{v:'col',p:'women-sneakers'}],['clothing','img/jp-2610-029-0n.jpg',{v:'col',p:'clothing'}]].map(([k,src,r])=>html`<button key=${k} className="cat" onClick=${()=>go(r)}><span className="im rv-img"><img ...${imp(src,800)} alt="" loading="lazy"/></span><span className="lbl"><b>${t.cats[k]}</b><span>→</span></span></button>`)}</div>
     </section>
     <section className="wrap sec" data-tone="ivory"><div className="manifest rv">
       <span className="eyebrow cap mid">${t.manEy}</span>
@@ -920,7 +948,7 @@ function Approach({ctx}){const {t}=ctx;
 
 function StoryBlock({ctx,teaser}){const {t,go}=ctx;
   return html`<div className="story">
-    <div><div className="pic rv-img"><img src="scene/story-hogan.jpg" alt="Hogan sneakers op een stapel boeken" loading="lazy"/></div></div>
+    <div><div className="pic rv-img"><img ...${imp('scene/story-hogan.jpg',1200)} alt="Hogan sneakers op een stapel boeken" loading="lazy"/></div></div>
     <div className="txt rv"><span className="eyebrow cap">${t.storyEy}</span><h2>${t.storyH}</h2>${t.storyP.map((x,i)=>html`<p key=${i}>${x}</p>`)}
       ${teaser&&html`<div><button className="lnk" onClick=${()=>go({v:'story'})}>${t.readMore}</button></div>`}</div>
   </div>`}
@@ -1088,13 +1116,14 @@ function Collection({ctx}){const {t,L,products,route,go}=ctx;
   const brands=useMemo(()=>[...new Set(pool.map(p=>p.brand))].sort(),[pool]);
   const sneak=preset==='men-sneakers'||preset==='women-sneakers';
   const shoeG=preset==='shoes'||preset==='men-shoes'||preset==='women-shoes';
+  const introTxt=SEO.intro(brandName?'brand':preset,brandName,L);
   const title=brandName||(sneak?(f.gender?t.col[f.gender+'-sneakers']:t.col.sneakers):shoeG?(f.gender?t.col[f.gender+'-shoes']:t.col.shoes):t.col[preset])||t.col.all;
   const showG=preset!=='clothing'&&pre.some(p=>p.gender==='men')&&pre.some(p=>p.gender==='women');
   const gcount=g=>g?pre.filter(p=>p.gender===g).length:pre.length;
   const nf=f.cats.length+f.brands.length+f.sizes.length+f.conds.length+(f.gender&&!showG?1:0)+(f.price!=='all'?1:0);
   const chips=(k,opts)=>html`<div className="chips">${opts.map(([v,l])=>html`<button key=${v} type="button" className="chip" aria-pressed=${f[k].includes(v)} onClick=${()=>tog(k,v)}>${l}</button>`)}</div>`;
   return html`<div className="wrap">
-    <div className="ph-top"><span className="eyebrow cap">JP SELECT</span><h1>${title}</h1>
+    <div className="ph-top"><span className="eyebrow cap">JP SELECT</span><h1>${title}</h1>${introTxt&&html`<p className="colintro">${introTxt}</p>`}
       ${showG&&html`<div className="gseg" role="group" aria-label=${t.fGender}>${[['',t.gAll],['men',t.men],['women',t.women]].map(([v,l])=>html`<button key=${v||'all'} type="button" aria-pressed=${f.gender===v} onClick=${()=>setF(o=>({...o,gender:v}))}>${l}<sup>${gcount(v)}</sup></button>`)}</div>`}</div>
     <div className="toolbar">
       <button className="sel" onClick=${()=>setOpen(true)} aria-expanded=${open}>${t.filters}${nf?' ('+nf+')':''}</button>
@@ -1141,9 +1170,9 @@ function Product({ctx}){const {t,L,products,route,go}=ctx;const p=products.find(
     <nav className="crumbs" aria-label="Kruimelpad"><button onClick=${()=>go({v:'col',p:'all'})}>${t.col.all}</button><span>/</span><button onClick=${()=>go({v:'col',p:'brand',b:p.brand.toLowerCase().replace(/\s+/g,'-')})}>${p.brand}</button><span>/</span><span>${p.model}</span></nav>
     <div className="pd">
       <div className="gallery">
-        ${p.images.length>1?html`<div className="thumbs2">${p.images.map((src,i)=>html`<button key=${src} aria-current=${i===gi} aria-label=${'Foto '+(i+1)} onClick=${()=>setGi(i)}><img src=${src} alt=""/></button>`)}</div>`:html`<div></div>`}
+        ${p.images.length>1?html`<div className="thumbs2">${p.images.map((src,i)=>html`<button key=${src} aria-current=${i===gi} aria-label=${'Foto '+(i+1)} onClick=${()=>setGi(i)}><img ...${imp(src,240)} alt=""/></button>`)}</div>`:html`<div></div>`}
         <div className=${'zoom'+(zoom?' on':'')} ref=${zr} onMouseEnter=${()=>fine&&setZoom(true)} onMouseLeave=${()=>setZoom(false)} onMouseMove=${move} onClick=${()=>setLb(true)} role="button" tabIndex="0" aria-label=${t.zoom} onKeyDown=${e=>{if(e.key==='Enter')setLb(true)}}>
-          <img src=${p.images[gi]} alt=${p.brand+' '+p.model}/>
+          <img ...${imp(p.images[gi],1200)} alt=${p.brand+' '+p.model}/>
           ${(p.demo||p.nophoto)&&html`<div className="demo-ov"><${Mono} h=${64}/><span className="cap">${p.demo?t.photoFollows:t.photoSoon}</span></div>`}
           <span className="hint">${t.zoom}</span></div>
       </div>
@@ -1162,7 +1191,7 @@ function Product({ctx}){const {t,L,products,route,go}=ctx;const p=products.find(
     </div>
     ${rel.length>0&&html`<section style=${{paddingBottom:100}}><div className="head"><div className="t"><h2 style=${{fontSize:'clamp(28px,3vw,40px)'}}>${t.related}</h2></div></div><div className="grid">${rel.map(x=>html`<${Card} key=${x.id} ctx=${ctx} p=${x}/>`)}</div></section>`}
     ${lb&&html`<div className="lb" role="dialog" aria-label=${p.brand+' '+p.model}>
-      <img src=${p.images[gi]} alt=${p.brand+' '+p.model}/>
+      <img ...${imp(p.images[gi],1600)} alt=${p.brand+' '+p.model}/>
       <button className="icon x" onClick=${()=>setLb(false)} aria-label=${t.close}>${Ic.x}</button>
       ${p.images.length>1&&html`<button className="icon prev" onClick=${()=>setGi((gi-1+p.images.length)%p.images.length)} aria-label="Vorige">${Ic.l}</button><button className="icon next" onClick=${()=>setGi((gi+1)%p.images.length)} aria-label="Volgende">${Ic.r}</button>`}
     </div>`}
@@ -1170,7 +1199,7 @@ function Product({ctx}){const {t,L,products,route,go}=ctx;const p=products.find(
 
 function Quick({ctx,id}){const {t,L,products,go,close}=ctx;const p=products.find(x=>x.id===id);if(!p)return null;
   return html`<div className="modal" role="dialog" aria-label=${p.brand+' '+p.model}><div className="box">
-    <div className="pic" style=${{position:'relative'}}><img src=${p.images[0]} alt=""/>${(p.demo||p.nophoto)&&html`<div className="demo-ov"><${Mono} h=${50}/><span className="cap" style=${{fontSize:9.5}}>${p.demo?t.photoFollows:t.photoSoon}</span></div>`}</div>
+    <div className="pic" style=${{position:'relative'}}><img ...${imp(p.images[0],900)} alt=""/>${(p.demo||p.nophoto)&&html`<div className="demo-ov"><${Mono} h=${50}/><span className="cap" style=${{fontSize:9.5}}>${p.demo?t.photoFollows:t.photoSoon}</span></div>`}</div>
     <div className="in"><span className="cap">${p.brand}${p.demo?' · '+t.tagDemo:''}</span><h2 style=${{fontSize:34,lineHeight:1.05}}>${p.model}</h2>
       <div style=${{fontSize:19}}>${fmt(p.price,L)||t.priceTba}</div>
       <dl className="spec"><dt>${t.pSize}</dt><dd>${szl(p,L)}</dd><dt>${t.pCond}</dt><dd>${t.cond[p.condition]}</dd><dt>${t.pColor}</dt><dd>${p.color[L]}</dd></dl>
@@ -1184,7 +1213,7 @@ function Quick({ctx,id}){const {t,L,products,go,close}=ctx;const p=products.find
 function Bag({ctx}){const {t,L,products,bag,rm,ui,close,go}=ctx;const items=bag.map(id=>products.find(p=>p.id===id)).filter(Boolean);const sub=items.reduce((a,p)=>a+(p.price||0),0);
   return html`<aside className=${'panel right'+(ui.bag?' on':'')} aria-hidden=${!ui.bag} aria-label=${t.bagT}>
     <header><span className="cap">${t.bagT} (${items.length})</span><button className="icon" onClick=${close} aria-label=${t.close} tabIndex=${ui.bag?0:-1}>${Ic.x}</button></header>
-    <div className="body">${items.length?items.map(p=>html`<div className="line" key=${p.id}><img src=${p.images[0]} alt=""/><div className="nm"><span className="cap" style=${{fontSize:9.5}}>${p.brand}</span><b>${p.model}</b><span className="mute">${szl(p,L)} · ${t.cond[p.condition]}</span><span className="mute" style=${{fontSize:12}}>${t.unique}</span><button className="rm" onClick=${()=>rm(p.id)}>${t.remove}</button></div><span>${fmt(p.price,L)}</span></div>`)
+    <div className="body">${items.length?items.map(p=>html`<div className="line" key=${p.id}><img ...${imp(p.images[0],400)} alt=""/><div className="nm"><span className="cap" style=${{fontSize:9.5}}>${p.brand}</span><b>${p.model}</b><span className="mute">${szl(p,L)} · ${t.cond[p.condition]}</span><span className="mute" style=${{fontSize:12}}>${t.unique}</span><button className="rm" onClick=${()=>rm(p.id)}>${t.remove}</button></div><span>${fmt(p.price,L)}</span></div>`)
       :html`<div className="empty" style=${{padding:'50px 0'}}><p>${t.bagEmpty}</p><button className="btn" onClick=${()=>go({v:'col',p:'all'})}>${t.continue}</button></div>`}</div>
     ${items.length>0&&html`<footer><div className="tot"><div><span>${t.sub}</span><span>${fmt(sub,L)}</span></div><div className="mute"><span>${t.shipCalc}</span><span>${t.shipLater}</span></div></div><button className="btn solid full" onClick=${()=>go({v:'checkout'})}>${t.checkout}</button></footer>`}
   </aside>`}
@@ -1202,7 +1231,7 @@ function Checkout({ctx}){const {t,L,products,bag,go}=ctx;const items=bag.map(id=
         <div className="full"><button className="btn solid full" type="submit">${t.coNext}</button></div></form>`
       :html`<div className="okbox"><span className="cap" style=${{color:'var(--champ)'}}>Prototype</span><h3 style=${{fontSize:26}}>${t.coPayH}</h3><p className="mute">${t.coPayP}</p><p style=${{fontSize:14}}>${f.name} · ${f.email}<br/>${f.street}, ${f.zip} ${f.city}, ${t.countries[f.country]}</p><div><button className="btn" onClick=${()=>setStep('form')}>${t.coEdit}</button></div></div>`}
     </div>
-    <aside className="sum"><span className="cap">${t.coSum}</span>${items.map(p=>html`<div className="line" key=${p.id} style=${{paddingBlock:10}}><img src=${p.images[0]} alt=""/><div className="nm"><span className="cap" style=${{fontSize:9.5}}>${p.brand}</span><b>${p.model}</b><span className="mute">${szl(p,L)}</span></div><span>${fmt(p.price,L)}</span></div>`)}
+    <aside className="sum"><span className="cap">${t.coSum}</span>${items.map(p=>html`<div className="line" key=${p.id} style=${{paddingBlock:10}}><img ...${imp(p.images[0],400)} alt=""/><div className="nm"><span className="cap" style=${{fontSize:9.5}}>${p.brand}</span><b>${p.model}</b><span className="mute">${szl(p,L)}</span></div><span>${fmt(p.price,L)}</span></div>`)}
       <div className="tot"><div><span>${t.sub}</span><span>${fmt(sub,L)}</span></div><div className="mute"><span>${t.shipCalc}</span><span>${t.placeholder}</span></div><div className="g"><span>${t.total}</span><span>${fmt(sub,L)} + ${L==='nl'?'verzending':'shipping'}</span></div><p className="mute" style=${{fontSize:12.5}}>${t.vatP}</p></div></aside>
   </div>`}
 
@@ -1212,7 +1241,7 @@ function Search({ctx}){const {t,L,products,ui,close,go}=ctx;const [q,setQ]=useSt
   const res=useMemo(()=>{const s=q.trim().toLowerCase();if(!s)return [];return products.filter(p=>p.status!=='sold').filter(p=>[p.brand,p.model,p.sku,szl(p,'en'),p.color.nl,p.color.en,t.catN[p.category]].join(' ').toLowerCase().includes(s)).slice(0,12)},[q,products,L]);
   return html`<div className=${'search'+(ui.search?' on':'')} aria-hidden=${!ui.search} role="dialog" aria-label=${t.search}><div className="wrap">
     <div className="bar"><label className="sr" htmlFor="q">${t.sH}</label><input id="q" ref=${ref} value=${q} onInput=${e=>setQ(e.target.value)} placeholder=${t.sH} autoComplete="off" tabIndex=${ui.search?0:-1}/><button className="icon" onClick=${close} aria-label=${t.close} tabIndex=${ui.search?0:-1}>${Ic.x}</button></div>
-    ${q.trim()?(res.length?html`<div className="res">${res.map(p=>html`<button key=${p.id} onClick=${()=>go({v:'product',p:p.id})}><img src=${p.images[0]} alt=""/><span><span className="cap" style=${{fontSize:9.5}}>${p.brand}${p.demo?' · Demo':''}</span><b>${p.model}</b><span className="mute" style=${{fontSize:13}}>${szl(p,L)} · ${fmt(p.price,L)||t.priceTba}</span></span></button>`)}</div>`:html`<p className="mute" style=${{paddingBlock:'10px 30px'}}>${t.sNone}</p>`):html`<p className="mute" style=${{paddingBlock:'10px 30px'}}>${t.sTips}</p>`}
+    ${q.trim()?(res.length?html`<div className="res">${res.map(p=>html`<button key=${p.id} onClick=${()=>go({v:'product',p:p.id})}><img ...${imp(p.images[0],400)} alt=""/><span><span className="cap" style=${{fontSize:9.5}}>${p.brand}${p.demo?' · Demo':''}</span><b>${p.model}</b><span className="mute" style=${{fontSize:13}}>${szl(p,L)} · ${fmt(p.price,L)||t.priceTba}</span></span></button>`)}</div>`:html`<p className="mute" style=${{paddingBlock:'10px 30px'}}>${t.sNone}</p>`):html`<p className="mute" style=${{paddingBlock:'10px 30px'}}>${t.sTips}</p>`}
   </div></div>`}
 
 /* ---------------- losse pagina's ---------------- */
@@ -1242,4 +1271,3 @@ function Footer({ctx}){const {t,go,say}=ctx;const [m,setM]=useState('');
 
 ReactDOM.createRoot(document.getElementById('root')).render(html`<${App}/>`);
 </script>
-</body></html>
