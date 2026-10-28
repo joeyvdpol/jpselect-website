@@ -234,6 +234,7 @@ p{margin:0}
 
 /* producttegels */
 .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(28px,3vw,44px) clamp(12px,1.6vw,22px)}
+@media (max-width:700px){.grid.feat>:nth-child(n+7){display:none}}
 @media (max-width:1100px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:760px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .pc{display:grid;gap:14px;align-content:start;min-width:0;position:relative}
@@ -910,31 +911,28 @@ function Home({ctx}){const {t,L,products,go}=ctx;
   const featured=useMemo(()=>products.filter(p=>(p.status==='available'||p.status==='coming')&&p.category!=='clothing').sort((a,b)=>(a.feat??99)-(b.feat??99)).slice(0,8),[products]);
   const recentSold=useMemo(()=>products.filter(p=>p.status==='sold').sort((a,b)=>(a.soldFeat??99)-(b.soldFeat??99)||String(b.soldAt||'').localeCompare(String(a.soldAt||''))||((b.category==='clothing')-(a.category==='clothing'))||a.id.localeCompare(b.id)).slice(0,4),[products]);
   const counts=useMemo(()=>{const m={};products.filter(p=>p.status!=='sold').forEach(p=>{m[p.brand]=(m[p.brand]||0)+1});return m},[products]);
+  const shownBrands=BRANDS.filter(b=>counts[b]);
   return html`<${Fragment}>
     <${Hero} ctx=${ctx}/>
     <section className="wrap" style=${{paddingBlock:'clamp(48px,7vw,96px) clamp(24px,3.5vw,52px)'}} data-tone="ivory">
       <div className="head rv"><div className="t"><span className="eyebrow cap">${t.catEy}</span></div></div>
       <div className="cats">${[['men','img/cat-men.jpg',{v:'col',p:'men-sneakers'}],['women','img/cat-women.jpg',{v:'col',p:'women-sneakers'}],['clothing','img/jp-2610-029-0n.jpg',{v:'col',p:'clothing'}]].map(([k,src,r])=>html`<button key=${k} className="cat" onClick=${()=>go(r)}><span className="im rv-img"><img ...${imp(src,800)} alt="" loading="lazy"/></span><span className="lbl"><b>${t.cats[k]}</b><span>→</span></span></button>`)}</div>
     </section>
-    <section className="wrap" style=${{paddingBlock:'clamp(40px,6vw,88px)'}} data-tone="ivory"><div className="manifest rv">
-      <span className="eyebrow cap mid">${t.manEy}</span>
-      <p className="mt">${t.manT}</p>
-      <button className="lnk" onClick=${()=>go({v:'story'})}>${t.readMore}</button>
-    </div></section>
-    <section style=${{paddingBlock:'clamp(48px,7vw,110px) var(--secY)'}} data-tone="beige"><div className="wrap">
+    <section style=${{paddingBlock:'clamp(40px,6vw,88px) clamp(48px,7vw,110px)'}} data-tone="beige"><div className="wrap">
       <div className="shead rv"><h2>${t.featH}</h2><button className="lnk" onClick=${()=>go({v:'col',p:'all'})}>${t.viewAll}</button></div>
-      <div className="grid">${featured.map(p=>html`<${Card} key=${p.id} ctx=${ctx} p=${p}/>`)}</div>
-    
-      ${recentSold.length>0&&html`<div className="shead rv" style=${{marginTop:'clamp(56px,7vw,96px)'}}><h2>${t.soldH}</h2><button className="lnk" onClick=${()=>go({v:'reviews'})}>${t.revRead}</button></div>
-      <div className="grid">${recentSold.map(p=>html`<${Card} key=${p.id} ctx=${ctx} p=${p}/>`)}</div>`}
+      <div className="grid feat">${featured.map(p=>html`<${Card} key=${p.id} ctx=${ctx} p=${p}/>`)}</div>
     </div></section>
+    <section className="wrap" style=${{paddingBlock:'clamp(48px,7vw,110px)'}} data-tone="ivory" id="trade"><${TradeIn} ctx=${ctx} teaser=${true}/></section>
+    ${recentSold.length>0&&html`<section style=${{paddingBlock:'clamp(48px,7vw,110px) 0'}} data-tone="beige"><div className="wrap">
+      <div className="shead rv"><h2>${t.soldH}</h2><button className="lnk" onClick=${()=>go({v:'reviews'})}>${t.revRead}</button></div>
+      <div className="grid">${recentSold.map(p=>html`<${Card} key=${p.id} ctx=${ctx} p=${p}/>`)}</div>
+    </div></section>`}
     <section className="wrap" style=${{paddingBlock:'calc(var(--secY) * .5)'}} data-tone="ivory"><${Reviews} ctx=${ctx}/></section>
-    <section className="wrap sec" data-tone="ivory" id="trade"><${TradeIn} ctx=${ctx} teaser=${true}/></section>
-    <section className="sec" data-tone="beige"><div className="wrap" style=${{display:'grid',gap:44}}>
+    ${shownBrands.length>0&&html`<section className="sec" data-tone="beige"><div className="wrap" style=${{display:'grid',gap:44}}>
       <div className="head rv" style=${{justifyContent:'center',textAlign:'center',marginBottom:0}}><div className="t" style=${{justifyItems:'center'}}><span className="eyebrow cap mid">${t.brandsEy}</span><h2>${t.brandsH}</h2></div></div>
-      <div className="brands rv">${BRANDS.map(b=>html`<button key=${b} onClick=${()=>go({v:'col',p:'brand',b:b.toLowerCase().replace(/\s+/g,'-')})}>${b}<small>${counts[b]?t.items(counts[b]):t.noneYet}</small></button>`)}</div>
+      <div className="brands rv">${shownBrands.map(b=>html`<button key=${b} onClick=${()=>go({v:'col',p:'brand',b:b.toLowerCase().replace(/\s+/g,'-')})}>${b}<small>${counts[b]?t.items(counts[b]):t.noneYet}</small></button>`)}</div>
       <p className="mute" style=${{textAlign:'center',fontSize:13}}>${t.brandsNote}</p>
-    </div></section>
+    </div></section>`}
     <section className="wrap sec" data-tone="ivory"><${StoryBlock} ctx=${ctx} teaser=${true}/></section>
   <//>`}
 
