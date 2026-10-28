@@ -216,7 +216,7 @@ p{margin:0}
 .cat .lbl span{position:absolute;right:0;bottom:12px;font-size:18px;transform:translateX(-6px);opacity:0;transition:.5s var(--ease)}
 .cat:hover .lbl span{transform:none;opacity:1}
 .cat:focus-visible{outline:1px solid var(--char);outline-offset:3px}
-@media (max-width:700px){.cats{grid-template-columns:1fr 1fr;row-gap:26px}.cat .im{aspect-ratio:3/4}.cat:nth-child(3){grid-column:1/-1}.cat:nth-child(3) .im{aspect-ratio:4/3}.cat:nth-child(3) img{object-position:50% 12%}.cat .lbl{gap:8px}.cat .lbl b{font-size:min(19px,4.1vw);white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}.cat .lbl span{opacity:1;transform:none;flex:none;font-size:16px}}
+@media (max-width:700px){.cats{grid-template-columns:1fr 1fr;row-gap:26px}.cat .im{aspect-ratio:3/4}.cat:nth-child(3){grid-column:1/-1}.cat:nth-child(3) .im{aspect-ratio:4/3}.cat:nth-child(3) img{object-position:50% 12%}.cat .lbl{gap:8px;justify-content:space-between;text-align:left}.cat .lbl b{font-size:min(19px,4.6vw);white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}.cat .lbl span{position:static;opacity:1;transform:none;flex:none;font-size:16px}}
 
 .head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:clamp(28px,4vw,48px)}
 .head .t{display:grid;gap:14px;min-width:0;flex:1 1 300px}
@@ -559,7 +559,7 @@ nl:{
  manEy:'Over JP SELECT',manT:'Geen massa, maar een selectie. Ontdek nieuwe en pre-owned designermode, zelf uitgekozen en tot in de details gecontroleerd. Of geef je eigen stukken een nieuwe eigenaar.',
  philoEy:'De JP SELECT-filosofie',philoH:'Uitzonderlijke stukken. <em>Zorgvuldig geselecteerd.</em>',
  philoP:['JP SELECT brengt nieuwe en tweedehands designermode samen, met oog voor vakmanschap, staat en tijdloze stijl.','We kiezen merken die we kennen, kijken elk stuk na en beschrijven eerlijk wat je krijgt. Vaak is er maar één stuk, in één maat. Wie het ziet, beslist.'],
- catEy:'Shop',cats:{men:'Heren sneakers',women:'Dames sneakers',clothing:'Kleding'},
+ catEy:'Shop per categorie',cats:{men:'Heren sneakers',women:'Dames sneakers',clothing:'Kleding'},
  featEy:'Collectie',featH:'Nu in de collectie',featP:'Een selectie uit de collectie. Stukken met het label Demo zijn voorbeelden om de shop te tonen; die zijn niet te koop.',viewAll:'Bekijk alles',
  hzEy:'Onze werkwijze',hzH:'Van selectie tot je deur.',
  hz:[['Selectie','We kiezen merken en modellen die we kennen: Hogan, Santoni, Moorer en andere Italiaanse huizen. Kwaliteit en pasvorm gaan voor volume.'],['Controle','Elk stuk wordt nagekeken op staat, details en echtheidskenmerken voordat het online komt. Gebruikssporen benoemen we gewoon.'],['Presentatie','We fotograferen in onze vaste studiostijl: koel lichtgrijs, een gebroken witte sokkel, eerlijke kleuren.'],['Verzending','Zorgvuldig verpakt en verzonden vanuit Nederland. Vragen? Je krijgt antwoord van degene die het stuk in handen had.']],
@@ -618,7 +618,7 @@ en:{
  manEy:'About JP SELECT',manT:'Not mass, but a selection. Discover new and pre-owned designer fashion, hand-picked and checked down to the details. Or give your own pieces a new owner.',
  philoEy:'The JP SELECT philosophy',philoH:'Exceptional pieces. <em>Carefully selected.</em>',
  philoP:['JP SELECT brings together new and pre-owned designer fashion, with attention to craftsmanship, condition and timeless style.','We choose brands we know, check every piece and describe honestly what you get. Often there is just one piece, in one size. Whoever sees it, decides.'],
- catEy:'Shop',cats:{men:'Men’s sneakers',women:'Women’s sneakers',clothing:'Clothing'},
+ catEy:'Shop by category',cats:{men:'Men’s sneakers',women:'Women’s sneakers',clothing:'Clothing'},
  featEy:'Collection',featH:'Now in the collection',featP:'A selection from the collection. Pieces labelled Demo are examples to show the shop; they are not for sale.',viewAll:'View all',
  hzEy:'How we work',hzH:'From selection to your door.',
  hz:[['Selection','We choose brands and models we know: Hogan, Santoni, Moorer and other Italian houses. Quality and fit come before volume.'],['Inspection','Every piece is checked for condition, details and authenticity features before it goes online. Signs of wear are simply stated.'],['Presentation','We photograph in our consistent studio style: cool light grey, an off-white pedestal, true colours.'],['Shipping','Carefully packed and shipped from the Netherlands. Questions? You get an answer from the person who handled the piece.']],
@@ -915,7 +915,7 @@ function Home({ctx}){const {t,L,products,go}=ctx;
   return html`<${Fragment}>
     <${Hero} ctx=${ctx}/>
     <section className="wrap" style=${{paddingBlock:'clamp(48px,7vw,96px) clamp(24px,3.5vw,52px)'}} data-tone="ivory">
-      <div className="head rv"><div className="t"><span className="eyebrow cap">${t.catEy}</span></div></div>
+      <div className="shead rv"><h2>${t.catEy}</h2><button className="lnk" onClick=${()=>go({v:'col',p:'all'})}>${t.viewAll}</button></div>
       <div className="cats">${[['men','img/cat-men.jpg',{v:'col',p:'men-sneakers'}],['women','img/cat-women.jpg',{v:'col',p:'women-sneakers'}],['clothing','img/jp-2610-029-0n.jpg',{v:'col',p:'clothing'}]].map(([k,src,r])=>html`<button key=${k} className="cat" onClick=${()=>go(r)}><span className="im rv-img"><img ...${imp(src,800)} alt="" loading="lazy"/></span><span className="lbl"><b>${t.cats[k]}</b><span>→</span></span></button>`)}</div>
     </section>
     <section style=${{paddingBlock:'clamp(40px,6vw,88px) clamp(48px,7vw,110px)'}} data-tone="beige"><div className="wrap">
