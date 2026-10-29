@@ -531,13 +531,14 @@ details p{margin-top:12px;color:#4A443C;font-size:15px;max-width:60ch}
 .text h3{margin-top:14px;font-size:24px}
 .text p{color:#4A443C}
 .ph-note{border:1px dashed var(--line2);padding:16px;font-size:14px;color:var(--mute)}
+.text .lgh{font-size:clamp(22px,2.4vw,28px);font-weight:400;margin:22px 0 -4px}.text .lglist{margin:0;padding-left:1.1em;display:grid;gap:8px}.text .lglist li{line-height:1.6}
 </style>
 
 <div id="root"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/htm@3.1.1/dist/htm.umd.js"></script>
-<script src="seo.js"></script>
+<script src="seo.js"></script><script src="shop.js"></script>
 <script>
 document.documentElement.classList.add('js');
 const {useState,useEffect,useLayoutEffect,useRef,useMemo,useCallback,Fragment}=React;
@@ -576,7 +577,7 @@ nl:{
  storyEy:'Ons verhaal',storyH:'Onafhankelijk. Persoonlijk. Zorgvuldig.',
  storyP:['JP SELECT is een onafhankelijk modebedrijf uit Nederland, gebouwd op drie dingen: selectie, kwaliteit en persoonlijke service.','Je koopt niet van een anoniem platform, maar van iemand die elk stuk zelf heeft uitgekozen en nagekeken. Vragen over pasvorm, staat of maat beantwoorden we persoonlijk.'],
  storyCap:'Sfeerbeeld, digitaal gemaakt door JP SELECT.',readMore:'Lees ons verhaal',
- f:{shop:'Shop',about:'Over JP SELECT',service:'Service',contact:'Contact',ship:'Verzenden & retourneren',terms:'Algemene voorwaarden',privacy:'Privacybeleid',insta:'Instagram',instaSoon:'Instagram (link volgt)',news:'Nieuwsbrief',newsP:'Als eerste weten wat er binnenkomt. Eén mail per nieuwe collectie.',newsPh:'Je e-mailadres',newsBtn:'Aanmelden',newsOk:'Prototype: je aanmelding is niet opgeslagen.',all:'Alle stukken',kvk:'KVK',btw:'Btw-id'},
+ f:{shop:'Shop',about:'Over JP SELECT',service:'Service',contact:'Contact',ship:'Verzenden & retourneren',terms:'Algemene voorwaarden',privacy:'Privacybeleid',insta:'Instagram',instaSoon:'Instagram (link volgt)',news:'Nieuwsbrief',newsP:'Als eerste weten wat er binnenkomt. Eén mail per nieuwe collectie.',newsPh:'Je e-mailadres',newsBtn:'Aanmelden',newsOk:'Dank je! Je staat op de lijst. Afmelden kan altijd met één mail naar info@jpselect.nl.',newsErr:'Aanmelden lukte niet. Probeer het later opnieuw.',newsNote:'We gebruiken je e-mailadres alleen voor deze nieuwsbrief.',all:'Alle stukken',kvk:'KVK',btw:'Btw-id'},
  col:{sneakers:'Sneakers','men-shoes':'Herenschoenen','women-shoes':'Damesschoenen',all:'Collectie',new:'Nieuw binnen',shoes:'Schoenen',clothing:'Kleding',brand:'Merk','men-sneakers':'Heren sneakers','women-sneakers':'Dames sneakers'},
  filters:'Filters',sort:'Sorteren',sNew:'Nieuwste',sLow:'Prijs laag–hoog',sHigh:'Prijs hoog–laag',
  fCat:'Categorie',fBrand:'Merk',fSize:'Maat',fCond:'Staat',fPrice:'Prijs',fAvail:'Beschikbaarheid',fGender:'Voor',men:'Heren',women:'Dames',gAll:'Alle',mAllShoes:'Alle schoenen',
@@ -586,7 +587,7 @@ nl:{
  cond:{'new-tags':'Nieuw met label','new':'Nieuw zonder label','very-good':'Zeer goed','good':'Goed'},
  isNew:'Nieuw',pre:'Pre-owned',
  clear:'Wis filters',show:n=>'Toon '+n+(n===1?' stuk':' stukken'),results:n=>n+(n===1?' stuk':' stukken'),noRes:'Geen stukken gevonden met deze filters.',
- qv:'Snel bekijken',add:'In de tas',inBag:'In je tas',soonBtn:'Binnenkort beschikbaar',soldBtn:'Verkocht',demoBtn:'Demoproduct, niet te koop',details:'Bekijk details',
+ qv:'Snel bekijken',add:'In de tas',inBag:'In je tas',soonBtn:'Binnenkort beschikbaar',soldBtn:'Verkocht',resBtn:'Gereserveerd · iemand rekent dit nu af',tagRes:'Gereserveerd',demoBtn:'Demoproduct, niet te koop',details:'Bekijk details',
  tagDemo:'Demo',tagSoon:'Binnenkort',tagSold:'Verkocht',priceTba:'Prijs volgt',retail:'Nieuwprijs',
  photoFollows:'Demo · foto volgt', photoSoon:'Foto volgt',
  pSize:'Maat',pCond:'Staat',pColor:'Kleur',pMat:'Materiaal',pSku:'Artikelnummer',pAvail:{available:'Op voorraad · uniek stuk',coming:'Onderweg naar ons',sold:'Verkocht',demo:'Demoproduct'},
@@ -598,6 +599,12 @@ nl:{
  related:'Misschien ook iets voor jou',zoom:'Klik om te vergroten',
  bagT:'Je tas',bagEmpty:'Je tas is leeg.',unique:'Uniek stuk · max. 1',remove:'Verwijderen',sub:'Subtotaal',shipCalc:'Verzending',shipLater:'Bij afrekenen',checkout:'Afrekenen',continue:'Verder winkelen',onlyOne:'Dit is een uniek stuk; het zit al in je tas.',added:'Toegevoegd aan je tas',removed:'Verwijderd uit je tas',
  coH:'Afrekenen',coDemo:'Demonstratie',coIntro:'Dit is een demonstratie van het afrekenen. Er wordt niets besteld, niets betaald en niets opgeslagen.',
+ coEy:'Veilig betalen',coLive:'Je betaalt via de beveiligde betaalpagina van Mollie met iDEAL, Bancontact, creditcard of Apple Pay. Elk stuk is uniek; zodra je naar betalen gaat, houden we het 45 minuten voor je vast.',
+ coPhone:'Telefoon (optioneel, voor de bezorger)',coTerms:'Ik ga akkoord met de {a} en heb de informatie over de bedenktijd gelezen.',coTermsA:'algemene voorwaarden',coPay:'Bestellen en betalen',coBusy:'Even geduld…',
+ coFree:'Gratis',coFreeFrom:'Gratis verzending vanaf {x}',coFreeLeft:'Nog {x} tot gratis verzending',coShipTo:'naar {c}',coVat:'Prijzen inclusief btw, voor zover verschuldigd.',
+ coClosed:'Online betalen staat nog niet aan. Wil je dit stuk kopen? Mail ons via info@jpselect.nl, dan regelen we het.',coGone:'Dit stuk is net door iemand anders gekocht of gereserveerd en is uit je tas gehaald: {x}.',coFail:'Er ging iets mis bij het starten van de betaling. Er is niets afgeschreven. Probeer het opnieuw of mail info@jpselect.nl.',coProto:'Prototype: hier ga je in de live versie naar de betaalpagina van Mollie. Er is niets besteld of betaald.',
+ okWait:'We wachten op de bevestiging van je betaling…',okWaitP:'Dit duurt meestal maar een paar seconden. Je kunt deze pagina open laten.',okPaidCap:'Bestelling geplaatst',okPaidH:'Bedankt! Je bestelling {r} is betaald.',okPaidP:'We sturen een bevestiging naar {e}. Zodra je pakket onderweg is, krijg je de track & trace. Niets ontvangen? Kijk ook even in je spam.',
+ okNoCap:'Niet betaald',okNoH:'Je betaling is niet gelukt of geannuleerd.',okNoP:'Er is niets afgeschreven en je stukken zijn weer vrijgegeven. Je kunt het opnieuw proberen.',okRetry:'Terug naar je tas',okOpenP:'Je betaling is nog niet bevestigd. Heb je wel betaald? Dan krijg je binnen enkele minuten een bevestiging per mail. Anders kun je het opnieuw proberen.',okConflict:'Je betaling is binnen. Eén van je stukken was helaas net elders verkocht; we mailen je binnen één werkdag en betalen dat deel volledig terug.',
  coDetails:'Gegevens',coName:'Naam',coEmail:'E-mail',coStreet:'Straat en huisnummer',coZip:'Postcode',coCity:'Plaats',coCountry:'Land',countries:{NL:'Nederland',BE:'België',DE:'Duitsland',FR:'Frankrijk',OTHER:'Ander EU-land'},
  coNext:'Naar betalen',coPayH:'Betaalstap (nog niet gekoppeld)',coPayP:'Hier ga je in de live versie naar de beveiligde betaalpagina van de betaalpartner. Er is in dit prototype geen betaling gedaan en er is geen bestelling geplaatst.',coEdit:'Gegevens wijzigen',coSum:'Overzicht',coEmpty:'Je tas is leeg.',total:'Totaal',
  acctH:'Account',acctP:'Inloggen en bestelgeschiedenis komen in de live versie.',
@@ -635,7 +642,7 @@ en:{
  storyEy:'Our story',storyH:'Independent. Personal. Considered.',
  storyP:['JP SELECT is an independent fashion business from the Netherlands, built on three things: selection, quality and personal service.','You are not buying from an anonymous platform, but from someone who chose and checked every piece. Questions about fit, condition or size are answered personally.'],
  storyCap:'Mood image, digitally created by JP SELECT.',readMore:'Read our story',
- f:{shop:'Shop',about:'About JP SELECT',service:'Service',contact:'Contact',ship:'Shipping & returns',terms:'Terms & conditions',privacy:'Privacy policy',insta:'Instagram',instaSoon:'Instagram (link to follow)',news:'Newsletter',newsP:'Be the first to know what arrives. One email per new collection.',newsPh:'Your email address',newsBtn:'Sign up',newsOk:'Prototype: your sign-up has not been stored.',all:'All pieces',kvk:'Chamber of Commerce',btw:'VAT ID'},
+ f:{shop:'Shop',about:'About JP SELECT',service:'Service',contact:'Contact',ship:'Shipping & returns',terms:'Terms & conditions',privacy:'Privacy policy',insta:'Instagram',instaSoon:'Instagram (link to follow)',news:'Newsletter',newsP:'Be the first to know what arrives. One email per new collection.',newsPh:'Your email address',newsBtn:'Sign up',newsOk:'Thank you! You are on the list. Unsubscribe any time with one email to info@jpselect.nl.',newsErr:'Sign-up failed. Please try again later.',newsNote:'We only use your email address for this newsletter.',all:'All pieces',kvk:'Chamber of Commerce',btw:'VAT ID'},
  col:{sneakers:'Sneakers','men-shoes':'Men’s shoes','women-shoes':'Women’s shoes',all:'Collection',new:'New arrivals',shoes:'Shoes',clothing:'Clothing',brand:'Brand','men-sneakers':'Men’s sneakers','women-sneakers':'Women’s sneakers'},
  filters:'Filters',sort:'Sort',sNew:'Newest',sLow:'Price low–high',sHigh:'Price high–low',
  fCat:'Category',fBrand:'Brand',fSize:'Size',fCond:'Condition',fPrice:'Price',fAvail:'Availability',fGender:'For',men:'Men',women:'Women',gAll:'All',mAllShoes:'All shoes',
@@ -645,7 +652,7 @@ en:{
  cond:{'new-tags':'New with tags','new':'New without tags','very-good':'Very good','good':'Good'},
  isNew:'New',pre:'Pre-owned',
  clear:'Clear filters',show:n=>'Show '+n+(n===1?' piece':' pieces'),results:n=>n+(n===1?' piece':' pieces'),noRes:'No pieces match these filters.',
- qv:'Quick view',add:'Add to bag',inBag:'In your bag',soonBtn:'Available soon',soldBtn:'Sold',demoBtn:'Demo product, not for sale',details:'View details',
+ qv:'Quick view',add:'Add to bag',inBag:'In your bag',soonBtn:'Available soon',soldBtn:'Sold',resBtn:'Reserved · someone is checking out',tagRes:'Reserved',demoBtn:'Demo product, not for sale',details:'View details',
  tagDemo:'Demo',tagSoon:'Coming soon',tagSold:'Sold',priceTba:'Price to follow',retail:'Retail',
  photoFollows:'Demo · photo to follow', photoSoon:'Photo coming soon',
  pSize:'Size',pCond:'Condition',pColor:'Colour',pMat:'Material',pSku:'Item number',pAvail:{available:'In stock · one of a kind',coming:'On its way to us',sold:'Sold',demo:'Demo product'},
@@ -657,6 +664,12 @@ en:{
  related:'You may also like',zoom:'Click to enlarge',
  bagT:'Your bag',bagEmpty:'Your bag is empty.',unique:'One of a kind · max. 1',remove:'Remove',sub:'Subtotal',shipCalc:'Shipping',shipLater:'At checkout',checkout:'Checkout',continue:'Continue shopping',onlyOne:'This is a one-of-a-kind piece; it is already in your bag.',added:'Added to your bag',removed:'Removed from your bag',
  coH:'Checkout',coDemo:'Demonstration',coIntro:'This is a demonstration of the checkout. Nothing is ordered, paid or stored.',
+ coEy:'Secure payment',coLive:'You pay on Mollie’s secure payment page with iDEAL, Bancontact, credit card or Apple Pay. Every piece is one of a kind; as soon as you continue to payment, we hold it for you for 45 minutes.',
+ coPhone:'Phone (optional, for the courier)',coTerms:'I agree to the {a} and have read the information about the withdrawal period.',coTermsA:'terms and conditions',coPay:'Order and pay',coBusy:'One moment…',
+ coFree:'Free',coFreeFrom:'Free shipping from {x}',coFreeLeft:'{x} more for free shipping',coShipTo:'to {c}',coVat:'Prices include VAT where applicable.',
+ coClosed:'Online payment is not switched on yet. Would you like to buy this piece? Email us at info@jpselect.nl and we will arrange it.',coGone:'This piece was just bought or reserved by someone else and has been removed from your bag: {x}.',coFail:'Something went wrong starting the payment. Nothing has been charged. Please try again or email info@jpselect.nl.',coProto:'Prototype: in the live version you continue to the Mollie payment page here. Nothing has been ordered or paid.',
+ okWait:'Waiting for confirmation of your payment…',okWaitP:'This usually takes only a few seconds. You can leave this page open.',okPaidCap:'Order placed',okPaidH:'Thank you! Your order {r} has been paid.',okPaidP:'We are sending a confirmation to {e}. Once your parcel is on its way, you will receive the tracking link. Nothing yet? Please check your spam folder too.',
+ okNoCap:'Not paid',okNoH:'Your payment failed or was cancelled.',okNoP:'Nothing has been charged and your pieces have been released. You can try again.',okRetry:'Back to your bag',okOpenP:'Your payment has not been confirmed yet. Did you pay? Then you will receive a confirmation email within a few minutes. Otherwise you can try again.',okConflict:'Your payment has been received. Unfortunately one of your pieces was just sold elsewhere; we will email you within one working day and refund that part in full.',
  coDetails:'Details',coName:'Name',coEmail:'Email',coStreet:'Street and number',coZip:'Postcode',coCity:'City',coCountry:'Country',countries:{NL:'Netherlands',BE:'Belgium',DE:'Germany',FR:'France',OTHER:'Other EU country'},
  coNext:'Continue to payment',coPayH:'Payment step (not connected yet)',coPayP:'In the live version you go to the secure payment page of the payment provider here. No payment has been made and no order has been placed in this prototype.',coEdit:'Edit details',coSum:'Summary',coEmpty:'Your bag is empty.',total:'Total',
  acctH:'Account',acctP:'Sign-in and order history arrive with the live version.',
@@ -691,7 +704,7 @@ const BRANDS=(window.JPSEO&&JPSEO.BRANDS)||['Hogan','Santoni','Moorer','Gran Sas
 
 /* ---------------- hulpjes ---------------- */
 const ls={get(k,d){try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
-const fmt=(v,L)=>v==null?null:new Intl.NumberFormat(L==='nl'?'nl-NL':'en-IE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(v);
+const fmt=(v,L)=>v==null?null:new Intl.NumberFormat(L==='nl'?'nl-NL':'en-IE',{style:'currency',currency:'EUR',minimumFractionDigits:v%1?2:0,maximumFractionDigits:v%1?2:0}).format(v);
 const szl=(p,L)=>(p.sizeSystem?p.sizeSystem+' ':'')+String(p.size).replace('.',L==='nl'?',':'.');
 const reduced=()=>{try{return matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){return false}};
 const Ic={
@@ -756,6 +769,11 @@ function App(){
   useEffect(()=>{document.documentElement.lang=L;ls.set('jps3-lang',L)},[L]);
   useEffect(()=>{ls.set('jps2-bag',bag)},[bag]);
   useEffect(()=>{if(products.length)setBag(b=>b.filter(id=>{const p=products.find(x=>x.id===id);return p&&p.status==='available'}))},[products]);
+  /* stukken die via de webshop gereserveerd of verkocht zijn (live database, alleen product-id's) */
+  const [busyIds,setBusyIds]=useState({});
+  useEffect(()=>{if(!LIVE)return;let dead=false;const load=()=>fetch(SB.url+'/rest/v1/rpc/shop_unavailable',{method:'POST',headers:{apikey:SB.key,'Content-Type':'application/json'},body:'{}'}).then(r=>r.ok?r.json():[]).then(rows=>{if(dead)return;const m={};(rows||[]).forEach(x=>{m[x.product_id]=x.state});setBusyIds(m)}).catch(()=>{});
+    load();const iv=setInterval(load,120000);const vis=()=>{if(document.visibilityState==='visible')load()};document.addEventListener('visibilitychange',vis);return()=>{dead=true;clearInterval(iv);document.removeEventListener('visibilitychange',vis)}},[]);
+  const productsLive=useMemo(()=>Object.keys(busyIds).length?products.map(p=>busyIds[p.id]==='sold'&&p.status!=='sold'?{...p,status:'sold'}:busyIds[p.id]==='reserved'&&p.status==='available'?{...p,reserved:true}:p):products,[products,busyIds]);
   const go=useCallback((r)=>{setUi({menu:false,search:false,bag:false,acct:false,quick:null});setRoute(r);
     try{if(PATHS){const want=SEO.pathOf(r,Lref.current,pref.current);if(want!==location.pathname)history.pushState(null,'',want)}
       else{const h=hashOf(r);history.replaceState(null,'',h?'#'+h:location.pathname+location.search)}}catch(e){}
@@ -772,7 +790,7 @@ function App(){
   const open=k=>setUi(u=>({menu:false,search:false,bag:false,acct:false,quick:null,[k]:true}));
   const close=()=>setUi({menu:false,search:false,bag:false,acct:false,quick:null});
   useEffect(()=>{const k=e=>{if(e.key==='Escape')close()};document.addEventListener('keydown',k);return()=>document.removeEventListener('keydown',k)},[]);
-  const ctx={L,setL:setLang,t,products,go,route,bag,add,rm,open,close,ui,setUi,say};
+  const ctx={L,setL:setLang,t,products:productsLive,go,route,bag,setBag,add,rm,open,close,ui,setUi,say};
   const anyOverlay=ui.menu||ui.bag||ui.search||ui.quick;
   useEffect(()=>{document.body.style.overflow=(ui.menu||ui.lb)?'hidden':'';},[ui.menu,ui.lb]);
   const page=route.v==='home'?html`<${Home} ctx=${ctx}/>`:route.v==='col'?html`<${Collection} ctx=${ctx} key=${route.p+(route.b||'')}/>`:route.v==='product'?html`<${Product} ctx=${ctx} key=${route.p}/>`:route.v==='brands'?html`<${BrandsPage} ctx=${ctx}/>`:route.v==='story'?html`<${StoryPage} ctx=${ctx}/>`:route.v==='sell'?html`<${SellPage} ctx=${ctx}/>`:route.v==='reviews'?html`<${ReviewsPage} ctx=${ctx}/>`:route.v==='checkout'?html`<${Checkout} ctx=${ctx}/>`:html`<${Info} ctx=${ctx} k=${route.p}/>`;
@@ -827,7 +845,6 @@ function Nav({ctx}){const {t,go,route,open,bag,L}=ctx;
       <nav className="links" aria-label="Meer" style=${{marginRight:18}}>${items.slice(3).map(([k,r])=>html`<button key=${k} onClick=${()=>go(r)} aria-current=${cur(r)?'page':null}>${t.nav[k]}</button>`)}</nav>
       <div className="langs" role="group" aria-label="Taal / Language">${['nl','en'].map(l=>html`<button key=${l} aria-pressed=${L===l} onClick=${()=>ctx.setL?ctx.setL(l):null}>${l.toUpperCase()}</button>`)}</div>
       <button className="icon tsearch" onClick=${()=>open('search')} aria-label=${t.search}>${Ic.search}</button>
-      <button className="icon acct" onClick=${()=>open('acct')} aria-label=${t.account}>${Ic.user}</button>
       <button className="icon" onClick=${()=>open('bag')} aria-label=${t.bag+' ('+bag.length+')'}>${Ic.bag}${bag.length>0&&html`<span className="n">${bag.length}</span>`}</button>
     </div></div></header>`}
 
@@ -890,7 +907,7 @@ function Hero({ctx}){const {t,go}=ctx;const [paused,setPaused]=useState(()=>redu
 
 /* ---------------- producttegel ---------------- */
 function Card({ctx,p}){const {t,L,go,setUi,bag}=ctx;
-  const tag=p.demo?html`<span className="tag demo">${t.tagDemo}</span>`:p.status==='coming'?html`<span className="tag soon">${t.tagSoon}</span>`:p.status==='sold'?html`<span className="tag sold">${t.tagSold}</span>`:html`<span className="tag">${p.condition.startsWith('new')?t.isNew:t.pre}</span>`;
+  const tag=p.demo?html`<span className="tag demo">${t.tagDemo}</span>`:p.status==='coming'?html`<span className="tag soon">${t.tagSoon}</span>`:p.status==='sold'?html`<span className="tag sold">${t.tagSold}</span>`:p.reserved?html`<span className="tag soon">${t.tagRes}</span>`:html`<span className="tag">${p.condition.startsWith('new')?t.isNew:t.pre}</span>`;
   const clickable=p.status!=='sold';
   return html`<article className=${'pc rv'+(p.status==='sold'?' sold':'')}>
     <button className="ph" onClick=${()=>clickable&&go({v:'product',p:p.id})} aria-label=${p.brand+' '+p.model+(p.size?', '+szl(p,L):'')} disabled=${!clickable}>
@@ -1157,6 +1174,7 @@ function Buy({ctx,p}){const {t,L,add,bag,open}=ctx;
   if(p.status==='coming')return html`<button className="btn full" disabled>${t.soonBtn}</button>`;
   if(p.status==='sold')return html`<button className="btn full" disabled>${t.soldBtn}</button>`;
   if(bag.includes(p.id))return html`<button className="btn full" onClick=${()=>open('bag')}>${t.inBag} ✓</button>`;
+  if(p.reserved)return html`<button className="btn full" disabled>${t.resBtn}</button>`;
   return html`<button className="btn solid full" onClick=${()=>add(p)}>${t.add} · ${fmt(p.price,L)}</button>`}
 function Product({ctx}){const {t,L,products,route,go}=ctx;const p=products.find(x=>x.id===route.p);
   const [gi,setGi]=useState(0);const [zoom,setZoom]=useState(false);const [lb,setLb]=useState(false);const zr=useRef(null);
@@ -1217,22 +1235,63 @@ function Bag({ctx}){const {t,L,products,bag,rm,ui,close,go}=ctx;const items=bag.
     ${items.length>0&&html`<footer><div className="tot"><div><span>${t.sub}</span><span>${fmt(sub,L)}</span></div><div className="mute"><span>${t.shipCalc}</span><span>${t.shipLater}</span></div></div><button className="btn solid full" onClick=${()=>go({v:'checkout'})}>${t.checkout}</button></footer>`}
   </aside>`}
 
-function Checkout({ctx}){const {t,L,products,bag,go}=ctx;const items=bag.map(id=>products.find(p=>p.id===id)).filter(Boolean);const sub=items.reduce((a,p)=>a+(p.price||0),0);
-  const [f,setF]=useState({name:'',email:'',street:'',zip:'',city:'',country:'NL'});const [err,setErr]=useState({});const [step,setStep]=useState('form');
-  const s=k=>e=>setF(o=>({...o,[k]:e.target.value}));
-  const next=e=>{e.preventDefault();const er={};['name','street','zip','city'].forEach(k=>{if(!f[k].trim())er[k]=t.form.req});if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.trim()))er.email=t.form.badMail;setErr(er);if(!Object.keys(er).length)setStep('pay')};
-  if(!items.length)return html`<div className="wrap text"><h1>${t.coH}</h1><p>${t.coEmpty}</p><div><button className="btn" onClick=${()=>go({v:'col',p:'all'})}>${t.continue}</button></div></div>`;
+function Checkout({ctx}){const [order,setOrder]=useState(()=>{try{return new URLSearchParams(location.search).get('order')||''}catch(e){return ''}});
+  if(order)return html`<${OrderDone} ctx=${ctx} id=${order} retry=${()=>{try{history.replaceState(null,'',location.pathname)}catch(e){}setOrder('')}}/>`;
+  return html`<${CheckoutForm} ctx=${ctx}/>`}
+const ss={get(k,d){try{const v=sessionStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{sessionStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+function CheckoutForm({ctx}){const {t,L,products,bag,go,setBag}=ctx;
+  const items=bag.map(id=>products.find(p=>p.id===id)).filter(Boolean);const sub=items.reduce((a,p)=>a+(p.price||0),0);
+  const SH=window.JPSHOP;const cl=SH?SH.countries:['NL'];const cn=SH?SH.names[L]:{NL:'Nederland'};
+  const [f,setF]=useState(()=>({name:'',email:'',phone:'',street:'',zip:'',city:'',country:'NL',...ss.get('jps-co',{}),terms:false}));
+  const [err,setErr]=useState({});const [busy,setBusy]=useState(false);const [msg,setMsg]=useState('');const [open,setOpen]=useState(LIVE?null:false);
+  useEffect(()=>{if(!LIVE)return;fetch('/.netlify/functions/create-payment').then(r=>r.ok?r.json():{open:false}).then(d=>setOpen(!!d.open)).catch(()=>setOpen(false))},[]);
+  const s=k=>e=>{const v=e.target.type==='checkbox'?e.target.checked:e.target.value;setF(o=>({...o,[k]:v}));setErr(o=>o[k]?{...o,[k]:null}:o)};
+  const shipC=SH?SH.shippingCents(f.country,Math.round(sub*100)):0;const ship=shipC/100;const left=SH?SH.freeFrom-sub:0;
+  const termsHref=PATHS?SEO.pathOf({v:'info',p:'terms'},L,products):'#'+(L==='nl'?'voorwaarden':'terms');
+  const submit=async e=>{e.preventDefault();if(busy)return;setMsg('');const er={};['name','street','zip','city'].forEach(k=>{if(!f[k].trim())er[k]=t.form.req});
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.trim()))er.email=t.form.badMail;if(!f.terms)er.terms=t.form.needConsent;setErr(er);
+    if(Object.keys(er).length){setTimeout(()=>{const el=document.querySelector('.co [aria-invalid="true"]');if(el)el.focus()},0);return}
+    const {terms,...keep}=f;ss.set('jps-co',keep);
+    if(!LIVE){setMsg(t.coProto);return}
+    if(open===false){setMsg(t.coClosed);return}
+    setBusy(true);
+    try{const r=await fetch('/.netlify/functions/create-payment',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({lang:L,items:items.map(p=>p.id),terms:true,customer:{name:f.name,email:f.email,phone:f.phone,street:f.street,zip:f.zip,city:f.city,country:f.country}})});
+      const d=await r.json().catch(()=>({}));
+      if(r.ok&&d.checkout){location.href=d.checkout;return}
+      if(r.status===409&&d.unavailable){const gone=items.filter(p=>d.unavailable.includes(p.id)||!d.unavailable.length);setBag(b=>b.filter(id=>!gone.some(p=>p.id===id)));setMsg(t.coGone.replace('{x}',gone.map(p=>p.brand+' '+p.model).join(', ')))}
+      else if(r.status===503){setOpen(false);setMsg(t.coClosed)}
+      else setMsg(t.coFail)}
+    catch(x){setMsg(t.coFail)}setBusy(false)};
+  if(!items.length)return html`<div className="wrap text"><h1>${t.coH}</h1>${msg&&html`<p className="ph-note" role="alert">${msg}</p>`}<p>${t.coEmpty}</p><div><button className="btn" onClick=${()=>go({v:'col',p:'all'})}>${t.continue}</button></div></div>`;
   const fld=(k,label,full,ac,type)=>html`<div className=${'fld'+(full?' full':'')}><label htmlFor=${'co-'+k}>${label}</label><input id=${'co-'+k} type=${type||'text'} autoComplete=${ac} value=${f[k]} onInput=${s(k)} aria-invalid=${err[k]?'true':null}/>${err[k]&&html`<span className="err">${err[k]}</span>`}</div>`;
+  const ta=t.coTerms.split('{a}');
   return html`<div className="wrap co">
-    <div style=${{display:'grid',gap:24}}><span className="eyebrow cap">${t.coDemo}</span><h1 style=${{fontSize:'clamp(40px,5vw,64px)'}}>${t.coH}</h1><p className="ph-note">${t.coIntro}</p>
-      ${step==='form'?html`<form className="form" onSubmit=${next} noValidate><span className="cap full">${t.coDetails}</span>${fld('name',t.coName,true,'name')}${fld('email',t.coEmail,true,'email','email')}${fld('street',t.coStreet,true,'street-address')}${fld('zip',t.coZip,false,'postal-code')}${fld('city',t.coCity,false,'address-level2')}
-        <div className="fld full"><label htmlFor="co-country">${t.coCountry}</label><select id="co-country" value=${f.country} onChange=${s('country')}>${Object.entries(t.countries).map(([k,v])=>html`<option key=${k} value=${k}>${v}</option>`)}</select></div>
-        <div className="full"><button className="btn solid full" type="submit">${t.coNext}</button></div></form>`
-      :html`<div className="okbox"><span className="cap" style=${{color:'var(--champ)'}}>Prototype</span><h3 style=${{fontSize:26}}>${t.coPayH}</h3><p className="mute">${t.coPayP}</p><p style=${{fontSize:14}}>${f.name} · ${f.email}<br/>${f.street}, ${f.zip} ${f.city}, ${t.countries[f.country]}</p><div><button className="btn" onClick=${()=>setStep('form')}>${t.coEdit}</button></div></div>`}
+    <div style=${{display:'grid',gap:24,alignContent:'start'}}><span className="eyebrow cap">${LIVE?t.coEy:t.coDemo}</span><h1 style=${{fontSize:'clamp(40px,5vw,64px)'}}>${t.coH}</h1><p className=${LIVE?'mute':'ph-note'}>${LIVE?t.coLive:t.coIntro}</p>
+      ${open===false&&LIVE&&html`<p className="ph-note" role="status">${t.coClosed}</p>`}
+      <form className="form" onSubmit=${submit} noValidate><span className="cap full">${t.coDetails}</span>${fld('name',t.coName,true,'name')}${fld('email',t.coEmail,true,'email','email')}${fld('phone',t.coPhone,true,'tel','tel')}${fld('street',t.coStreet,true,'street-address')}${fld('zip',t.coZip,false,'postal-code')}${fld('city',t.coCity,false,'address-level2')}
+        <div className="fld full"><label htmlFor="co-country">${t.coCountry}</label><select id="co-country" autoComplete="country" value=${f.country} onChange=${s('country')}>${cl.map(k=>html`<option key=${k} value=${k}>${cn[k]||k}</option>`)}</select></div>
+        <label className="check full"><input type="checkbox" checked=${f.terms} onChange=${s('terms')} aria-invalid=${err.terms?'true':null}/><span>${ta[0]}<a href=${termsHref} target="_blank" rel="noopener" style=${{textDecoration:'underline'}}>${t.coTermsA}</a>${ta[1]||''}${err.terms&&html`<br/><span className="err" style=${{color:'var(--warn)',fontSize:12.5}}>${err.terms}</span>`}</span></label>
+        ${msg&&html`<p className="ph-note full" role="alert">${msg}</p>`}
+        <div className="full"><button className="btn solid full" type="submit" disabled=${busy||(LIVE&&open===false)}>${busy?t.coBusy:t.coPay+' · '+fmt(sub+ship,L)}</button></div></form>
     </div>
     <aside className="sum"><span className="cap">${t.coSum}</span>${items.map(p=>html`<div className="line" key=${p.id} style=${{paddingBlock:10}}><img ...${imp(p.images[0],400)} alt=""/><div className="nm"><span className="cap" style=${{fontSize:9.5}}>${p.brand}</span><b>${p.model}</b><span className="mute">${szl(p,L)}</span></div><span>${fmt(p.price,L)}</span></div>`)}
-      <div className="tot"><div><span>${t.sub}</span><span>${fmt(sub,L)}</span></div><div className="mute"><span>${t.shipCalc}</span><span>${t.placeholder}</span></div><div className="g"><span>${t.total}</span><span>${fmt(sub,L)} + ${L==='nl'?'verzending':'shipping'}</span></div><p className="mute" style=${{fontSize:12.5}}>${t.vatP}</p></div></aside>
+      <div className="tot"><div><span>${t.sub}</span><span>${fmt(sub,L)}</span></div><div><span>${t.shipCalc} ${t.coShipTo.replace('{c}',cn[f.country]||f.country)}</span><span>${shipC?fmt(ship,L):t.coFree}</span></div>
+        ${SH&&left>0&&html`<div className="mute" style=${{fontSize:12.5}}><span>${t.coFreeLeft.replace('{x}',fmt(left,L))}</span></div>`}
+        <div className="g"><span>${t.total}</span><span>${fmt(sub+ship,L)}</span></div><p className="mute" style=${{fontSize:12.5}}>${t.coVat}</p></div></aside>
   </div>`}
+function OrderDone({ctx,id,retry}){const {t,go,setBag}=ctx;const [st,setSt]=useState(null);const [n,setN]=useState(0);
+  useEffect(()=>{let dead=false,tm;const poll=async k=>{try{const r=await fetch('/.netlify/functions/order-status?order='+encodeURIComponent(id));const d=await r.json();if(dead)return;setSt(d);
+      if(d.status==='paid'||d.status==='paid_conflict'||d.status==='shipped'){setBag([]);try{localStorage.removeItem('jps2-bag')}catch(e){}return}
+      if(d.status==='open'&&k<15){tm=setTimeout(()=>poll(k+1),2000);setN(k+1)}}catch(e){if(!dead){setSt({status:'error'})}}};
+    poll(0);return()=>{dead=true;clearTimeout(tm)}},[id]);
+  const paid=st&&['paid','paid_conflict','shipped'].includes(st.status);const no=st&&['failed','canceled','expired'].includes(st.status);
+  const waiting=!st||(st.status==='open'&&n<15);
+  return html`<div className="wrap text" style=${{maxWidth:720}}><div className="okbox" role="status">
+    ${waiting?html`<span className="cap" style=${{color:'var(--champ)'}}>${t.coEy}</span><h3 style=${{fontSize:26}}>${t.okWait}</h3><p className="mute">${t.okWaitP}</p>`
+    :paid?html`<span className="cap" style=${{color:'var(--champ)'}}>${t.okPaidCap}</span><h3 style=${{fontSize:28}}>${t.okPaidH.replace('{r}',st.ref)}</h3><p className="mute">${st.status==='paid_conflict'?t.okConflict:t.okPaidP.replace('{e}',st.email||'')}</p><div><button className="btn" onClick=${()=>go({v:'col',p:'all'})}>${t.continue}</button></div>`
+    :no?html`<span className="cap">${t.okNoCap}</span><h3 style=${{fontSize:26}}>${t.okNoH}</h3><p className="mute">${t.okNoP}</p><div><button className="btn solid" onClick=${retry}>${t.okRetry}</button></div>`
+    :html`<span className="cap">${t.coEy}</span><h3 style=${{fontSize:24}}>${t.okWait}</h3><p className="mute">${t.okOpenP}</p><div><button className="btn" onClick=${retry}>${t.okRetry}</button></div>`}
+  </div></div>`}
 
 /* ---------------- zoeken ---------------- */
 function Search({ctx}){const {t,L,products,ui,close,go}=ctx;const [q,setQ]=useState('');const ref=useRef(null);
@@ -1250,19 +1309,187 @@ function BrandsPage({ctx}){const {t,products,go}=ctx;const counts={};products.fi
     <p className="mute" style=${{textAlign:'center',fontSize:13}}>${t.brandsNote}</p></div>`}
 function StoryPage({ctx}){const {t}=ctx;return html`<${Fragment}><section className="wrap sec"><${StoryBlock} ctx=${ctx}/></section><${Approach} ctx=${ctx}/><section className="wrap sec"><div className="philo"><div style=${{display:'grid',gap:28}}><span className="eyebrow cap">${t.philoEy}</span><h2 dangerouslySetInnerHTML=${{__html:t.philoH}}></h2></div><div className="txt">${t.philoP.map((x,i)=>html`<p key=${i}>${x}</p>`)}</div></div></section><//>`}
 function SellPage({ctx}){return html`<section className="wrap sec" style=${{paddingTop:'clamp(36px,4.5vw,64px)'}}><${TradeIn} ctx=${ctx}/></section>`}
-function Info({ctx,k}){const {t,say}=ctx;const body={ship:t.shipBody,terms:t.termsBody,privacy:t.privacyBody,contact:t.contactBody}[k]||[];
-  const copy=()=>{try{navigator.clipboard.writeText(CO.email).then(()=>say(t.copied),()=>say(t.copyFail))}catch(e){say(t.copyFail)}};
-  return html`<div className="wrap"><div className="text"><span className="eyebrow cap">JP SELECT</span><h1>${t.pages[k]||''}</h1>${body.map((x,i)=>html`<p key=${i}>${x}</p>`)}
-    ${k==='contact'&&html`<div style=${{display:'flex',gap:14,alignItems:'center',flexWrap:'wrap'}}><code style=${{fontSize:18,userSelect:'all'}}>${CO.email}</code><button className="btn" style=${{minHeight:40}} onClick=${copy}>${t.copy}</button></div><p className="mute" style=${{fontSize:14}}>${t.f.kvk} ${CO.kvk} · ${t.f.btw} ${CO.btw} · ${CO.city}</p>`}
-    ${(k==='terms'||k==='privacy')&&html`<p className="ph-note">${t.placeholder}</p>`}</div></div>`}
+/* Juridische teksten (NL + EN). '## ' = tussenkop, '- ' = opsommingspunt. */
+const LEGAL={
+nl:{
+ship:['Versie 29 oktober 2026',
+'## Verzenden',
+'We verzenden vanuit Nederland naar alle landen van de Europese Unie. Elke bestelling wordt zorgvuldig verpakt; schoenen gaan in hun doos (als die er is) in een stevige verzenddoos.',
+'- Gratis verzending vanaf {FREE} (subtotaal van je bestelling).',
+'- Daaronder: Nederland {NL}, België en Duitsland {BE}, overige EU-landen {EU}.',
+'- De verzendkosten zie je altijd in de kassa voordat je betaalt.',
+'We verzenden je bestelling zo snel mogelijk na je betaling en mailen je de track & trace zodra je pakket onderweg is. Levering binnen Nederland duurt meestal 1 à 2 werkdagen, binnen de EU meestal 2 à 7 werkdagen. Uiterlijk leveren we binnen 30 dagen; lukt dat onverhoopt niet, dan mag je de bestelling kosteloos ontbinden.',
+'## Bedenktijd: 14 dagen',
+'Je mag je bestelling binnen 14 dagen nadat je hem hebt ontvangen zonder opgave van reden annuleren (herroepen). Zo werkt het:',
+'- Meld het binnen 14 dagen na ontvangst per mail aan info@jpselect.nl, met je bestelnummer. Je mag het modelformulier hieronder gebruiken, maar dat hoeft niet.',
+'- Stuur het artikel binnen 14 dagen na je melding terug, goed verpakt en met eventuele doos, stofzak en labels. Het retouradres sturen we je per mail.',
+'- De kosten voor het terugsturen zijn voor jouw rekening. Verstuur je retour bij voorkeur aangetekend of met track & trace; het risico tijdens het terugsturen ligt bij jou.',
+'- We betalen het aankoopbedrag en de oorspronkelijke standaard verzendkosten binnen 14 dagen na je melding terug, via dezelfde betaalmethode. We mogen wachten met terugbetalen tot we het artikel terug hebben ontvangen.',
+'Je mag een artikel bekijken en passen zoals je dat in een winkel zou doen. Is het artikel daarna gedragen, beschadigd of minder waard doordat je er meer mee hebt gedaan, dan mogen we die waardevermindering inhouden op de terugbetaling.',
+'## Modelformulier voor herroeping',
+'Vul dit formulier alleen in als je de overeenkomst wilt herroepen. Je kunt de tekst ook gewoon in een mail aan info@jpselect.nl zetten.',
+'Aan: JP SELECT, Nijkerk, info@jpselect.nl — Ik deel u hierbij mede dat ik onze overeenkomst betreffende de verkoop van de volgende producten herroep: [artikel] · Besteld op / ontvangen op: [datum] · Bestelnummer: [nummer] · Naam: [naam] · Adres: [adres] · Handtekening (alleen bij een papieren formulier) · Datum: [datum]',
+'## Klopt er iets niet?',
+'Is je pakket beschadigd aangekomen of klopt het artikel niet met de omschrijving? Mail ons binnen twee weken nadat je het hebt ontdekt, met foto’s, dan lossen we het op. Je wettelijke rechten blijven altijd gelden.'],
+terms:['Versie 29 oktober 2026',
+'## 1. Wie we zijn',
+'JP SELECT is een eenmanszaak van Joey van den Pol, gevestigd in Nijkerk. E-mail: info@jpselect.nl · KVK 42155019 · btw-id NL005540814B59.',
+'Deze voorwaarden gelden voor alle bestellingen in onze webshop (deel A) en voor het verkopen of inruilen van artikelen aan JP SELECT (deel B).',
+'## A. Kopen in de webshop',
+'## 2. Aanbod en artikelen',
+'We verkopen tweedehands en nieuwe designerschoenen en -kleding. Elk artikel is uniek. We beschrijven en fotograferen de staat zo eerlijk mogelijk; kleine gebruikssporen die bij de opgegeven staat horen, zijn geen gebrek. Kennelijke vergissingen of fouten in het aanbod binden ons niet.',
+'Elk artikel controleren we op echtheid voordat het online komt. Blijkt een artikel dat je bij ons hebt gekocht toch niet origineel, dan nemen we het terug en krijg je het volledige aankoopbedrag inclusief verzendkosten terug.',
+'## 3. Prijzen',
+'Alle prijzen zijn in euro’s en inclusief btw, voor zover verschuldigd. Op tweedehands artikelen kan de margeregeling van toepassing zijn; de btw wordt dan niet apart vermeld. Verzendkosten zie je in de kassa voordat je betaalt.',
+'## 4. Bestellen en betalen',
+'De overeenkomst komt tot stand als je je bestelling afrondet en de betaling via onze betaalpartner Mollie is gelukt. Je ontvangt daarna een bevestiging per mail. Zolang je in de kassa bezig bent, houden we het artikel maximaal 45 minuten voor je vast.',
+'Omdat elk artikel uniek is en we ook via andere kanalen verkopen, kan het in een zeldzaam geval gebeuren dat een artikel vlak voor jouw betaling elders is verkocht. Dan laten we je dat binnen één werkdag weten en betalen we het bedrag voor dat artikel binnen 14 dagen volledig terug.',
+'## 5. Levering',
+'We leveren in de landen van de Europese Unie, op het adres dat je bij je bestelling opgeeft. Levertijden en verzendkosten staan op de pagina Verzenden & retourneren. Het risico voor het artikel gaat op jou over op het moment dat het bij je is bezorgd.',
+'## 6. Bedenktijd (herroepingsrecht)',
+'Als consument heb je 14 dagen bedenktijd nadat je het artikel hebt ontvangen. Hoe dat werkt, wat het terugsturen kost (voor jouw rekening) en het modelformulier vind je op de pagina Verzenden & retourneren.',
+'## 7. Garantie en klachten',
+'Een artikel moet voldoen aan wat je op grond van de omschrijving en de opgegeven staat mag verwachten. Klopt dat niet, dan heb je recht op herstel, vervanging of (gedeeltelijke) terugbetaling volgens de wet. Meld een klacht binnen twee weken nadat je het gebrek hebt ontdekt per mail aan info@jpselect.nl. We reageren binnen 14 dagen. Komen we er samen niet uit, dan kun je je wenden tot de bevoegde rechter.',
+'## B. Verkopen of inruilen aan JP SELECT',
+'## 8. Aanvraag en bod',
+'Je kunt designerschoenen en -kleding aan ons aanbieden via het formulier op onze website. Op basis van je gegevens en foto’s doen we je per mail een vrijblijvend bod. Een bod geldt 7 dagen, tenzij in de mail anders staat. Je bent nooit verplicht ons bod te accepteren.',
+'We nemen alleen originele artikelen aan in minimaal goede staat. Door een artikel aan te bieden verklaar je dat het van jou is, dat het origineel is en dat je het vrij mag verkopen.',
+'## 9. Controle bij ontvangst',
+'Ons bod geldt onder voorbehoud van controle bij ontvangst. Wijkt het artikel af van je beschrijving of foto’s, dan doen we je een nieuw bod of sturen we het artikel kosteloos aan je terug. Blijkt een artikel niet origineel, dan kopen we het niet en sturen we het terug.',
+'## 10. Uitbetaling of tegoed',
+'- Uitbetaling: we maken het afgesproken bedrag binnen 5 werkdagen na ontvangst en goedkeuring over naar je bankrekening.',
+'- Tegoed: kies je voor tegoed, dan krijg je 20% extra bovenop ons bod (maximaal € 50 extra). Het tegoed is 12 maanden geldig, te besteden bij JP SELECT en niet inwisselbaar voor geld.',
+'## 11. Identificatie',
+'Als opkoper van gebruikte goederen zijn we wettelijk verplicht van verkopers bepaalde gegevens vast te leggen, zoals naam, adres en het soort en nummer van een identiteitsbewijs. Zonder die gegevens kunnen we een artikel niet van je kopen.',
+'## C. Overig',
+'## 12. Toepasselijk recht',
+'Op deze voorwaarden en alle overeenkomsten met JP SELECT is Nederlands recht van toepassing. Woon je in een ander EU-land, dan houd je de bescherming die het recht van jouw land je als consument geeft.'],
+privacy:['Versie 29 oktober 2026',
+'## Wie is verantwoordelijk?',
+'JP SELECT (eenmanszaak van Joey van den Pol, Nijkerk, KVK 42155019) is verantwoordelijk voor de verwerking van je persoonsgegevens via deze website. Vragen of verzoeken? Mail info@jpselect.nl.',
+'## Welke gegevens, waarvoor en hoe lang',
+'- Bestellingen: naam, e-mailadres, telefoonnummer (optioneel), bezorgadres, bestelde artikelen en betaalstatus. Om je bestelling te leveren en af te handelen (uitvoering van de overeenkomst). We bewaren deze gegevens 7 jaar, omdat de belastingwet dat verplicht.',
+'- Betalen: dat gaat via Mollie B.V. Je bank- of kaartgegevens voer je in op de betaalpagina van Mollie; die zien en bewaren wij niet. Mollie laat ons alleen weten of en hoe er is betaald.',
+'- Verkoop- of inruilaanvragen: naam, e-mailadres, telefoonnummer (optioneel), gegevens over het artikel en je foto’s. Om je een bod te doen (op je verzoek, met je toestemming). Komt er geen deal, dan verwijderen we je aanvraag na 90 dagen. Komt er wel een deal, dan bewaren we de gegevens die we voor de aankoop en onze administratie nodig hebben 7 jaar.',
+'- Opkopersregister: kopen we een artikel van je, dan leggen we de gegevens vast die we als opkoper wettelijk moeten registreren (zoals naam, adres en gegevens van je identiteitsbewijs). We bewaren ze zo lang als de wet voorschrijft.',
+'- Nieuwsbrief: alleen je e-mailadres en taalkeuze, met je toestemming. Afmelden kan altijd met één mail naar info@jpselect.nl; daarna verwijderen we je adres.',
+'- Contact per mail: de gegevens die je ons zelf stuurt, om je vraag te beantwoorden. We bewaren je mail zo lang als nodig is voor de afhandeling en daarna maximaal 2 jaar.',
+'## Wie helpt ons daarbij?',
+'We delen je gegevens alleen met partijen die we nodig hebben om onze diensten te leveren, met wie we afspraken hebben over de bescherming van je gegevens:',
+'- Netlify (hosting van de website en de betaalserver). Netlify is een Amerikaans bedrijf; doorgifte gebeurt op basis van het EU-VS-gegevensprivacykader en/of de standaardcontractbepalingen van de EU.',
+'- Supabase (database voor bestellingen, aanvragen en nieuwsbrief), opgeslagen in een datacenter in Frankfurt (EU).',
+'- Google Workspace (onze e-mail). Ook hier gebeurt eventuele doorgifte buiten de EU op basis van het EU-VS-gegevensprivacykader en/of standaardcontractbepalingen.',
+'- Mollie (betalingen), gevestigd in Nederland.',
+'- De vervoerder die je pakket bezorgt (naam en adres).',
+'- Onze boekhouder, voor zover nodig voor de administratie en belastingaangifte.',
+'We verkopen je gegevens nooit en gebruiken ze niet voor reclame van anderen.',
+'## Cookies en lettertypes',
+'We gebruiken geen tracking- of advertentiecookies en geen analysediensten. In je eigen browser onthouden we alleen je taalkeuze en de inhoud van je tas; ingevulde kassagegevens alleen zolang je tabblad open is. Daarvoor is geen toestemming nodig. Onze lettertypes worden geladen van Google Fonts; daarbij ziet Google het IP-adres van je apparaat.',
+'## Je rechten',
+'Je mag je gegevens inzien, laten verbeteren of verwijderen, de verwerking laten beperken, bezwaar maken en je gegevens laten overdragen. Gaf je toestemming, dan kun je die altijd intrekken. Mail je verzoek naar info@jpselect.nl; we reageren binnen een maand. Ben je het niet eens met hoe we met je gegevens omgaan, dan kun je een klacht indienen bij de Autoriteit Persoonsgegevens.',
+'## Beveiliging',
+'Onze website gebruikt een beveiligde verbinding (https). De website kan aanvragen en bestellingen alleen toevoegen aan de database, niet uitlezen; alleen wij hebben toegang tot de gegevens.']
+},
+en:{
+ship:['Version 29 October 2026',
+'## Shipping',
+'We ship from the Netherlands to every country in the European Union. Every order is packed with care; shoes travel in their box (if there is one) inside a sturdy shipping carton.',
+'- Free shipping from {FREE} (order subtotal).',
+'- Below that: Netherlands {NL}, Belgium and Germany {BE}, other EU countries {EU}.',
+'- You always see the shipping cost at checkout before you pay.',
+'We ship your order as soon as possible after payment and email you the tracking link once your parcel is on its way. Delivery within the Netherlands usually takes 1–2 working days, within the EU usually 2–7 working days. We deliver within 30 days at the latest; if that is not possible, you may cancel the order free of charge.',
+'## 14-day withdrawal period',
+'You may cancel (withdraw from) your order within 14 days of receiving it without giving a reason. This is how it works:',
+'- Tell us within 14 days of receipt by email at info@jpselect.nl, with your order number. You may use the model form below, but you do not have to.',
+'- Return the item within 14 days of telling us, well packed and with any box, dust bag and tags. We email you the return address.',
+'- Return shipping costs are at your expense. Please send your return with tracking; the risk during return shipping is yours.',
+'- We refund the purchase price and the original standard shipping costs within 14 days of your notice, using the same payment method. We may wait to refund until we have received the item back.',
+'You may inspect and try on an item as you would in a shop. If the item has been worn, damaged or lost value because you handled it beyond that, we may deduct the loss in value from the refund.',
+'## Model withdrawal form',
+'Only fill in this form if you wish to withdraw from the contract. You can also simply put the text in an email to info@jpselect.nl.',
+'To: JP SELECT, Nijkerk, Netherlands, info@jpselect.nl — I hereby give notice that I withdraw from my contract of sale of the following goods: [item] · Ordered on / received on: [date] · Order number: [number] · Name: [name] · Address: [address] · Signature (only if this form is notified on paper) · Date: [date]',
+'## Something not right?',
+'Did your parcel arrive damaged, or does the item not match its description? Email us within two weeks of discovering it, with photos, and we will sort it out. Your statutory rights always apply.'],
+terms:['Version 29 October 2026',
+'## 1. Who we are',
+'JP SELECT is a sole proprietorship of Joey van den Pol, based in Nijkerk, the Netherlands. Email: info@jpselect.nl · Chamber of Commerce (KVK) 42155019 · VAT ID NL005540814B59.',
+'These terms apply to all orders in our online shop (part A) and to selling or trading in items to JP SELECT (part B).',
+'## A. Buying in the shop',
+'## 2. Items',
+'We sell pre-owned and new designer shoes and clothing. Every item is one of a kind. We describe and photograph the condition as honestly as we can; minor signs of wear that belong to the stated condition are not a defect. Obvious mistakes or errors in our listings do not bind us.',
+'We check every item for authenticity before it goes online. If an item you bought from us turns out not to be authentic, we take it back and refund the full purchase price including shipping.',
+'## 3. Prices',
+'All prices are in euros and include VAT where applicable. The margin scheme may apply to pre-owned items, in which case VAT is not shown separately. You see the shipping cost at checkout before you pay.',
+'## 4. Ordering and payment',
+'The contract is concluded when you complete your order and payment through our payment provider Mollie has succeeded. You then receive a confirmation by email. While you are at checkout, we hold the item for you for up to 45 minutes.',
+'Because every item is unique and we also sell through other channels, in rare cases an item may be sold elsewhere just before your payment. We will then let you know within one working day and refund the amount for that item in full within 14 days.',
+'## 5. Delivery',
+'We deliver within the European Union, to the address you give with your order. Delivery times and shipping costs are listed on the Shipping & returns page. The risk for the item passes to you once it has been delivered to you.',
+'## 6. Right of withdrawal',
+'As a consumer you have a 14-day withdrawal period after receiving the item. How it works, what returning costs (at your expense) and the model form can be found on the Shipping & returns page.',
+'## 7. Conformity and complaints',
+'An item must match what you may expect based on its description and stated condition. If it does not, you are entitled to repair, replacement or a (partial) refund under the law. Please report a complaint by email to info@jpselect.nl within two weeks of discovering the defect. We respond within 14 days. If we cannot resolve it together, you may turn to the competent court.',
+'## B. Selling or trading in to JP SELECT',
+'## 8. Request and offer',
+'You can offer designer shoes and clothing to us using the form on our website. Based on your details and photos we email you a non-binding offer. An offer is valid for 7 days unless the email states otherwise. You are never obliged to accept our offer.',
+'We only accept authentic items in at least good condition. By offering an item you declare that it is yours, that it is authentic and that you are free to sell it.',
+'## 9. Inspection on arrival',
+'Our offer is subject to inspection on arrival. If the item differs from your description or photos, we make you a new offer or return the item to you free of charge. If an item turns out not to be authentic, we do not buy it and return it.',
+'## 10. Payout or credit',
+'- Payout: we transfer the agreed amount to your bank account within 5 working days of receipt and approval.',
+'- Credit: if you choose credit, you receive 20% extra on top of our offer (up to € 50 extra). Credit is valid for 12 months, can be spent at JP SELECT and cannot be exchanged for cash.',
+'## 11. Identification',
+'As a buyer of second-hand goods we are legally required to record certain details of sellers, such as name, address and the type and number of an identity document. Without these details we cannot buy an item from you.',
+'## C. Other',
+'## 12. Governing law',
+'Dutch law applies to these terms and to all contracts with JP SELECT. If you live in another EU country, you keep the protection that the law of your country gives you as a consumer.'],
+privacy:['Version 29 October 2026',
+'## Who is responsible?',
+'JP SELECT (sole proprietorship of Joey van den Pol, Nijkerk, the Netherlands, KVK 42155019) is responsible for processing your personal data through this website. Questions or requests? Email info@jpselect.nl.',
+'## What data, why and for how long',
+'- Orders: name, email address, phone number (optional), delivery address, ordered items and payment status. To deliver and handle your order (performance of the contract). We keep this data for 7 years because tax law requires it.',
+'- Payment: handled by Mollie B.V. You enter your bank or card details on Mollie’s payment page; we never see or store them. Mollie only tells us whether and how you paid.',
+'- Sell or trade-in requests: name, email address, phone number (optional), item details and your photos. To make you an offer (at your request, with your consent). Without a deal we delete your request after 90 days. With a deal, we keep the details needed for the purchase and our accounts for 7 years.',
+'- Register of second-hand purchases: if we buy an item from you, we record the details we are legally required to register as a buyer of second-hand goods (such as name, address and identity document details). We keep them for as long as the law requires.',
+'- Newsletter: only your email address and language, with your consent. You can unsubscribe any time with one email to info@jpselect.nl; we then delete your address.',
+'- Email contact: the details you send us, to answer your question. We keep your email for as long as needed to handle it and for up to 2 years after that.',
+'## Who helps us?',
+'We only share your data with parties we need to provide our services, with whom we have agreements on protecting your data:',
+'- Netlify (hosting of the website and payment server). Netlify is a US company; transfers are based on the EU-US Data Privacy Framework and/or the EU standard contractual clauses.',
+'- Supabase (database for orders, requests and newsletter), stored in a data centre in Frankfurt (EU).',
+'- Google Workspace (our email). Any transfer outside the EU is likewise based on the EU-US Data Privacy Framework and/or standard contractual clauses.',
+'- Mollie (payments), based in the Netherlands.',
+'- The carrier delivering your parcel (name and address).',
+'- Our accountant, where needed for our accounts and tax returns.',
+'We never sell your data and do not use it for anyone else’s advertising.',
+'## Cookies and fonts',
+'We use no tracking or advertising cookies and no analytics services. In your own browser we only remember your language and the contents of your bag; checkout details only while your tab is open. No consent is needed for this. Our fonts are loaded from Google Fonts, which means Google sees your device’s IP address.',
+'## Your rights',
+'You may access, correct or delete your data, restrict its processing, object and have your data transferred. If you gave consent, you can withdraw it at any time. Email your request to info@jpselect.nl; we respond within one month. If you disagree with how we handle your data, you can lodge a complaint with the Dutch Data Protection Authority (Autoriteit Persoonsgegevens) or the authority in your own country.',
+'## Security',
+'Our website uses a secure connection (https). The website can only add requests and orders to the database, not read them; only we have access to the data.']
+}};
 
-function Footer({ctx}){const {t,go,say}=ctx;const [m,setM]=useState('');
+function Info({ctx,k}){const {t,say,L}=ctx;const lg=LEGAL[L]&&LEGAL[L][k];const body=lg||{ship:t.shipBody,terms:t.termsBody,privacy:t.privacyBody,contact:t.contactBody}[k]||[];
+  const copy=()=>{try{navigator.clipboard.writeText(CO.email).then(()=>say(t.copied),()=>say(t.copyFail))}catch(e){say(t.copyFail)}};
+  const SH=window.JPSHOP;const eu=v=>(L==='nl'?'€ '+v.toFixed(2).replace('.',','):'€ '+v.toFixed(2)).replace(/[,.]00$/,'');
+  const fill=x=>SH?x.replace('{NL}',eu(SH.rates.NL)).replace('{BE}',eu(SH.rates.BE)).replace('{EU}',eu(SH.rates.EU)).replace('{FREE}',eu(SH.freeFrom)):x;
+  const out=[];let ul=null;body.forEach((x,i)=>{x=fill(x);if(x.startsWith('- ')){if(!ul){ul=[];out.push(html`<ul key=${'u'+i} className="lglist">${ul}</ul>`)}ul.push(html`<li key=${i}>${x.slice(2)}</li>`);return}ul=null;
+    out.push(x.startsWith('## ')?html`<h2 key=${i} className="lgh">${x.slice(3)}</h2>`:i===0&&lg?html`<p key=${i} className="mute" style=${{fontSize:13}}>${x}</p>`:html`<p key=${i}>${x}</p>`)});
+  return html`<div className="wrap"><div className="text"><span className="eyebrow cap">JP SELECT</span><h1>${t.pages[k]||''}</h1>${out}
+    ${k==='contact'&&html`<div style=${{display:'flex',gap:14,alignItems:'center',flexWrap:'wrap'}}><code style=${{fontSize:18,userSelect:'all'}}>${CO.email}</code><button className="btn" style=${{minHeight:40}} onClick=${copy}>${t.copy}</button></div><p className="mute" style=${{fontSize:14}}>${t.f.kvk} ${CO.kvk} · ${t.f.btw} ${CO.btw} · ${CO.city}</p>`}
+    ${!lg&&(k==='terms'||k==='privacy')&&html`<p className="ph-note">${t.placeholder}</p>`}</div></div>`}
+function Footer({ctx}){const {t,go,say,L}=ctx;const [m,setM]=useState('');const [nb,setNb]=useState(false);
+  const signup=async e=>{e.preventDefault();const v=m.trim();if(!v||nb)return;
+    if(!LIVE){say(t.f.newsOk+' (prototype: niet opgeslagen)');setM('');return}
+    setNb(true);try{await sbInsert('newsletter_signups',{email:v.slice(0,200),lang:L==='en'?'en':'nl'});say(t.f.newsOk);setM('')}
+    catch(er){if(er.status===409){say(t.f.newsOk);setM('')}else say(t.f.newsErr)}setNb(false)};
   const L2=(label,r)=>html`<li><button className="fl" onClick=${()=>go(r)}>${label}</button></li>`;
   return html`<footer className="foot"><div className="wrap">
     <div className="top">
-      <div className="news"><${Word} h=${13}/><h4 style=${{marginTop:18}}>${t.f.news}</h4><p>${t.f.newsP}</p><form onSubmit=${e=>{e.preventDefault();say(t.f.newsOk);setM('')}}><label className="sr" htmlFor="nl-mail">${t.f.newsPh}</label><input id="nl-mail" type="email" placeholder=${t.f.newsPh} value=${m} onInput=${e=>setM(e.target.value)}/><button type="submit">${t.f.newsBtn}</button></form></div>
+      <div className="news"><${Word} h=${13}/><h4 style=${{marginTop:18}}>${t.f.news}</h4><p>${t.f.newsP}</p><form onSubmit=${signup}><label className="sr" htmlFor="nl-mail">${t.f.newsPh}</label><input id="nl-mail" type="email" placeholder=${t.f.newsPh} value=${m} onInput=${e=>setM(e.target.value)}/><button type="submit" disabled=${nb}>${t.f.newsBtn}</button></form><p style=${{fontSize:12,color:'#9C9387',marginTop:8}}>${t.f.newsNote}</p></div>
       <div><h4>${t.f.shop}</h4><ul>${L2(t.f.all,{v:'col',p:'all'})}${L2(t.nav.new,{v:'col',p:'new'})}${L2(t.nav.shoes,{v:'col',p:'shoes'})}${L2(t.nav.clothing,{v:'col',p:'clothing'})}${L2(t.nav.brands,{v:'brands'})}</ul></div>
-      <div><h4>${t.f.about}</h4><ul>${L2(t.nav.story,{v:'story'})}${L2(t.nav.sell,{v:'sell'})}${L2(t.revEy,{v:'reviews'})}${L2(t.f.contact,{v:'info',p:'contact'})}<li><span className="fl" style=${{cursor:'default',color:'#9C9387'}}>${t.f.instaSoon}</span></li></ul></div>
+      <div><h4>${t.f.about}</h4><ul>${L2(t.nav.story,{v:'story'})}${L2(t.nav.sell,{v:'sell'})}${L2(t.revEy,{v:'reviews'})}${L2(t.f.contact,{v:'info',p:'contact'})}<li><a className="fl" href="https://www.instagram.com/jpselectofficial/" target="_blank" rel="noopener">${t.f.insta}</a></li></ul></div>
       <div><h4>${t.f.service}</h4><ul>${L2(t.f.ship,{v:'info',p:'ship'})}${L2(t.f.terms,{v:'info',p:'terms'})}${L2(t.f.privacy,{v:'info',p:'privacy'})}</ul></div>
     </div>
     <div className="bot"><span>© 2026 JP SELECT · ${t.f.kvk} ${CO.kvk} · ${t.f.btw} ${CO.btw}</span><span>Trade in. Step up.</span></div>

@@ -38,7 +38,7 @@ let bodyLean = body.replace(/<style>([\s\S]*?)<\/style>\s*/, (m, c) => { CSS = c
 bodyLean = bodyLean.replace(/<script>([\s\S]*?)<\/script>\s*$/, (m, c) => { JS = c; return '__APPJS__'; });
 if (!CSS || !JS) throw new Error('build: stijl of sitecode niet gevonden in src/page.html');
 const CSS_FILE = 'assets/app.' + h10(CSS) + '.css', JS_FILE = 'assets/app.' + h10(JS) + '.js';
-bodyLean = bodyLean.replace('__APPJS__', `<script src="/${JS_FILE}"></script>`).replace('<script src="seo.js"></script>', '<script src="/seo.js"></script>');
+bodyLean = bodyLean.replace('__APPJS__', `<script src="/${JS_FILE}"></script>`).replace('<script src="seo.js"></script>', '<script src="/seo.js"></script>').replace('<script src="shop.js"></script>', '<script src="/shop.js"></script>');
 
 function rmrf(p) { if (fs.existsSync(p)) fs.rmSync(p, { recursive: true, force: true }); }
 function copyDir(src, dst) {
@@ -150,6 +150,7 @@ rmrf(OUT);
 fs.mkdirSync(OUT, { recursive: true });
 for (const d of ['data', 'img', 'media', 'scene']) copyDir(path.join(ROOT, d), path.join(OUT, d));
 fs.copyFileSync(path.join(ROOT, 'seo.js'), path.join(OUT, 'seo.js'));
+fs.copyFileSync(path.join(ROOT, 'shop.js'), path.join(OUT, 'shop.js'));
 write(CSS_FILE, CSS);
 write(JS_FILE, JS);
 
@@ -180,7 +181,7 @@ write('sitemap.xml', sm.join('\n') + '\n');
 
 write('robots.txt', INDEXABLE ? `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n` : 'User-agent: *\nDisallow: /\n');
 write('_headers', ['/*', INDEXABLE ? '' : '  X-Robots-Tag: noindex, nofollow', '  Referrer-Policy: strict-origin-when-cross-origin', '  X-Content-Type-Options: nosniff',
-  '/data/*', '  Cache-Control: public, max-age=60, must-revalidate', '/assets/*', '  Cache-Control: public, max-age=31536000, immutable', '/seo.js', '  Cache-Control: public, max-age=300, must-revalidate'].filter(Boolean).join('\n') + '\n');
+  '/data/*', '  Cache-Control: public, max-age=60, must-revalidate', '/assets/*', '  Cache-Control: public, max-age=31536000, immutable', '/seo.js', '  Cache-Control: public, max-age=300, must-revalidate', '/shop.js', '  Cache-Control: public, max-age=300, must-revalidate'].filter(Boolean).join('\n') + '\n');
 
 /* controle: ontbrekende afbeeldingen */
 const missing = [];

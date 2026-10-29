@@ -204,7 +204,7 @@
       if (r.v === 'checkout') noindex = true;
       if (r.v === 'home') {
         jsonld.push({ '@context': 'https://schema.org', '@type': 'Organization', name: 'JP SELECT', url: site + '/', email: 'info@jpselect.nl',
-          address: { '@type': 'PostalAddress', addressLocality: 'Nijkerk', addressCountry: 'NL' }, slogan: 'Trade in. Step up.' });
+          address: { '@type': 'PostalAddress', addressLocality: 'Nijkerk', addressCountry: 'NL' }, sameAs: ['https://www.instagram.com/jpselectofficial/'], slogan: 'Trade in. Step up.' });
         jsonld.push({ '@context': 'https://schema.org', '@type': 'WebSite', name: 'JP SELECT', url: site + '/', inLanguage: L === 'nl' ? 'nl-NL' : 'en' });
       }
     }
