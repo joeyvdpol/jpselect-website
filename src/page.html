@@ -81,10 +81,9 @@ p{margin:0}
 .burger,.msearch{display:grid}
 .nav .links,.tools .tsearch,.nav .langs{display:none}
 /* grote schermen: kopjes zichtbaar in de balk, menu-icoon weg */
-@media (min-width:1280px){
+@media (min-width:1200px){
   .nav .links{display:flex;gap:clamp(18px,1.9vw,30px)}
-  .nav .row>div:first-child{padding-left:clamp(16px,2.6vw,48px)}
-  .nav .tools{padding-right:clamp(16px,2.6vw,48px)}
+  .nav .wrap.row{max-width:none;padding-left:max(32px,env(safe-area-inset-left,0px));padding-right:max(32px,env(safe-area-inset-right,0px))}
   .nav .tools .tsearch,.nav .langs{display:flex}
   .nav .tools .tsearch{display:grid}
   .burger,.msearch{display:none}
