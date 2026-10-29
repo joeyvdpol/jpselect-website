@@ -83,7 +83,7 @@ p{margin:0}
 /* grote schermen: kopjes zichtbaar in de balk, menu-icoon weg */
 @media (min-width:1200px){
   .nav .links{display:flex;gap:clamp(18px,1.9vw,30px)}
-  .nav .wrap.row{max-width:none;padding-left:max(32px,env(safe-area-inset-left,0px));padding-right:max(32px,env(safe-area-inset-right,0px))}
+  .nav .wrap.row{max-width:none;padding-left:max(44px,env(safe-area-inset-left,0px));padding-right:max(44px,env(safe-area-inset-right,0px))}
   .nav .tools .tsearch,.nav .langs{display:flex}
   .nav .tools .tsearch{display:grid}
   .burger,.msearch{display:none}
@@ -843,7 +843,7 @@ function useEffects(route,products,L){
 function Nav({ctx}){const {t,go,route,open,bag,L}=ctx;
   const [solid,setSolid]=useState(route.v!=='home');
   useEffect(()=>{const on=()=>{const hero=document.querySelector('.hero');const nav=document.querySelector('.nav');setSolid(!hero||window.innerWidth<900||window.scrollY>4)};on();window.addEventListener('scroll',on,{passive:true});return()=>window.removeEventListener('scroll',on)},[route.v,route.p]);
-  const items=[['new',{v:'col',p:'new'}],['men',{v:'col',p:'men-shoes'}],['women',{v:'col',p:'women-shoes'}],['clothing',{v:'col',p:'clothing'}],['brands',{v:'brands'}],['sell',{v:'sell'}]];
+  const items=[['new',{v:'col',p:'new'}],['men',{v:'col',p:'men-shoes'}],['women',{v:'col',p:'women-shoes'}],['clothing',{v:'col',p:'clothing'}],['sell',{v:'sell'}]];
   const cur=r=>route.v===r.v&&((r.p||'')===(route.p||'')||(r.p==='shoes'&&(route.p==='men-shoes'||route.p==='women-shoes')));
   return html`<header className=${'nav'+(solid?' glass':'')}><div className="wrap row">
     <div style=${{display:'flex',alignItems:'center',gap:6}}>
