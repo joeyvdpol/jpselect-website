@@ -80,6 +80,15 @@ p{margin:0}
 /* menu-icoon linksboven op elk scherm; de losse menulinks en NL/EN zitten in het uitklapmenu */
 .burger,.msearch{display:grid}
 .nav .links,.tools .tsearch,.nav .langs{display:none}
+/* grote schermen: kopjes zichtbaar in de balk, menu-icoon weg */
+@media (min-width:1200px){
+  .nav .links{display:flex;gap:clamp(18px,1.9vw,30px)}
+  .nav .tools .tsearch,.nav .langs{display:flex}
+  .nav .tools .tsearch{display:grid}
+  .burger,.msearch{display:none}
+  .nav .row{min-height:76px}
+  .nav .langs button{opacity:.55}
+}
 @media (max-width:1040px){
   .nav .row{min-height:54px}
   .nav .links{display:none}
@@ -553,7 +562,7 @@ const WORD="M945.62 106.41 Q941.75 107.00 935.38 107.07 Q929.00 107.15 926.50 10
 const T={
 nl:{
  notice:'Prototype van de nieuwe website · bestellen, betalen en formulieren zijn nog niet gekoppeld',noticeLive:'Webshop in opbouw · verkopen aan ons kan al, online bestellen volgt binnenkort',
- nav:{new:'Nieuw binnen',shoes:'Schoenen',clothing:'Kleding',brands:'Merken',story:'Ons verhaal',sell:'Verkoop aan ons'},
+ nav:{new:'Nieuw binnen',men:'Heren',women:'Dames',shoes:'Schoenen',clothing:'Kleding',brands:'Merken',story:'Ons verhaal',sell:'Verkoop aan ons'},
  search:'Zoeken',account:'Account',bag:'Tas',menu:'Menu',close:'Sluiten',
  brandLine:'Luxury fashion — new & pre-owned',
  heroH:'Geselecteerde luxe.<br>Tijdloze stijl.',heroSub:'Nieuwe en tweedehands designermode',explore:'Ontdek de collectie',sellCta:'Verkoop aan ons',
@@ -618,7 +627,7 @@ nl:{
  placeholder:'Volgt voor livegang'},
 en:{
  notice:'Prototype of the new website · ordering, payment and forms are not connected yet',noticeLive:'Shop under construction · selling to us works now, online ordering follows soon',
- nav:{new:'New arrivals',shoes:'Shoes',clothing:'Clothing',brands:'Brands',story:'Our story',sell:'Sell to us'},
+ nav:{new:'New arrivals',men:'Men',women:'Women',shoes:'Shoes',clothing:'Clothing',brands:'Brands',story:'Our story',sell:'Sell to us'},
  search:'Search',account:'Account',bag:'Bag',menu:'Menu',close:'Close',
  brandLine:'Luxury fashion — new & pre-owned',
  heroH:'Curated luxury.<br>Timeless style.',heroSub:'New & Pre-Owned Designer Fashion',explore:'Explore collection',sellCta:'Sell to us',
@@ -833,16 +842,16 @@ function useEffects(route,products,L){
 function Nav({ctx}){const {t,go,route,open,bag,L}=ctx;
   const [solid,setSolid]=useState(route.v!=='home');
   useEffect(()=>{const on=()=>{const hero=document.querySelector('.hero');const nav=document.querySelector('.nav');setSolid(!hero||window.innerWidth<900||window.scrollY>4)};on();window.addEventListener('scroll',on,{passive:true});return()=>window.removeEventListener('scroll',on)},[route.v,route.p]);
-  const items=[['new',{v:'col',p:'new'}],['shoes',{v:'col',p:'shoes'}],['clothing',{v:'col',p:'clothing'}],['brands',{v:'brands'}],['sell',{v:'sell'}],['story',{v:'story'}]];
+  const items=[['new',{v:'col',p:'new'}],['men',{v:'col',p:'men-shoes'}],['women',{v:'col',p:'women-shoes'}],['clothing',{v:'col',p:'clothing'}],['brands',{v:'brands'}],['sell',{v:'sell'}]];
   const cur=r=>route.v===r.v&&((r.p||'')===(route.p||'')||(r.p==='shoes'&&(route.p==='men-shoes'||route.p==='women-shoes')));
   return html`<header className=${'nav'+(solid?' glass':'')}><div className="wrap row">
     <div style=${{display:'flex',alignItems:'center',gap:6}}>
       <button className="icon burger" onClick=${()=>open('menu')} aria-label=${t.menu}>${Ic.menu}</button><button className="icon msearch" onClick=${()=>open('search')} aria-label=${t.search}>${Ic.search}</button>
-      <nav className="links" aria-label="Hoofdmenu">${items.slice(0,3).map(([k,r])=>html`<button key=${k} onClick=${()=>go(r)} aria-current=${cur(r)?'page':null}>${t.nav[k]}</button>`)}</nav>
+      <nav className="links" aria-label="Hoofdmenu">${items.slice(0,5).map(([k,r])=>html`<button key=${k} onClick=${()=>go(r)} aria-current=${cur(r)?'page':null}>${t.nav[k]}</button>`)}</nav>
     </div>
     <button className="brand" onClick=${()=>go({v:'home'})} aria-label="JP SELECT, home"><${Mono} h=${24}/><${Word} h=${8.5} cls="word"/></button>
     <div className="tools">
-      <nav className="links" aria-label="Meer" style=${{marginRight:18}}>${items.slice(3).map(([k,r])=>html`<button key=${k} onClick=${()=>go(r)} aria-current=${cur(r)?'page':null}>${t.nav[k]}</button>`)}</nav>
+      <nav className="links" aria-label="Meer" style=${{marginRight:18}}>${items.slice(5).map(([k,r])=>html`<button key=${k} onClick=${()=>go(r)} aria-current=${cur(r)?'page':null}>${t.nav[k]}</button>`)}</nav>
       <div className="langs" role="group" aria-label="Taal / Language">${['nl','en'].map(l=>html`<button key=${l} aria-pressed=${L===l} onClick=${()=>ctx.setL?ctx.setL(l):null}>${l.toUpperCase()}</button>`)}</div>
       <button className="icon tsearch" onClick=${()=>open('search')} aria-label=${t.search}>${Ic.search}</button>
       <button className="icon" onClick=${()=>open('bag')} aria-label=${t.bag+' ('+bag.length+')'}>${Ic.bag}${bag.length>0&&html`<span className="n">${bag.length}</span>`}</button>
