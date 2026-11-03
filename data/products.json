@@ -3,6 +3,149 @@
  "source": "JP SELECT Business Center (echte voorraad en verkopen)",
  "products": [
   {
+   "id": "jp-2611-004",
+   "sku": "JP-2611-004",
+   "brand": "Hogan",
+   "model": "H641",
+   "category": "sneakers",
+   "gender": "women",
+   "size": "38",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 135,
+   "retail": 425,
+   "status": "coming",
+   "images": [
+    "img/jp-2611-004-0n.jpg"
+   ],
+   "color": {
+    "nl": "Beige",
+    "en": "Beige"
+   },
+   "material": {
+    "nl": "Suède",
+    "en": "Suede"
+   },
+   "added": "2026-11-03",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2611-002",
+   "sku": "JP-2611-002",
+   "brand": "Hogan",
+   "model": "Hyperlight",
+   "category": "sneakers",
+   "gender": "men",
+   "size": "42.5",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 145,
+   "retail": 455,
+   "status": "coming",
+   "images": [
+    "img/jp-2611-002-0n.jpg"
+   ],
+   "color": {
+    "nl": "Grijs",
+    "en": "Grey"
+   },
+   "material": {
+    "nl": "Suède",
+    "en": "Suede"
+   },
+   "added": "2026-11-03",
+   "demo": false,
+   "note": {
+    "nl": "Inclusief originele doos en stofzak.",
+    "en": "Includes the original box and dust bag."
+   }
+  },
+  {
+   "id": "jp-2611-001",
+   "sku": "JP-2611-001",
+   "brand": "Hogan",
+   "model": "Interactive³",
+   "category": "sneakers",
+   "gender": "men",
+   "size": "42",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 130,
+   "retail": 425,
+   "status": "available",
+   "images": [
+    "img/jp-2611-001-0n.jpg"
+   ],
+   "color": {
+    "nl": "Grijs, rood",
+    "en": "Grey, red"
+   },
+   "material": {
+    "nl": "Suède",
+    "en": "Suede"
+   },
+   "added": "2026-11-03",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2610-035",
+   "sku": "JP-2610-035",
+   "brand": "Hogan",
+   "model": "Hyperactive",
+   "category": "sneakers",
+   "gender": "women",
+   "size": "41",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 130,
+   "retail": 425,
+   "status": "coming",
+   "images": [
+    "img/jp-2610-035-0n.jpg"
+   ],
+   "color": {
+    "nl": "Beige",
+    "en": "Beige"
+   },
+   "material": {
+    "nl": "Suède",
+    "en": "Suede"
+   },
+   "added": "2026-11-03",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2610-033",
+   "sku": "JP-2610-033",
+   "brand": "Hogan",
+   "model": "Hyperactive",
+   "category": "sneakers",
+   "gender": "women",
+   "size": "41",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 125,
+   "retail": 425,
+   "status": "available",
+   "images": [
+    "img/jp-2610-033-0n.jpg"
+   ],
+   "color": {
+    "nl": "Grijs, crème",
+    "en": "Grey, cream"
+   },
+   "material": {
+    "nl": "Suède",
+    "en": "Suede"
+   },
+   "added": "2026-11-03",
+   "demo": false,
+   "note": null
+  },
+  {
    "id": "jp-2610-017",
    "sku": "JP-2610-017",
    "brand": "Hogan",
