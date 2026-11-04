@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-03",
+ "updated": "2026-11-04",
  "source": "JP SELECT Business Center (echte voorraad en verkopen)",
  "products": [
   {
@@ -860,8 +860,8 @@
    "size": "40",
    "sizeSystem": "EU",
    "condition": "very-good",
-   "price": null,
-   "status": "sold",
+   "price": 100,
+   "status": "available",
    "images": [
     "img/jp-2610-006-1.jpg"
    ],
