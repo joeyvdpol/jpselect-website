@@ -947,7 +947,7 @@
    "sizeSystem": "EU",
    "condition": "very-good",
    "price": 100,
-   "status": "sold",
+   "status": "available",
    "images": [
     "img/jp-2610-006-1.jpg"
    ],
@@ -959,8 +959,7 @@
    "added": "2026-10-01",
    "demo": false,
    "retail": null,
-   "note": null,
-   "soldAt": "2026-10-17"
+   "note": null
   },
   {
    "id": "jp-2610-003",
