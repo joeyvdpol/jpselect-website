@@ -3,6 +3,91 @@
  "source": "JP SELECT Business Center (echte voorraad en verkopen)",
  "products": [
   {
+   "id": "jp-2611-007",
+   "sku": "JP-2611-007",
+   "brand": "Boggi Milano",
+   "model": "Hooded down gilet",
+   "category": "clothing",
+   "gender": "men",
+   "size": "M",
+   "sizeSystem": "",
+   "condition": "new",
+   "price": 175,
+   "retail": 399,
+   "status": "coming",
+   "images": [
+    "img/jp-2611-007-0n.jpg",
+    "img/jp-2611-007-1.jpg"
+   ],
+   "color": {
+    "nl": "Bruin",
+    "en": "Brown"
+   },
+   "material": {
+    "nl": "Cashmere",
+    "en": "Cashmere"
+   },
+   "added": "2026-11-05",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2611-008",
+   "sku": "JP-2611-008",
+   "brand": "Hogan",
+   "model": "Hyperlight",
+   "category": "sneakers",
+   "gender": "men",
+   "size": "42",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 145,
+   "retail": 425,
+   "status": "coming",
+   "images": [
+    "img/jp-2611-008-0n.jpg"
+   ],
+   "color": {
+    "nl": "Grijs, wit",
+    "en": "Grey, white"
+   },
+   "material": {
+    "nl": "Suède",
+    "en": "Suede"
+   },
+   "added": "2026-11-05",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2611-006",
+   "sku": "JP-2611-006",
+   "brand": "Hogan",
+   "model": "H601",
+   "category": "sneakers",
+   "gender": "men",
+   "size": "40.5",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 129,
+   "retail": 425,
+   "status": "coming",
+   "images": [
+    "img/jp-2611-006-0n.jpg"
+   ],
+   "color": {
+    "nl": "Navy",
+    "en": "Navy"
+   },
+   "material": {
+    "nl": "Suède",
+    "en": "Suede"
+   },
+   "added": "2026-11-05",
+   "demo": false,
+   "note": null
+  },
+  {
    "id": "jp-2611-004",
    "sku": "JP-2611-004",
    "brand": "Hogan",
@@ -42,13 +127,13 @@
    "condition": "very-good",
    "price": 145,
    "retail": 455,
-   "status": "coming",
+   "status": "available",
    "images": [
     "img/jp-2611-002-0n.jpg"
    ],
    "color": {
-    "nl": "Grijs",
-    "en": "Grey"
+    "nl": "Grijs, bruin",
+    "en": "Grey, brown"
    },
    "material": {
     "nl": "Suède",
@@ -101,7 +186,7 @@
    "condition": "very-good",
    "price": 130,
    "retail": 425,
-   "status": "coming",
+   "status": "available",
    "images": [
     "img/jp-2610-035-0n.jpg"
    ],
@@ -485,7 +570,7 @@
    "condition": "very-good",
    "price": 135,
    "retail": 325,
-   "status": "available",
+   "status": "sold",
    "images": [
     "img/jp-2610-025-0n.jpg"
    ],
@@ -499,7 +584,8 @@
    },
    "added": "2026-10-26",
    "demo": false,
-   "note": null
+   "note": null,
+   "soldAt": "2026-11-03"
   },
   {
    "id": "jp-2610-024",
