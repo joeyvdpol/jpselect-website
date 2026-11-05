@@ -101,7 +101,7 @@
    "retail": 425,
    "status": "coming",
    "images": [
-    "img/jp-2611-004-0n.jpg"
+    "img/jp-2611-004-0c.jpg"
    ],
    "color": {
     "nl": "Beige",
@@ -129,7 +129,7 @@
    "retail": 455,
    "status": "available",
    "images": [
-    "img/jp-2611-002-0n.jpg"
+    "img/jp-2611-002-0c.jpg"
    ],
    "color": {
     "nl": "Grijs, bruin",
@@ -160,7 +160,7 @@
    "retail": 425,
    "status": "available",
    "images": [
-    "img/jp-2611-001-0n.jpg"
+    "img/jp-2611-001-0c.jpg"
    ],
    "color": {
     "nl": "Grijs, rood",
@@ -216,7 +216,7 @@
    "retail": 425,
    "status": "sold",
    "images": [
-    "img/jp-2610-033-0n.jpg"
+    "img/jp-2610-033-0c.jpg"
    ],
    "color": {
     "nl": "Grijs, crème",
@@ -244,7 +244,7 @@
    "retail": 373,
    "status": "sold",
    "images": [
-    "img/jp-2610-017-0n.jpg",
+    "img/jp-2610-017-0c.jpg",
     "img/jp-2610-017-1.jpg",
     "img/jp-2610-017-2.jpg",
     "img/jp-2610-017-3.jpg",
@@ -373,7 +373,7 @@
    "retail": 560,
    "status": "sold",
    "images": [
-    "img/jp-2610-022-0n.jpg"
+    "img/jp-2610-022-0c.jpg"
    ],
    "color": {
     "nl": "Wit",
@@ -402,7 +402,7 @@
    "retail": 349,
    "status": "sold",
    "images": [
-    "img/jp-2610-031-0n.jpg"
+    "img/jp-2610-031-0c.jpg"
    ],
    "color": {
     "nl": "Wit, rood",
@@ -430,7 +430,7 @@
    "retail": 420,
    "status": "sold",
    "images": [
-    "img/jp-2610-030-0n.jpg"
+    "img/jp-2610-030-0c.jpg"
    ],
    "color": {
     "nl": "Wit, grijs",
@@ -572,7 +572,7 @@
    "retail": 325,
    "status": "sold",
    "images": [
-    "img/jp-2610-025-0n.jpg"
+    "img/jp-2610-025-0c.jpg"
    ],
    "color": {
     "nl": "Blauw, oranje",
