@@ -129,7 +129,7 @@
    "condition": "very-good",
    "price": 125,
    "retail": 425,
-   "status": "available",
+   "status": "sold",
    "images": [
     "img/jp-2610-033-0n.jpg"
    ],
