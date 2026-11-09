@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-05",
+ "updated": "2026-11-09",
  "source": "JP SELECT Business Center (echte voorraad en verkopen)",
  "products": [
   {
@@ -127,7 +127,7 @@
    "condition": "very-good",
    "price": 145,
    "retail": 455,
-   "status": "available",
+   "status": "sold",
    "images": [
     "img/jp-2611-002-0c.jpg"
    ],
@@ -144,7 +144,8 @@
    "note": {
     "nl": "Inclusief originele doos en stofzak.",
     "en": "Includes the original box and dust bag."
-   }
+   },
+   "soldAt": "2026-11-07"
   },
   {
    "id": "jp-2611-001",
@@ -228,7 +229,8 @@
    },
    "added": "2026-11-03",
    "demo": false,
-   "note": null
+   "note": null,
+   "soldAt": "2026-11-04"
   },
   {
    "id": "jp-2610-017",
@@ -386,7 +388,7 @@
    "added": "2026-10-23",
    "demo": false,
    "note": null,
-   "feat": 2
+   "soldAt": "2026-11-02"
   },
   {
    "id": "jp-2610-031",
@@ -414,7 +416,8 @@
    },
    "added": "2026-10-27",
    "demo": false,
-   "note": null
+   "note": null,
+   "soldAt": "2026-11-02"
   },
   {
    "id": "jp-2610-030",
@@ -442,7 +445,8 @@
    },
    "added": "2026-10-27",
    "demo": false,
-   "note": null
+   "note": null,
+   "soldAt": "2026-11-02"
   },
   {
    "id": "jp-2610-029",
@@ -676,7 +680,7 @@
    "added": "2026-10-14",
    "demo": false,
    "note": null,
-   "feat": 4
+   "soldAt": "2026-11-02"
   },
   {
    "id": "jp-2610-013",
@@ -690,7 +694,7 @@
    "condition": "very-good",
    "price": 135,
    "retail": 350,
-   "status": "available",
+   "status": "sold",
    "images": [
     "img/jp-2610-013-0n.jpg",
     "img/jp-2610-013-1.jpg"
@@ -706,7 +710,7 @@
    "added": "2026-10-19",
    "demo": false,
    "note": null,
-   "feat": 5
+   "soldAt": "2026-11-05"
   },
   {
    "id": "jp-2610-012",
@@ -947,7 +951,7 @@
    "sizeSystem": "EU",
    "condition": "very-good",
    "price": 100,
-   "status": "available",
+   "status": "sold",
    "images": [
     "img/jp-2610-006-1.jpg"
    ],
@@ -959,7 +963,8 @@
    "added": "2026-10-01",
    "demo": false,
    "retail": null,
-   "note": null
+   "note": null,
+   "soldAt": "2026-11-05"
   },
   {
    "id": "jp-2610-003",
