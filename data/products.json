@@ -43,7 +43,7 @@
    "condition": "very-good",
    "price": 145,
    "retail": 425,
-   "status": "coming",
+   "status": "available",
    "images": [
     "img/jp-2611-008-0n.jpg"
    ],
@@ -99,7 +99,7 @@
    "condition": "very-good",
    "price": 135,
    "retail": 425,
-   "status": "coming",
+   "status": "sold",
    "images": [
     "img/jp-2611-004-0c.jpg"
    ],
@@ -113,7 +113,8 @@
    },
    "added": "2026-11-03",
    "demo": false,
-   "note": null
+   "note": null,
+   "soldAt": "2026-11-09"
   },
   {
    "id": "jp-2611-002",
@@ -460,7 +461,7 @@
    "condition": "very-good",
    "price": 140,
    "retail": 385,
-   "status": "coming",
+   "status": "available",
    "images": [
     "img/jp-2610-029-0n.jpg",
     "img/jp-2610-029-1.jpg",
@@ -546,7 +547,7 @@
    "condition": "very-good",
    "price": 139,
    "retail": 425,
-   "status": "coming",
+   "status": "sold",
    "images": [
     "img/jp-2610-026-0n.jpg"
    ],
@@ -560,7 +561,8 @@
    },
    "added": "2026-10-26",
    "demo": false,
-   "note": null
+   "note": null,
+   "soldAt": "2026-11-09"
   },
   {
    "id": "jp-2610-025",
@@ -603,7 +605,7 @@
    "condition": "very-good",
    "price": 145,
    "retail": 425,
-   "status": "available",
+   "status": "sold",
    "images": [
     "img/jp-2610-024-0n.jpg"
    ],
@@ -617,7 +619,8 @@
    },
    "added": "2026-10-24",
    "demo": false,
-   "note": null
+   "note": null,
+   "soldAt": "2026-11-09"
   },
   {
    "id": "jp-2610-023",
