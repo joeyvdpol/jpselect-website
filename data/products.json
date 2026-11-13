@@ -86,7 +86,8 @@
    },
    "added": "2026-11-05",
    "demo": false,
-   "note": null
+   "note": null,
+   "feat": 6
   },
   {
    "id": "jp-2611-004",
@@ -203,7 +204,8 @@
    },
    "added": "2026-11-03",
    "demo": false,
-   "note": null
+   "note": null,
+   "feat": 2
   },
   {
    "id": "jp-2610-033",
@@ -360,8 +362,7 @@
    },
    "added": "2026-10-22",
    "demo": false,
-   "note": null,
-   "feat": 1
+   "note": null
   },
   {
    "id": "jp-2610-022",
@@ -774,8 +775,7 @@
    },
    "added": "2026-10-21",
    "demo": false,
-   "note": null,
-   "feat": 9
+   "note": null
   },
   {
    "id": "jp-2610-010",
@@ -804,8 +804,7 @@
    },
    "added": "2026-10-21",
    "demo": false,
-   "note": null,
-   "feat": 7
+   "note": null
   },
   {
    "id": "jp-2610-009",
@@ -1223,7 +1222,8 @@
    },
    "added": "2026-11-13",
    "demo": false,
-   "note": null
+   "note": null,
+   "feat": 8
   },
   {
    "id": "jp-2611-014",
@@ -1363,7 +1363,8 @@
    },
    "added": "2026-11-13",
    "demo": false,
-   "note": null
+   "note": null,
+   "feat": 1
   },
   {
    "id": "jp-2611-019",
@@ -1477,7 +1478,8 @@
    },
    "added": "2026-11-13",
    "demo": false,
-   "note": null
+   "note": null,
+   "feat": 7
   },
   {
    "id": "jp-2611-023",
@@ -1505,7 +1507,8 @@
    },
    "added": "2026-11-13",
    "demo": false,
-   "note": null
+   "note": null,
+   "feat": 4
   },
   {
    "id": "jp-2611-025",
@@ -1533,7 +1536,8 @@
    },
    "added": "2026-11-13",
    "demo": false,
-   "note": null
+   "note": null,
+   "feat": 3
   },
   {
    "id": "jp-2611-027",
@@ -1618,7 +1622,8 @@
    },
    "added": "2026-11-13",
    "demo": false,
-   "note": null
+   "note": null,
+   "feat": 5
   },
   {
    "id": "jp-2611-031",
