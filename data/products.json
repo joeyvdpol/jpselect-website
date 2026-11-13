@@ -72,7 +72,7 @@
    "condition": "very-good",
    "price": 129,
    "retail": 425,
-   "status": "available",
+   "status": "sold",
    "images": [
     "img/jp-2611-006-0n.jpg"
    ],
@@ -87,7 +87,7 @@
    "added": "2026-11-05",
    "demo": false,
    "note": null,
-   "feat": 6
+   "soldAt": "2026-11-12"
   },
   {
    "id": "jp-2611-004",
