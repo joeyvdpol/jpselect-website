@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12",
+ "updated": "2026-11-13",
  "source": "JP SELECT Business Center (echte voorraad en verkopen)",
  "products": [
   {
@@ -1112,6 +1112,569 @@
     "en": "Anthracite"
    },
    "soldFeat": 4
+  },
+  {
+   "id": "jp-2611-010",
+   "sku": "JP-2611-010",
+   "brand": "Hogan",
+   "model": "Interactive",
+   "category": "sneakers",
+   "gender": "men",
+   "size": "43",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 115,
+   "retail": 425,
+   "status": "coming",
+   "images": [
+    "img/jp-2611-010-0n.jpg"
+   ],
+   "color": {
+    "nl": "Khaki",
+    "en": "Khaki"
+   },
+   "material": {
+    "nl": "Suède",
+    "en": "Suede"
+   },
+   "added": "2026-11-13",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2611-011",
+   "sku": "JP-2611-011",
+   "brand": "Hogan",
+   "model": "Interactive",
+   "category": "sneakers",
+   "gender": "men",
+   "size": "43",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 110,
+   "retail": 425,
+   "status": "coming",
+   "images": [
+    "img/jp-2611-011-0n.jpg"
+   ],
+   "color": {
+    "nl": "Wit",
+    "en": "White"
+   },
+   "material": {
+    "nl": "Leer",
+    "en": "Leather"
+   },
+   "added": "2026-11-13",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2611-012",
+   "sku": "JP-2611-012",
+   "brand": "Hogan",
+   "model": "Interactive",
+   "category": "sneakers",
+   "gender": "men",
+   "size": "43",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 120,
+   "retail": 425,
+   "status": "coming",
+   "images": [
+    "img/jp-2611-012-0n.jpg"
+   ],
+   "color": {
+    "nl": "Blauw, rood",
+    "en": "Blue, red"
+   },
+   "material": {
+    "nl": "Suède",
+    "en": "Suede"
+   },
+   "added": "2026-11-13",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2611-013",
+   "sku": "JP-2611-013",
+   "brand": "Hogan",
+   "model": "Slip-on",
+   "category": "sneakers",
+   "gender": "men",
+   "size": "41.5",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 120,
+   "retail": 425,
+   "status": "available",
+   "images": [
+    "img/jp-2611-013-0n.jpg"
+   ],
+   "color": {
+    "nl": "Navy",
+    "en": "Navy"
+   },
+   "material": {
+    "nl": "Leer",
+    "en": "Leather"
+   },
+   "added": "2026-11-13",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2611-014",
+   "sku": "JP-2611-014",
+   "brand": "Hogan",
+   "model": "Hyperlight",
+   "category": "sneakers",
+   "gender": "women",
+   "size": "38",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 115,
+   "retail": 425,
+   "status": "coming",
+   "images": [
+    "img/jp-2611-014-0n.jpg"
+   ],
+   "color": {
+    "nl": "Beige, crème",
+    "en": "Beige, cream"
+   },
+   "material": {
+    "nl": "Suède",
+    "en": "Suede"
+   },
+   "added": "2026-11-13",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2611-015",
+   "sku": "JP-2611-015",
+   "brand": "Hogan",
+   "model": "Hyperlight",
+   "category": "sneakers",
+   "gender": "men",
+   "size": "41",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 130,
+   "retail": 425,
+   "status": "coming",
+   "images": [
+    "img/jp-2611-015-0n.jpg"
+   ],
+   "color": {
+    "nl": "Blauw, grijs",
+    "en": "Blue, grey"
+   },
+   "material": {
+    "nl": "Suède",
+    "en": "Suede"
+   },
+   "added": "2026-11-13",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2611-016",
+   "sku": "JP-2611-016",
+   "brand": "Hogan",
+   "model": "H601",
+   "category": "sneakers",
+   "gender": "men",
+   "size": "42",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 125,
+   "retail": 425,
+   "status": "coming",
+   "images": [
+    "img/jp-2611-016-0n.jpg"
+   ],
+   "color": {
+    "nl": "Wit, grijs",
+    "en": "White, grey"
+   },
+   "material": {
+    "nl": "Suède",
+    "en": "Suede"
+   },
+   "added": "2026-11-13",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2611-017",
+   "sku": "JP-2611-017",
+   "brand": "Hogan",
+   "model": "H601",
+   "category": "sneakers",
+   "gender": "women",
+   "size": "36.5",
+   "sizeSystem": "EU",
+   "condition": "good",
+   "price": 110,
+   "retail": 425,
+   "status": "coming",
+   "images": [
+    "img/jp-2611-017-0n.jpg"
+   ],
+   "color": {
+    "nl": "Crème, beige",
+    "en": "Cream, beige"
+   },
+   "material": {
+    "nl": "Suède",
+    "en": "Suede"
+   },
+   "added": "2026-11-13",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2611-018",
+   "sku": "JP-2611-018",
+   "brand": "Hogan",
+   "model": "Interactive",
+   "category": "sneakers",
+   "gender": "men",
+   "size": "41.5",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 125,
+   "retail": 425,
+   "status": "available",
+   "images": [
+    "img/jp-2611-018-0n.jpg"
+   ],
+   "color": {
+    "nl": "Navy, oranje",
+    "en": "Navy, orange"
+   },
+   "material": {
+    "nl": "Leer",
+    "en": "Leather"
+   },
+   "added": "2026-11-13",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2611-019",
+   "sku": "JP-2611-019",
+   "brand": "Herno",
+   "model": "Jacket",
+   "category": "clothing",
+   "gender": "men",
+   "size": "M",
+   "sizeSystem": "",
+   "condition": "very-good",
+   "price": 149,
+   "retail": 620,
+   "status": "coming",
+   "images": [
+    "img/jp-2611-019-0n.jpg",
+    "img/jp-2611-019-1.jpg",
+    "img/jp-2611-019-2.jpg"
+   ],
+   "color": {
+    "nl": "Beige",
+    "en": "Beige"
+   },
+   "material": {
+    "nl": "Katoen",
+    "en": "Cotton"
+   },
+   "added": "2026-11-13",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2611-020",
+   "sku": "JP-2611-020",
+   "brand": "Hogan",
+   "model": "Interactive",
+   "category": "sneakers",
+   "gender": "men",
+   "size": "42",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 130,
+   "retail": 425,
+   "status": "coming",
+   "images": [
+    "img/jp-2611-020-0n.jpg"
+   ],
+   "color": {
+    "nl": "Grijs, khaki",
+    "en": "Grey, khaki"
+   },
+   "material": {
+    "nl": "Suède",
+    "en": "Suede"
+   },
+   "added": "2026-11-13",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2611-021",
+   "sku": "JP-2611-021",
+   "brand": "Hogan",
+   "model": "Hyperlight",
+   "category": "sneakers",
+   "gender": "men",
+   "size": "42",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 125,
+   "retail": 426,
+   "status": "coming",
+   "images": [
+    "img/jp-2611-021-0n.jpg"
+   ],
+   "color": {
+    "nl": "Wit, grijs",
+    "en": "White, grey"
+   },
+   "material": {
+    "nl": "Suède",
+    "en": "Suede"
+   },
+   "added": "2026-11-13",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2611-022",
+   "sku": "JP-2611-022",
+   "brand": "Hogan",
+   "model": "Interactive",
+   "category": "sneakers",
+   "gender": "men",
+   "size": "44",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 120,
+   "retail": 425,
+   "status": "coming",
+   "images": [
+    "img/jp-2611-022-0n.jpg"
+   ],
+   "color": {
+    "nl": "Blauw, geel",
+    "en": "Blue, yellow"
+   },
+   "material": {
+    "nl": "Suède",
+    "en": "Suede"
+   },
+   "added": "2026-11-13",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2611-023",
+   "sku": "JP-2611-023",
+   "brand": "Hogan",
+   "model": "H601",
+   "category": "sneakers",
+   "gender": "women",
+   "size": "39",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 129,
+   "retail": 425,
+   "status": "coming",
+   "images": [
+    "img/jp-2611-023-0n.jpg"
+   ],
+   "color": {
+    "nl": "Lichtblauw, wit",
+    "en": "Light blue, white"
+   },
+   "material": {
+    "nl": "Suède",
+    "en": "Suede"
+   },
+   "added": "2026-11-13",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2611-025",
+   "sku": "JP-2611-025",
+   "brand": "Hogan",
+   "model": "Interactive",
+   "category": "sneakers",
+   "gender": "men",
+   "size": "41",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 120,
+   "retail": 425,
+   "status": "coming",
+   "images": [
+    "img/jp-2611-025-0n.jpg"
+   ],
+   "color": {
+    "nl": "Groen, rood",
+    "en": "Green, red"
+   },
+   "material": {
+    "nl": "Suède",
+    "en": "Suede"
+   },
+   "added": "2026-11-13",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2611-027",
+   "sku": "JP-2611-027",
+   "brand": "Falconeri",
+   "model": "Cashmere crew neck",
+   "category": "clothing",
+   "gender": "men",
+   "size": "M",
+   "sizeSystem": "",
+   "condition": "very-good",
+   "price": 105,
+   "retail": 295,
+   "status": "available",
+   "images": [
+    "img/jp-2611-027-0n.jpg",
+    "img/jp-2611-027-1.jpg"
+   ],
+   "color": {
+    "nl": "Beige",
+    "en": "Beige"
+   },
+   "material": {
+    "nl": "Cashmere",
+    "en": "Cashmere"
+   },
+   "added": "2026-11-13",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2611-029",
+   "sku": "JP-2611-029",
+   "brand": "Hogan",
+   "model": "H601",
+   "category": "sneakers",
+   "gender": "men",
+   "size": "44",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 129,
+   "retail": 425,
+   "status": "coming",
+   "images": [
+    "img/jp-2611-029-0n.jpg"
+   ],
+   "color": {
+    "nl": "Khaki, blauw",
+    "en": "Khaki, blue"
+   },
+   "material": {
+    "nl": "Suède",
+    "en": "Suede"
+   },
+   "added": "2026-11-13",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2611-030",
+   "sku": "JP-2611-030",
+   "brand": "Hogan",
+   "model": "Hyperlight",
+   "category": "sneakers",
+   "gender": "men",
+   "size": "40.5",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 130,
+   "retail": 455,
+   "status": "coming",
+   "images": [
+    "img/jp-2611-030-0n.jpg"
+   ],
+   "color": {
+    "nl": "Wit, groen",
+    "en": "White, green"
+   },
+   "material": {
+    "nl": "Suède",
+    "en": "Suede"
+   },
+   "added": "2026-11-13",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2611-031",
+   "sku": "JP-2611-031",
+   "brand": "Hogan",
+   "model": "Interactive 3",
+   "category": "sneakers",
+   "gender": "men",
+   "size": "41",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 125,
+   "retail": 425,
+   "status": "coming",
+   "images": [
+    "img/jp-2611-031-0n.jpg"
+   ],
+   "color": {
+    "nl": "Groen, geel",
+    "en": "Green, yellow"
+   },
+   "material": {
+    "nl": "Suède",
+    "en": "Suede"
+   },
+   "added": "2026-11-13",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2611-032",
+   "sku": "JP-2611-032",
+   "brand": "Hogan",
+   "model": "Interactive 3",
+   "category": "sneakers",
+   "gender": "men",
+   "size": "40.5",
+   "sizeSystem": "EU",
+   "condition": "good",
+   "price": 115,
+   "retail": 425,
+   "status": "coming",
+   "images": [
+    "img/jp-2611-032-0n.jpg"
+   ],
+   "color": {
+    "nl": "Zwart",
+    "en": "Black"
+   },
+   "material": {
+    "nl": "Leer",
+    "en": "Leather"
+   },
+   "added": "2026-11-13",
+   "demo": false,
+   "note": null
   }
  ]
 }
