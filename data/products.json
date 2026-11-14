@@ -130,7 +130,7 @@
    "condition": "very-good",
    "price": 145,
    "retail": 455,
-   "status": "sold",
+   "status": "available",
    "images": [
     "img/jp-2611-002-0c.jpg"
    ],
@@ -147,8 +147,7 @@
    "note": {
     "nl": "Inclusief originele doos en stofzak.",
     "en": "Includes the original box and dust bag."
-   },
-   "soldAt": "2026-11-07"
+   }
   },
   {
    "id": "jp-2611-001",
