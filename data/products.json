@@ -346,7 +346,7 @@
    "condition": "very-good",
    "price": 125,
    "retail": 425,
-   "status": "coming",
+   "status": "available",
    "images": [
     "img/jp-2610-021-0n.jpg",
     "img/jp-2610-021-1.jpg"
@@ -1125,7 +1125,7 @@
    "condition": "very-good",
    "price": 115,
    "retail": 425,
-   "status": "coming",
+   "status": "available",
    "images": [
     "img/jp-2611-010-0n.jpg"
    ],
@@ -1153,7 +1153,7 @@
    "condition": "very-good",
    "price": 110,
    "retail": 425,
-   "status": "coming",
+   "status": "available",
    "images": [
     "img/jp-2611-011-0n.jpg"
    ],
@@ -1181,7 +1181,7 @@
    "condition": "very-good",
    "price": 120,
    "retail": 425,
-   "status": "coming",
+   "status": "available",
    "images": [
     "img/jp-2611-012-0n.jpg"
    ],
@@ -1238,7 +1238,7 @@
    "condition": "very-good",
    "price": 115,
    "retail": 425,
-   "status": "coming",
+   "status": "available",
    "images": [
     "img/jp-2611-014-0n.jpg"
    ],
@@ -1495,7 +1495,7 @@
    "condition": "very-good",
    "price": 129,
    "retail": 425,
-   "status": "coming",
+   "status": "available",
    "images": [
     "img/jp-2611-023-0n.jpg"
    ],
@@ -1524,7 +1524,7 @@
    "condition": "very-good",
    "price": 120,
    "retail": 425,
-   "status": "coming",
+   "status": "available",
    "images": [
     "img/jp-2611-025-0n.jpg"
    ],
@@ -1695,7 +1695,7 @@
    "condition": "very-good",
    "price": 125,
    "retail": 425,
-   "status": "coming",
+   "status": "available",
    "images": [
     "img/jp-2611-024-0n.jpg"
    ],
