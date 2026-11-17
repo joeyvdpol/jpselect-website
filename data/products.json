@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16",
+ "updated": "2026-11-17",
  "source": "JP SELECT Business Center (echte voorraad en verkopen)",
  "products": [
   {
@@ -1302,34 +1302,6 @@
    "color": {
     "nl": "Wit, grijs",
     "en": "White, grey"
-   },
-   "material": {
-    "nl": "Suède",
-    "en": "Suede"
-   },
-   "added": "2026-11-13",
-   "demo": false,
-   "note": null
-  },
-  {
-   "id": "jp-2611-017",
-   "sku": "JP-2611-017",
-   "brand": "Hogan",
-   "model": "H601",
-   "category": "sneakers",
-   "gender": "women",
-   "size": "36.5",
-   "sizeSystem": "EU",
-   "condition": "good",
-   "price": 110,
-   "retail": 425,
-   "status": "coming",
-   "images": [
-    "img/jp-2611-017-0n.jpg"
-   ],
-   "color": {
-    "nl": "Crème, beige",
-    "en": "Cream, beige"
    },
    "material": {
     "nl": "Suède",
