@@ -937,7 +937,7 @@ function Card({ctx,p}){const {t,L,go,setUi,bag}=ctx;
 function Home({ctx}){const {t,L,products,go}=ctx;
   /* volgorde op de homepage: veld 'feat' in products.json (lager = eerder) */
   const featured=useMemo(()=>products.filter(p=>(p.status==='available'||p.status==='coming')&&p.category!=='clothing').sort((a,b)=>(a.feat??99)-(b.feat??99)).slice(0,8),[products]);
-  const recentSold=useMemo(()=>products.filter(p=>p.status==='sold').sort((a,b)=>(a.soldFeat??99)-(b.soldFeat??99)||String(b.soldAt||'').localeCompare(String(a.soldAt||''))||((b.category==='clothing')-(a.category==='clothing'))||a.id.localeCompare(b.id)).slice(0,4),[products]);
+  const recentSold=useMemo(()=>products.filter(p=>p.status==='sold'&&p.soldAt&&p.soldAt>=new Date(Date.now()-30*864e5).toISOString().slice(0,10)).sort((a,b)=>(a.soldFeat??99)-(b.soldFeat??99)||String(b.soldAt||'').localeCompare(String(a.soldAt||''))||((b.category==='clothing')-(a.category==='clothing'))||a.id.localeCompare(b.id)).slice(0,4),[products]);
   const counts=useMemo(()=>{const m={};products.filter(p=>p.status!=='sold').forEach(p=>{m[p.brand]=(m[p.brand]||0)+1});return m},[products]);
   const shownBrands=BRANDS.filter(b=>counts[b]);
   return html`<${Fragment}>
@@ -1124,7 +1124,8 @@ function Collection({ctx}){const {t,L,products,route,go}=ctx;
   const brandName=BRANDS.find(b=>b.toLowerCase().replace(/\s+/g,'-')===brandSlug)||'';
   const init=()=>({cats:(preset==='shoes'||preset==='men-shoes'||preset==='women-shoes')?['sneakers','footwear']:preset==='clothing'?['clothing']:(preset==='men-sneakers'||preset==='women-sneakers')?['sneakers']:[],brands:brandName?[brandName]:[],sizes:[],conds:[],gender:(preset==='men-sneakers'||preset==='men-shoes')?'men':(preset==='women-sneakers'||preset==='women-shoes')?'women':'',price:'all',avail:preset==='new'?['available','coming']:['available','coming','sold'],sort:'new'});
   const [f,setF]=useState(init);const [open,setOpen]=useState(false);
-  const pool=products;
+  /* verkochte artikelen alleen tonen als ze in de laatste 30 dagen verkocht zijn */
+  const pool=useMemo(()=>{const cut=new Date(Date.now()-30*864e5).toISOString().slice(0,10);return products.filter(p=>p.status!=='sold'||(p.soldAt&&p.soldAt>=cut))},[products]);
   /* alle filters behalve heren/dames: basis voor de lijst én de aantallen bij Alle/Heren/Dames */
   const pre=useMemo(()=>{let l=pool.filter(p=>f.avail.includes(p.status));
     if(f.cats.length)l=l.filter(p=>f.cats.includes(p.category));if(f.brands.length)l=l.filter(p=>f.brands.includes(p.brand));
