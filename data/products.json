@@ -1682,6 +1682,146 @@
    "added": "2026-11-13",
    "demo": false,
    "note": null
+  },
+  {
+   "id": "jp-2611-033",
+   "sku": "JP-2611-033",
+   "brand": "Hogan",
+   "model": "H709",
+   "category": "sneakers",
+   "gender": "men",
+   "size": "45",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 145,
+   "retail": 509,
+   "status": "coming",
+   "images": [
+    "img/jp-2611-033-0n.jpg"
+   ],
+   "color": {
+    "nl": "Navy, grijs",
+    "en": "Navy, grey"
+   },
+   "material": {
+    "nl": "Suède",
+    "en": "Suede"
+   },
+   "added": "2026-11-17",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2611-034",
+   "sku": "JP-2611-034",
+   "brand": "Hogan",
+   "model": "Hyperlight",
+   "category": "sneakers",
+   "gender": "men",
+   "size": "42",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 120,
+   "retail": 425,
+   "status": "coming",
+   "images": [
+    "img/jp-2611-034-0n.jpg"
+   ],
+   "color": {
+    "nl": "Navy, blauw",
+    "en": "Navy, blue"
+   },
+   "material": {
+    "nl": "Suède, leer",
+    "en": "Suede, leather"
+   },
+   "added": "2026-11-17",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2611-035",
+   "sku": "JP-2611-035",
+   "brand": "Hogan",
+   "model": "Hyperlight H665",
+   "category": "sneakers",
+   "gender": "men",
+   "size": "44",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 145,
+   "retail": 425,
+   "status": "coming",
+   "images": [
+    "img/jp-2611-035-0n.jpg"
+   ],
+   "color": {
+    "nl": "Beige",
+    "en": "Beige"
+   },
+   "material": {
+    "nl": "Suède",
+    "en": "Suede"
+   },
+   "added": "2026-11-17",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2611-036",
+   "sku": "JP-2611-036",
+   "brand": "Hogan",
+   "model": "Cool",
+   "category": "sneakers",
+   "gender": "women",
+   "size": "39.5",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 145,
+   "retail": 425,
+   "status": "coming",
+   "images": [
+    "img/jp-2611-036-0n.jpg"
+   ],
+   "color": {
+    "nl": "Blauw, wit",
+    "en": "Blue, white"
+   },
+   "material": {
+    "nl": "Suède",
+    "en": "Suede"
+   },
+   "added": "2026-11-17",
+   "demo": false,
+   "note": null
+  },
+  {
+   "id": "jp-2611-037",
+   "sku": "JP-2611-037",
+   "brand": "Hogan",
+   "model": "Interaction",
+   "category": "sneakers",
+   "gender": "men",
+   "size": "43",
+   "sizeSystem": "EU",
+   "condition": "very-good",
+   "price": 129,
+   "retail": 425,
+   "status": "coming",
+   "images": [
+    "img/jp-2611-037-0n.jpg"
+   ],
+   "color": {
+    "nl": "Bruin, wit",
+    "en": "Brown, white"
+   },
+   "material": {
+    "nl": "Suède",
+    "en": "Suede"
+   },
+   "added": "2026-11-17",
+   "demo": false,
+   "note": null
   }
  ]
 }
