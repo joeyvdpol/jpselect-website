@@ -1298,7 +1298,8 @@
    "images": [
     "img/jp-2611-016-0w.jpg",
     "img/jp-2611-016-1w.jpg",
-    "img/jp-2611-016-2w.jpg"
+    "img/jp-2611-016-2w.jpg",
+    "img/jp-2611-016-3w.jpg"
    ],
    "color": {
     "nl": "Wit, grijs",
@@ -1471,7 +1472,8 @@
    "status": "available",
    "images": [
     "img/jp-2611-023-0w.jpg",
-    "img/jp-2611-023-1w.jpg"
+    "img/jp-2611-023-1w.jpg",
+    "img/jp-2611-023-2w.jpg"
    ],
    "color": {
     "nl": "Lichtblauw, wit",
@@ -1784,7 +1786,9 @@
    "status": "available",
    "images": [
     "img/jp-2611-036-0w.jpg",
-    "img/jp-2611-036-1w.jpg"
+    "img/jp-2611-036-1w.jpg",
+    "img/jp-2611-036-2w.jpg",
+    "img/jp-2611-036-3w.jpg"
    ],
    "color": {
     "nl": "Blauw, wit",
