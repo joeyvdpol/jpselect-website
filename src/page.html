@@ -163,6 +163,9 @@ p{margin:0}
 .hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
 .hero .sell-link{justify-self:start;background:none;border:0;padding:6px 0;cursor:pointer;font:500 11px/1.4 var(--f-sans);letter-spacing:.2em;text-transform:uppercase;color:var(--char);text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
 .hero .sell-link::after{content:' →'}
+.hero .cta-stack{display:grid;justify-items:center;gap:8px;width:max-content;max-width:100%}
+.hero .cta-stack .ctas{width:100%;justify-content:center}
+.hero .cta-stack .sell-link{justify-self:center}
 .hero .ctas .btn{min-width:260px}
 .hero .perk{margin:0;font-size:12.5px;line-height:1.5;letter-spacing:.06em;color:#4A443C;max-width:46ch}
 .st{opacity:0;animation:rise .9s ease forwards}
@@ -175,21 +178,22 @@ p{margin:0}
 .scroll-cue i{display:block;width:1px;height:38px;background:linear-gradient(var(--char),transparent);animation:cue 2.4s ease-in-out infinite}
 @keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 @media (min-width:900px){
-  /* zelfde opzet als op de telefoon: video over de volle breedte, tekst linksonder op een donkere laag */
+  /* links een donker vlak in de kleur van de video, rechts de video */
   .hero{background:#17130f;margin-top:0;height:calc(max(620px,min(100svh,1000px)) - var(--navh,78px))}
-  .hero .hmedia{inset:0;transform:none!important}
-  .hero .scroll-cue{display:none}
-  .hero .veil{display:block;background:linear-gradient(90deg,rgba(18,15,12,.8) 0%,rgba(18,15,12,.5) 34%,rgba(18,15,12,0) 60%),linear-gradient(0deg,rgba(18,15,12,.65) 0%,rgba(18,15,12,0) 45%)}
-  .hero .copy{align-content:end;justify-items:start;text-align:left;padding-bottom:clamp(48px,9vh,100px)}
-  .hero .copy>div{max-width:620px;justify-items:start;gap:14px}
-  .hero .claim{white-space:nowrap;font-size:clamp(34px,3.4vw,58px);color:#F6F3EE}
+  .hero .hmedia{inset:0 0 0 50%;transform:none!important}
+  .hero .scroll-cue{left:25%;color:rgba(246,243,238,.6)}
+  .hero .scroll-cue i{background:linear-gradient(#F6F3EE,transparent)}
+  .hero .veil{display:block;inset:0 auto 0 50%;width:90px;background:linear-gradient(90deg,#17130f,rgba(23,19,15,0))}
+  .hero .copy{width:50%;max-width:none;margin:0;box-sizing:border-box;padding:0 clamp(40px,5vw,96px);align-content:center;justify-items:start;text-align:left}
+  .hero .copy>div{max-width:560px;justify-items:start;gap:16px}
+  .hero .claim{white-space:nowrap;font-size:clamp(30px,3vw,50px);color:#F6F3EE}
   .hero h1{color:#F6F3EE}
   .hero h1 svg{fill:#F6F3EE}
-  .hero .quote{font-size:clamp(17px,1.35vw,21px);color:rgba(246,243,238,.72);max-width:32ch}
-  .hero .ctas{justify-content:flex-start;margin-top:18px}
-  .hero .ctas .btn{background:transparent;border-color:rgba(246,243,238,.85);color:#F6F3EE;min-width:240px}
+  .hero .quote{font-size:clamp(17px,1.35vw,21px);color:rgba(246,243,238,.72);max-width:30ch}
+  .hero .cta-stack{margin-top:clamp(18px,3vh,36px)}
+  .hero .ctas .btn{background:transparent;border-color:rgba(246,243,238,.85);color:#F6F3EE;min-width:250px}
   .hero .ctas .btn:hover{background:#F6F3EE;color:var(--char);border-color:#F6F3EE}
-  .hero .sell-link{justify-self:start;color:rgba(246,243,238,.85);font-size:10.5px;letter-spacing:.14em}
+  .hero .sell-link{color:rgba(246,243,238,.85);font-size:10.5px;letter-spacing:.14em}
   .pause{right:max(40px,env(safe-area-inset-right,0px));border-color:rgba(246,243,238,.45);background:rgba(18,15,12,.35);color:#F6F3EE}
 }
 @media (max-width:899px){
@@ -222,7 +226,8 @@ p{margin:0}
   .hero .copy>div{gap:10px}
   .hero .claim{font-size:30px;letter-spacing:.06em;line-height:1.04}
   .hero .quote{font-size:15.5px;line-height:1.45;color:rgba(246,243,238,.7);max-width:30ch;margin-top:0}
-  .hero .ctas{margin-top:12px;max-width:250px}
+  .hero .cta-stack{width:250px;margin-top:12px}
+  .hero .ctas{max-width:none;margin-top:0}
   .hero .ctas .btn{min-height:46px;font-size:10.5px;letter-spacing:.2em}
   .hero .sell-link{font-size:10px;letter-spacing:.12em;margin-top:0;color:rgba(246,243,238,.85)}
   .hero .copy{padding-bottom:max(26px,env(safe-area-inset-bottom,0px))}
@@ -945,11 +950,11 @@ function HeroMedia({paused}){const ref=useRef(null);const [on,setOn]=useState(fa
   useEffect(()=>{const el=ref.current;if(!el)return;const hero=el.closest('.hero');const b=pick();setBase(b);
     el.muted=true;el.defaultMuted=true;el.setAttribute('muted','');el.setAttribute('playsinline','');
     if(reduced())return;
-    const ext=el.canPlayType('video/mp4; codecs="avc1.640028"')?'.mp4':'.webm';el.src=b+ext+'?v=8';
+    const ext=el.canPlayType('video/mp4; codecs="avc1.640028"')?'.mp4':'.webm';el.src=b+ext+'?v=9';
     const pr=el.play();if(pr&&pr.catch)pr.catch(()=>{})},[]);
   useEffect(()=>{const el=ref.current;if(!el||!el.getAttribute('src'))return;if(paused)el.pause();else{const pr=el.play();if(pr&&pr.catch)pr.catch(()=>{})}},[paused]);
   return html`<div className="hmedia" data-par="0.06" aria-hidden="true">
-    <img className="hpost" src=${base+'.jpg?v=8'} alt=""/>
+    <img className="hpost" src=${base+'.jpg?v=9'} alt=""/>
     <video ref=${ref} className=${'hv'+(on?' on':'')} muted loop playsInline preload="auto" tabIndex="-1" onPlaying=${()=>setOn(true)}></video>
   </div>`}
 function Hero({ctx}){const {t,go}=ctx;const [paused,setPaused]=useState(()=>reduced()||ls.get('jps2-pause',false));
@@ -963,8 +968,8 @@ function Hero({ctx}){const {t,go}=ctx;const [paused,setPaused]=useState(()=>redu
       <h1 className="sr">JP SELECT · Redefined Luxury</h1>
       <p className="claim st d1">Redefined Luxury</p>
       <p className="quote st d2">${t.banQ}</p>
-      <div className="ctas st d3"><button className="btn" onClick=${()=>go({v:'col',p:'all'})}>${t.explore}</button></div>
-      <button className="sell-link st d3" onClick=${()=>go({v:'sell'})}>${t.sellLink}</button>
+      <div className="cta-stack st d3"><div className="ctas"><button className="btn" onClick=${()=>go({v:'col',p:'all'})}>${t.explore}</button></div>
+      <button className="sell-link" onClick=${()=>go({v:'sell'})}>${t.sellLink}</button></div>
     </div></div>
     <button className="pause" onClick=${()=>setPaused(!paused)} aria-label=${paused?t.playV:t.pauseV}>${paused?Ic.play:Ic.pause}</button>
   </section>`}
