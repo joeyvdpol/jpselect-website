@@ -208,8 +208,8 @@ p{margin:0}
   .hero .btn:hover{background:#F6F3EE;color:var(--char)}
   .hero .btn.solid{background:#F6F3EE;border-color:#F6F3EE;color:var(--char)}
   .hero .btn.solid:hover{background:transparent;color:#F6F3EE}
-  .hero .pause{border-color:rgba(246,243,238,.5);background:rgba(18,15,12,.35);color:#F6F3EE}
-  .hero .pause svg{stroke:#F6F3EE;fill:#F6F3EE}
+  .hero .pause{display:none}
+  .hero .copy{padding-bottom:max(26px,env(safe-area-inset-bottom,0px))}
 }
 
 /* zichtbaar in rust; bij binnenkomen schuift het iets omhoog */
@@ -948,7 +948,6 @@ function Hero({ctx}){const {t,go}=ctx;const [paused,setPaused]=useState(()=>redu
       <p className="claim st d1">Redefined Luxury</p>
       <p className="quote st d2">${t.banQ}</p>
       <div className="ctas st d3"><button className="btn" onClick=${()=>go({v:'col',p:'all'})}>${t.explore}</button><button className="btn solid" onClick=${()=>go({v:'sell'})}>${t.sellCta}</button></div>
-      <p className="perk st d3">${t.perk}</p>
     </div></div>
     <button className="pause" onClick=${()=>setPaused(!paused)} aria-label=${paused?t.playV:t.pauseV}>${paused?Ic.play:Ic.pause}</button>
   </section>`}
