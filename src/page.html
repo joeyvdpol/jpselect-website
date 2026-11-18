@@ -154,6 +154,8 @@ p{margin:0}
 .hmedia img,.hmedia video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .hmedia video{opacity:0;transition:opacity 1.2s ease}
 .hmedia video.on{opacity:1}
+.hbg,.hframe{position:absolute;inset:0;overflow:hidden}
+.hbg{display:none}
 .hero .veil{position:absolute;inset:0;z-index:0;background:linear-gradient(90deg,rgba(246,243,238,.88) 0%,rgba(246,243,238,.62) 34%,rgba(246,243,238,0) 62%),linear-gradient(0deg,rgba(246,243,238,.6),rgba(246,243,238,0) 32%)}
 .hero .copy{position:relative;z-index:1;height:100%;display:grid;align-content:end;padding-bottom:clamp(40px,9vh,96px)}
 .hero .copy>div{display:grid;gap:22px;max-width:680px}
@@ -178,23 +180,25 @@ p{margin:0}
 .scroll-cue i{display:block;width:1px;height:38px;background:linear-gradient(var(--char),transparent);animation:cue 2.4s ease-in-out infinite}
 @keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 @media (min-width:900px){
-  /* links een donker vlak in de kleur van de video, rechts de video */
+  /* vervaagde video over de hele breedte, de scherpe video als ingelijst beeld rechts, tekst links */
   .hero{background:#17130f;margin-top:0;height:calc(max(620px,min(100svh,1000px)) - var(--navh,78px))}
-  .hero .hmedia{inset:0 0 0 50%;transform:none!important}
-  .hero .scroll-cue{left:25%;color:rgba(246,243,238,.6)}
-  .hero .scroll-cue i{background:linear-gradient(#F6F3EE,transparent)}
-  .hero .veil{display:block;inset:0 auto 0 50%;width:90px;background:linear-gradient(90deg,#17130f,rgba(23,19,15,0))}
-  .hero .copy{width:50%;max-width:none;margin:0;box-sizing:border-box;padding:0 clamp(40px,5vw,96px);align-content:center;justify-items:start;text-align:left}
-  .hero .copy>div{max-width:560px;justify-items:start;gap:16px}
-  .hero .claim{white-space:nowrap;font-size:clamp(30px,3vw,50px);color:#F6F3EE}
+  .hero .hmedia{inset:0;transform:none!important}
+  .hbg{display:block;filter:blur(34px) brightness(.4) saturate(1.1);transform:scale(1.2)}
+  .hbg video{opacity:1}
+  .hframe{left:auto;right:clamp(40px,7vw,140px);top:8%;bottom:8%;height:auto;aspect-ratio:8/9;box-shadow:0 30px 90px rgba(0,0,0,.5)}
+  .hero .scroll-cue{display:none}
+  .hero .veil{display:block;background:linear-gradient(90deg,rgba(18,15,12,.55) 0%,rgba(18,15,12,.2) 45%,rgba(18,15,12,0) 70%)}
+  .hero .copy{align-content:center;justify-items:start;text-align:left}
+  .hero .copy>div{max-width:min(560px,42vw);justify-items:start;gap:18px}
+  .hero .claim{white-space:nowrap;font-size:clamp(34px,3.6vw,64px);color:#F6F3EE}
   .hero h1{color:#F6F3EE}
   .hero h1 svg{fill:#F6F3EE}
-  .hero .quote{font-size:clamp(17px,1.35vw,21px);color:rgba(246,243,238,.72);max-width:30ch}
-  .hero .cta-stack{margin-top:clamp(18px,3vh,36px)}
-  .hero .ctas .btn{background:transparent;border-color:rgba(246,243,238,.85);color:#F6F3EE;min-width:250px}
+  .hero .quote{font-size:clamp(18px,1.45vw,23px);color:rgba(246,243,238,.75);max-width:30ch}
+  .hero .cta-stack{margin-top:clamp(20px,3.5vh,40px)}
+  .hero .ctas .btn{background:transparent;border-color:rgba(246,243,238,.85);color:#F6F3EE;min-width:270px}
   .hero .ctas .btn:hover{background:#F6F3EE;color:var(--char);border-color:#F6F3EE}
   .hero .sell-link{color:rgba(246,243,238,.85);font-size:10.5px;letter-spacing:.14em}
-  .pause{right:max(40px,env(safe-area-inset-right,0px));border-color:rgba(246,243,238,.45);background:rgba(18,15,12,.35);color:#F6F3EE}
+  .pause{right:calc(clamp(40px,7vw,140px) + 18px);bottom:calc(8% + 18px);border-color:rgba(246,243,238,.45);background:rgba(18,15,12,.35);color:#F6F3EE}
 }
 @media (max-width:899px){
   .hero{margin-top:0;height:calc(max(560px,min(100svh,1000px)) - var(--navh,64px))}
@@ -946,16 +950,19 @@ function Scene({kind}){
     <div className="l lvb" style=${{backgroundImage:'url(scene/leaves-b.webp)'}}></div>
     <div className="l lva" style=${{backgroundImage:'url(scene/leaves-a.webp)'}}></div>
     <div className="l grain"></div></div>`}
-function HeroMedia({paused}){const ref=useRef(null);const [on,setOn]=useState(false);const pick=()=>{try{return matchMedia('(min-width:900px)').matches?'media/hero-shoe-d':'media/hero-shoe'}catch(e){return 'media/hero-shoe'}};const [base,setBase]=useState(pick);
+function HeroMedia({paused}){const ref=useRef(null);const bgRef=useRef(null);const [on,setOn]=useState(false);const pick=()=>{try{return matchMedia('(min-width:900px)').matches?'media/hero-shoe-d':'media/hero-shoe'}catch(e){return 'media/hero-shoe'}};const [base,setBase]=useState(pick);
   useEffect(()=>{const el=ref.current;if(!el)return;const hero=el.closest('.hero');const b=pick();setBase(b);
     el.muted=true;el.defaultMuted=true;el.setAttribute('muted','');el.setAttribute('playsinline','');
     if(reduced())return;
-    const ext=el.canPlayType('video/mp4; codecs="avc1.640028"')?'.mp4':'.webm';el.src=b+ext+'?v=9';
-    const pr=el.play();if(pr&&pr.catch)pr.catch(()=>{})},[]);
-  useEffect(()=>{const el=ref.current;if(!el||!el.getAttribute('src'))return;if(paused)el.pause();else{const pr=el.play();if(pr&&pr.catch)pr.catch(()=>{})}},[paused]);
+    const ext=el.canPlayType('video/mp4; codecs="avc1.640028"')?'.mp4':'.webm';el.src=b+ext+'?v=10';
+    const pr=el.play();if(pr&&pr.catch)pr.catch(()=>{});
+    /* desktop: dezelfde video vervaagd als achtergrond over de hele breedte */
+    const bg=bgRef.current;if(bg&&b.endsWith('-d')){bg.muted=true;bg.defaultMuted=true;bg.setAttribute('muted','');bg.setAttribute('playsinline','');bg.src=el.src;const p2=bg.play();if(p2&&p2.catch)p2.catch(()=>{})}},[]);
+  useEffect(()=>{[ref.current,bgRef.current].forEach(el=>{if(!el||!el.getAttribute('src'))return;if(paused)el.pause();else{const pr=el.play();if(pr&&pr.catch)pr.catch(()=>{})}})},[paused]);
   return html`<div className="hmedia" data-par="0.06" aria-hidden="true">
-    <img className="hpost" src=${base+'.jpg?v=9'} alt=""/>
-    <video ref=${ref} className=${'hv'+(on?' on':'')} muted loop playsInline preload="auto" tabIndex="-1" onPlaying=${()=>setOn(true)}></video>
+    <div className="hbg"><img src=${base+'.jpg?v=10'} alt=""/><video ref=${bgRef} muted loop playsInline preload="auto" tabIndex="-1"></video></div>
+    <div className="hframe"><img className="hpost" src=${base+'.jpg?v=10'} alt=""/>
+    <video ref=${ref} className=${'hv'+(on?' on':'')} muted loop playsInline preload="auto" tabIndex="-1" onPlaying=${()=>setOn(true)}></video></div>
   </div>`}
 function Hero({ctx}){const {t,go}=ctx;const [paused,setPaused]=useState(()=>reduced()||ls.get('jps2-pause',false));
   useEffect(()=>{ls.set('jps2-pause',paused)},[paused]);
