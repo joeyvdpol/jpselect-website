@@ -912,15 +912,15 @@ function Scene({kind}){
     <div className="l lvb" style=${{backgroundImage:'url(scene/leaves-b.webp)'}}></div>
     <div className="l lva" style=${{backgroundImage:'url(scene/leaves-a.webp)'}}></div>
     <div className="l grain"></div></div>`}
-function HeroMedia({paused}){const ref=useRef(null);const [on,setOn]=useState(false);const [base,setBase]=useState('media/hero-port');
-  useEffect(()=>{const el=ref.current;if(!el)return;const hero=el.closest('.hero');const b='media/hero-port';setBase(b);
+function HeroMedia({paused}){const ref=useRef(null);const [on,setOn]=useState(false);const [base,setBase]=useState('media/hero-shoe');
+  useEffect(()=>{const el=ref.current;if(!el)return;const hero=el.closest('.hero');const b='media/hero-shoe';setBase(b);
     el.muted=true;el.defaultMuted=true;el.setAttribute('muted','');el.setAttribute('playsinline','');
     if(reduced())return;
-    const ext=el.canPlayType('video/mp4; codecs="avc1.640028"')?'.mp4':'.webm';el.src=b+ext+'?v=3';
+    const ext=el.canPlayType('video/mp4; codecs="avc1.640028"')?'.mp4':'.webm';el.src=b+ext+'?v=4';
     const pr=el.play();if(pr&&pr.catch)pr.catch(()=>{})},[]);
   useEffect(()=>{const el=ref.current;if(!el||!el.getAttribute('src'))return;if(paused)el.pause();else{const pr=el.play();if(pr&&pr.catch)pr.catch(()=>{})}},[paused]);
   return html`<div className="hmedia" data-par="0.06" aria-hidden="true">
-    <img className="hpost" src=${base+'.jpg?v=3'} alt=""/>
+    <img className="hpost" src=${base+'.jpg?v=4'} alt=""/>
     <video ref=${ref} className=${'hv'+(on?' on':'')} muted loop playsInline preload="auto" tabIndex="-1" onPlaying=${()=>setOn(true)}></video>
   </div>`}
 function Hero({ctx}){const {t,go}=ctx;const [paused,setPaused]=useState(()=>reduced()||ls.get('jps2-pause',false));
