@@ -1780,7 +1780,8 @@
    "retail": 425,
    "status": "available",
    "images": [
-    "img/jp-2611-036-0nw.jpg"
+    "img/jp-2611-036-0w.jpg",
+    "img/jp-2611-036-1w.jpg"
    ],
    "color": {
     "nl": "Blauw, wit",
