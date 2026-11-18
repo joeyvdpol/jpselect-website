@@ -175,22 +175,22 @@ p{margin:0}
 .scroll-cue i{display:block;width:1px;height:38px;background:linear-gradient(var(--char),transparent);animation:cue 2.4s ease-in-out infinite}
 @keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 @media (min-width:900px){
-  .hero{background:var(--ivory)}
-  .hero{margin-top:0;height:calc(max(620px,min(100svh,1000px)) - var(--navh,78px))}
-  .hero .hmedia{inset:0 0 0 50%;transform:none!important}
-  .hero .scroll-cue{left:25%}
-  .hero .veil{display:none}
-  /* tekst precies gecentreerd in de lichte linkerhelft */
-  .hero .copy{width:50%;max-width:none;margin:0;box-sizing:border-box;padding:0 clamp(32px,4vw,72px);align-content:center;justify-items:center;text-align:center}
-  .hero .copy>div{max-width:680px;justify-items:center}
-  .hero .claim{white-space:nowrap;font-size:clamp(28px,3.1vw,54px)}
-  .hero .quote{margin-inline:auto}
-  .hero .ctas{justify-content:center;margin-top:clamp(30px,5vh,64px)}
-  .hero .perk{margin-inline:auto}
-  .hero .sell-link{justify-self:center}
-  .hero .ctas .btn{background:var(--char);color:var(--ivory);border-color:var(--char)}
-  .hero .ctas .btn:hover{background:var(--ivory);color:var(--char);border-color:var(--char)}
-  .pause{right:max(40px,env(safe-area-inset-right,0px))}
+  /* zelfde opzet als op de telefoon: video over de volle breedte, tekst linksonder op een donkere laag */
+  .hero{background:#17130f;margin-top:0;height:calc(max(620px,min(100svh,1000px)) - var(--navh,78px))}
+  .hero .hmedia{inset:0;transform:none!important}
+  .hero .scroll-cue{display:none}
+  .hero .veil{display:block;background:linear-gradient(90deg,rgba(18,15,12,.8) 0%,rgba(18,15,12,.5) 34%,rgba(18,15,12,0) 60%),linear-gradient(0deg,rgba(18,15,12,.65) 0%,rgba(18,15,12,0) 45%)}
+  .hero .copy{align-content:end;justify-items:start;text-align:left;padding-bottom:clamp(48px,9vh,100px)}
+  .hero .copy>div{max-width:620px;justify-items:start;gap:14px}
+  .hero .claim{white-space:nowrap;font-size:clamp(34px,3.4vw,58px);color:#F6F3EE}
+  .hero h1{color:#F6F3EE}
+  .hero h1 svg{fill:#F6F3EE}
+  .hero .quote{font-size:clamp(17px,1.35vw,21px);color:rgba(246,243,238,.72);max-width:32ch}
+  .hero .ctas{justify-content:flex-start;margin-top:18px}
+  .hero .ctas .btn{background:transparent;border-color:rgba(246,243,238,.85);color:#F6F3EE;min-width:240px}
+  .hero .ctas .btn:hover{background:#F6F3EE;color:var(--char);border-color:#F6F3EE}
+  .hero .sell-link{justify-self:start;color:rgba(246,243,238,.85);font-size:10.5px;letter-spacing:.14em}
+  .pause{right:max(40px,env(safe-area-inset-right,0px));border-color:rgba(246,243,238,.45);background:rgba(18,15,12,.35);color:#F6F3EE}
 }
 @media (max-width:899px){
   .hero{margin-top:0;height:calc(max(560px,min(100svh,1000px)) - var(--navh,64px))}
@@ -945,11 +945,11 @@ function HeroMedia({paused}){const ref=useRef(null);const [on,setOn]=useState(fa
   useEffect(()=>{const el=ref.current;if(!el)return;const hero=el.closest('.hero');const b=pick();setBase(b);
     el.muted=true;el.defaultMuted=true;el.setAttribute('muted','');el.setAttribute('playsinline','');
     if(reduced())return;
-    const ext=el.canPlayType('video/mp4; codecs="avc1.640028"')?'.mp4':'.webm';el.src=b+ext+'?v=7';
+    const ext=el.canPlayType('video/mp4; codecs="avc1.640028"')?'.mp4':'.webm';el.src=b+ext+'?v=8';
     const pr=el.play();if(pr&&pr.catch)pr.catch(()=>{})},[]);
   useEffect(()=>{const el=ref.current;if(!el||!el.getAttribute('src'))return;if(paused)el.pause();else{const pr=el.play();if(pr&&pr.catch)pr.catch(()=>{})}},[paused]);
   return html`<div className="hmedia" data-par="0.06" aria-hidden="true">
-    <img className="hpost" src=${base+'.jpg?v=7'} alt=""/>
+    <img className="hpost" src=${base+'.jpg?v=8'} alt=""/>
     <video ref=${ref} className=${'hv'+(on?' on':'')} muted loop playsInline preload="auto" tabIndex="-1" onPlaying=${()=>setOn(true)}></video>
   </div>`}
 function Hero({ctx}){const {t,go}=ctx;const [paused,setPaused]=useState(()=>reduced()||ls.get('jps2-pause',false));
