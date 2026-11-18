@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-17",
+ "updated": "2026-11-18",
  "source": "JP SELECT Business Center (echte voorraad en verkopen)",
  "products": [
   {
@@ -1294,7 +1294,7 @@
    "condition": "very-good",
    "price": 125,
    "retail": 425,
-   "status": "coming",
+   "status": "available",
    "images": [
     "img/jp-2611-016-0nw.jpg"
    ],
@@ -1351,7 +1351,7 @@
    "condition": "very-good",
    "price": 149,
    "retail": 620,
-   "status": "coming",
+   "status": "available",
    "images": [
     "img/jp-2611-019-0n.jpg",
     "img/jp-2611-019-1.jpg",
@@ -1381,7 +1381,7 @@
    "condition": "very-good",
    "price": 130,
    "retail": 425,
-   "status": "coming",
+   "status": "available",
    "images": [
     "img/jp-2611-020-0nw.jpg"
    ],
@@ -1610,7 +1610,7 @@
    "condition": "very-good",
    "price": 125,
    "retail": 425,
-   "status": "coming",
+   "status": "available",
    "images": [
     "img/jp-2611-031-0nw.jpg"
    ],
@@ -1638,7 +1638,7 @@
    "condition": "good",
    "price": 115,
    "retail": 425,
-   "status": "coming",
+   "status": "available",
    "images": [
     "img/jp-2611-032-0nw.jpg"
    ],
@@ -1778,7 +1778,7 @@
    "condition": "very-good",
    "price": 145,
    "retail": 425,
-   "status": "coming",
+   "status": "available",
    "images": [
     "img/jp-2611-036-0nw.jpg"
    ],
