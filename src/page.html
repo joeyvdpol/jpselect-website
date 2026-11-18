@@ -611,7 +611,7 @@ nl:{
  coH:'Afrekenen',coDemo:'Demonstratie',coIntro:'Dit is een demonstratie van het afrekenen. Er wordt niets besteld, niets betaald en niets opgeslagen.',
  coEy:'Veilig betalen',coLive:'Je betaalt via de beveiligde betaalpagina van Mollie met iDEAL, Bancontact, creditcard of Apple Pay. Elk stuk is uniek; zodra je naar betalen gaat, houden we het 45 minuten voor je vast.',
  coPhone:'Telefoon (optioneel, voor de bezorger)',coTerms:'Ik ga akkoord met de {a} en heb de informatie over de bedenktijd gelezen.',coTermsA:'algemene voorwaarden',coPay:'Bestellen en betalen',coBusy:'Even geduld…',
- coFree:'Gratis',coFreeFrom:'Gratis verzending vanaf {x}',coFreeLeft:'Nog {x} tot gratis verzending',coShipTo:'naar {c}',coVat:'Prijzen inclusief btw, voor zover verschuldigd.',
+ coFree:'Gratis',coFreeFrom:'Gratis verzending in NL vanaf {x}',coFreeLeft:'Nog {x} tot gratis verzending',coShipTo:'naar {c}',coVat:'Prijzen inclusief btw, voor zover verschuldigd.',
  coClosed:'Online betalen staat nog niet aan. Wil je dit stuk kopen? Mail ons via info@jpselect.nl, dan regelen we het.',coGone:'Dit stuk is net door iemand anders gekocht of gereserveerd en is uit je tas gehaald: {x}.',coFail:'Er ging iets mis bij het starten van de betaling. Er is niets afgeschreven. Probeer het opnieuw of mail info@jpselect.nl.',coProto:'Prototype: hier ga je in de live versie naar de betaalpagina van Mollie. Er is niets besteld of betaald.',
  okWait:'We wachten op de bevestiging van je betaling…',okWaitP:'Dit duurt meestal maar een paar seconden. Je kunt deze pagina open laten.',okPaidCap:'Bestelling geplaatst',okPaidH:'Bedankt! Je bestelling {r} is betaald.',okPaidP:'We sturen een bevestiging naar {e}. Zodra je pakket onderweg is, krijg je de track & trace. Niets ontvangen? Kijk ook even in je spam.',
  okNoCap:'Niet betaald',okNoH:'Je betaling is niet gelukt of geannuleerd.',okNoP:'Er is niets afgeschreven en je stukken zijn weer vrijgegeven. Je kunt het opnieuw proberen.',okRetry:'Terug naar je tas',okOpenP:'Je betaling is nog niet bevestigd. Heb je wel betaald? Dan krijg je binnen enkele minuten een bevestiging per mail. Anders kun je het opnieuw proberen.',okConflict:'Je betaling is binnen. Eén van je stukken was helaas net elders verkocht; we mailen je binnen één werkdag en betalen dat deel volledig terug.',
@@ -676,7 +676,7 @@ en:{
  coH:'Checkout',coDemo:'Demonstration',coIntro:'This is a demonstration of the checkout. Nothing is ordered, paid or stored.',
  coEy:'Secure payment',coLive:'You pay on Mollie’s secure payment page with iDEAL, Bancontact, credit card or Apple Pay. Every piece is one of a kind; as soon as you continue to payment, we hold it for you for 45 minutes.',
  coPhone:'Phone (optional, for the courier)',coTerms:'I agree to the {a} and have read the information about the withdrawal period.',coTermsA:'terms and conditions',coPay:'Order and pay',coBusy:'One moment…',
- coFree:'Free',coFreeFrom:'Free shipping from {x}',coFreeLeft:'{x} more for free shipping',coShipTo:'to {c}',coVat:'Prices include VAT where applicable.',
+ coFree:'Free',coFreeFrom:'Free shipping in NL from {x}',coFreeLeft:'{x} more for free shipping',coShipTo:'to {c}',coVat:'Prices include VAT where applicable.',
  coClosed:'Online payment is not switched on yet. Would you like to buy this piece? Email us at info@jpselect.nl and we will arrange it.',coGone:'This piece was just bought or reserved by someone else and has been removed from your bag: {x}.',coFail:'Something went wrong starting the payment. Nothing has been charged. Please try again or email info@jpselect.nl.',coProto:'Prototype: in the live version you continue to the Mollie payment page here. Nothing has been ordered or paid.',
  okWait:'Waiting for confirmation of your payment…',okWaitP:'This usually takes only a few seconds. You can leave this page open.',okPaidCap:'Order placed',okPaidH:'Thank you! Your order {r} has been paid.',okPaidP:'We are sending a confirmation to {e}. Once your parcel is on its way, you will receive the tracking link. Nothing yet? Please check your spam folder too.',
  okNoCap:'Not paid',okNoH:'Your payment failed or was cancelled.',okNoP:'Nothing has been charged and your pieces have been released. You can try again.',okRetry:'Back to your bag',okOpenP:'Your payment has not been confirmed yet. Did you pay? Then you will receive a confirmation email within a few minutes. Otherwise you can try again.',okConflict:'Your payment has been received. Unfortunately one of your pieces was just sold elsewhere; we will email you within one working day and refund that part in full.',
@@ -1257,7 +1257,7 @@ function CheckoutForm({ctx}){const {t,L,products,bag,go,setBag}=ctx;
   const [err,setErr]=useState({});const [busy,setBusy]=useState(false);const [msg,setMsg]=useState('');const [open,setOpen]=useState(LIVE?null:false);
   useEffect(()=>{if(!LIVE)return;fetch('/.netlify/functions/create-payment').then(r=>r.ok?r.json():{open:false}).then(d=>setOpen(!!d.open)).catch(()=>setOpen(false))},[]);
   const s=k=>e=>{const v=e.target.type==='checkbox'?e.target.checked:e.target.value;setF(o=>({...o,[k]:v}));setErr(o=>o[k]?{...o,[k]:null}:o)};
-  const shipC=SH?SH.shippingCents(f.country,Math.round(sub*100)):0;const ship=shipC/100;const left=SH?SH.freeFrom-sub:0;
+  const shipC=SH?SH.shippingCents(f.country,Math.round(sub*100)):0;const ship=shipC/100;const left=SH&&SH.freeCountries.includes(f.country)?SH.freeFrom-sub:0;
   const termsHref=PATHS?SEO.pathOf({v:'info',p:'terms'},L,products):'#'+(L==='nl'?'voorwaarden':'terms');
   const submit=async e=>{e.preventDefault();if(busy)return;setMsg('');const er={};['name','street','zip','city'].forEach(k=>{if(!f[k].trim())er[k]=t.form.req});
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.trim()))er.email=t.form.badMail;if(!f.terms)er.terms=t.form.needConsent;setErr(er);
@@ -1323,11 +1323,11 @@ function SellPage({ctx}){return html`<section className="wrap sec" style=${{padd
 /* Juridische teksten (NL + EN). '## ' = tussenkop, '- ' = opsommingspunt. */
 const LEGAL={
 nl:{
-ship:['Versie 29 oktober 2026',
+ship:['Versie 18 november 2026',
 '## Verzenden',
 'We verzenden vanuit Nederland naar alle landen van de Europese Unie. Elke bestelling wordt zorgvuldig verpakt; schoenen gaan in hun doos (als die er is) in een stevige verzenddoos.',
-'- Gratis verzending vanaf {FREE} (subtotaal van je bestelling).',
-'- Daaronder: Nederland {NL}, België en Duitsland {BE}, overige EU-landen {EU}.',
+'- Binnen Nederland gratis verzending vanaf {FREE} (subtotaal van je bestelling).',
+'- Verzendkosten: Nederland {NL} (onder {FREE}), België en Duitsland {BE}, Frankrijk {FR}, Italië {IT}, overige EU-landen {EU}.',
 '- De verzendkosten zie je altijd in de kassa voordat je betaalt.',
 'We verzenden je bestelling zo snel mogelijk na je betaling en mailen je de track & trace zodra je pakket onderweg is. Levering binnen Nederland duurt meestal 1 à 2 werkdagen, binnen de EU meestal 2 à 7 werkdagen. Uiterlijk leveren we binnen 30 dagen; lukt dat onverhoopt niet, dan mag je de bestelling kosteloos ontbinden.',
 '## Bedenktijd: 14 dagen',
@@ -1402,11 +1402,11 @@ privacy:['Versie 29 oktober 2026',
 'Onze website gebruikt een beveiligde verbinding (https). De website kan aanvragen en bestellingen alleen toevoegen aan de database, niet uitlezen; alleen wij hebben toegang tot de gegevens.']
 },
 en:{
-ship:['Version 29 October 2026',
+ship:['Version 18 November 2026',
 '## Shipping',
 'We ship from the Netherlands to every country in the European Union. Every order is packed with care; shoes travel in their box (if there is one) inside a sturdy shipping carton.',
-'- Free shipping from {FREE} (order subtotal).',
-'- Below that: Netherlands {NL}, Belgium and Germany {BE}, other EU countries {EU}.',
+'- Free shipping within the Netherlands from {FREE} (order subtotal).',
+'- Shipping costs: Netherlands {NL} (below {FREE}), Belgium and Germany {BE}, France {FR}, Italy {IT}, other EU countries {EU}.',
 '- You always see the shipping cost at checkout before you pay.',
 'We ship your order as soon as possible after payment and email you the tracking link once your parcel is on its way. Delivery within the Netherlands usually takes 1–2 working days, within the EU usually 2–7 working days. We deliver within 30 days at the latest; if that is not possible, you may cancel the order free of charge.',
 '## 14-day withdrawal period',
@@ -1484,7 +1484,7 @@ privacy:['Version 29 October 2026',
 function Info({ctx,k}){const {t,say,L}=ctx;const lg=LEGAL[L]&&LEGAL[L][k];const body=lg||{ship:t.shipBody,terms:t.termsBody,privacy:t.privacyBody,contact:t.contactBody}[k]||[];
   const copy=()=>{try{navigator.clipboard.writeText(CO.email).then(()=>say(t.copied),()=>say(t.copyFail))}catch(e){say(t.copyFail)}};
   const SH=window.JPSHOP;const eu=v=>(L==='nl'?'€ '+v.toFixed(2).replace('.',','):'€ '+v.toFixed(2)).replace(/[,.]00$/,'');
-  const fill=x=>SH?x.replace('{NL}',eu(SH.rates.NL)).replace('{BE}',eu(SH.rates.BE)).replace('{EU}',eu(SH.rates.EU)).replace('{FREE}',eu(SH.freeFrom)):x;
+  const fill=x=>SH?x.replace('{NL}',eu(SH.rates.NL)).replace('{BE}',eu(SH.rates.BE)).replace('{FR}',eu(SH.rates.FR)).replace('{IT}',eu(SH.rates.IT)).replace('{EU}',eu(SH.rates.EU)).replace(/\{FREE\}/g,eu(SH.freeFrom)):x;
   const out=[];let ul=null;body.forEach((x,i)=>{x=fill(x);if(x.startsWith('- ')){if(!ul){ul=[];out.push(html`<ul key=${'u'+i} className="lglist">${ul}</ul>`)}ul.push(html`<li key=${i}>${x.slice(2)}</li>`);return}ul=null;
     out.push(x.startsWith('## ')?html`<h2 key=${i} className="lgh">${x.slice(3)}</h2>`:i===0&&lg?html`<p key=${i} className="mute" style=${{fontSize:13}}>${x}</p>`:html`<p key=${i}>${x}</p>`)});
   return html`<div className="wrap"><div className="text"><span className="eyebrow cap">JP SELECT</span><h1>${t.pages[k]||''}</h1>${out}
