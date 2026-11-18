@@ -5,7 +5,7 @@
   if (typeof module === 'object' && module.exports) module.exports = m; else root.JPSHOP = m;
 })(typeof self !== 'undefined' ? self : this, function () {
   const freeFrom = 130;              // gratis verzending vanaf dit subtotaal
-  const rates = { NL: 6.95, BE: 9.95, DE: 9.95, FR: 11.95, IT: 12.95, EU: 14.95 }; // o.b.v. PostNL-tarieven 2026, doos ±1–2 kg
+  const rates = { NL: 6.95, BE: 9.95, DE: 9.95, FR: 12.95, IT: 13.95, EU: 14.95 }; // o.b.v. MyParcel-tarieven 2026 (excl. btw), doos ±1–2 kg
   const freeCountries = ['NL']; // gratis verzending vanaf freeFrom alleen binnen deze landen
   const countries = ['NL', 'BE', 'DE', 'FR', 'LU', 'AT', 'IT', 'ES', 'PT', 'IE', 'DK', 'SE', 'FI', 'PL', 'CZ', 'SK', 'SI', 'HR', 'HU', 'RO', 'BG', 'GR', 'CY', 'MT', 'EE', 'LV', 'LT'];
   const names = {
