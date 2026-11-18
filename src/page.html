@@ -692,7 +692,7 @@ en:{
  copy:'Copy',copied:'Email address copied',copyFail:'Select the address and copy it yourself',
  placeholder:'To follow before launch'}
 };
-const CO={email:'info@jpselect.nl',kvk:'42155019',btw:'NL005540814B59',city:'Nijkerk'};
+const CO={email:'info@jpselect.nl',kvk:'42155019',btw:'NL005540814B59',city:'Nijkerk',addr:'Van Reenenpark 16, 3862 CC Nijkerk'};
 /* Beoordelingen: cijfers zoals opgegeven door JP SELECT op 23-10-2026, bron: verkopersprofiel op Vinted. Handmatig bijwerken. */
 const REV={score:4.9,count:283,url:'https://www.vinted.nl/member/100090723-jpselect'};
 /* Echte reviews van het Vinted-profiel (screenshots 23-10-2026), tekst letterlijk overgenomen. Gebruikersnamen ingekort. */
@@ -1488,7 +1488,7 @@ function Info({ctx,k}){const {t,say,L}=ctx;const lg=LEGAL[L]&&LEGAL[L][k];const 
   const out=[];let ul=null;body.forEach((x,i)=>{x=fill(x);if(x.startsWith('- ')){if(!ul){ul=[];out.push(html`<ul key=${'u'+i} className="lglist">${ul}</ul>`)}ul.push(html`<li key=${i}>${x.slice(2)}</li>`);return}ul=null;
     out.push(x.startsWith('## ')?html`<h2 key=${i} className="lgh">${x.slice(3)}</h2>`:i===0&&lg?html`<p key=${i} className="mute" style=${{fontSize:13}}>${x}</p>`:html`<p key=${i}>${x}</p>`)});
   return html`<div className="wrap"><div className="text"><span className="eyebrow cap">JP SELECT</span><h1>${t.pages[k]||''}</h1>${out}
-    ${k==='contact'&&html`<div style=${{display:'flex',gap:14,alignItems:'center',flexWrap:'wrap'}}><code style=${{fontSize:18,userSelect:'all'}}>${CO.email}</code><button className="btn" style=${{minHeight:40}} onClick=${copy}>${t.copy}</button></div><p className="mute" style=${{fontSize:14}}>${t.f.kvk} ${CO.kvk} · ${t.f.btw} ${CO.btw} · ${CO.city}</p>`}
+    ${k==='contact'&&html`<div style=${{display:'flex',gap:14,alignItems:'center',flexWrap:'wrap'}}><code style=${{fontSize:18,userSelect:'all'}}>${CO.email}</code><button className="btn" style=${{minHeight:40}} onClick=${copy}>${t.copy}</button></div><p className="mute" style=${{fontSize:14}}>${t.f.kvk} ${CO.kvk} · ${t.f.btw} ${CO.btw}</p><p className="mute" style=${{fontSize:14}}>${CO.addr}</p>`}
     ${!lg&&(k==='terms'||k==='privacy')&&html`<p className="ph-note">${t.placeholder}</p>`}</div></div>`}
 function Footer({ctx}){const {t,go,say,L}=ctx;const [m,setM]=useState('');const [nb,setNb]=useState(false);
   const signup=async e=>{e.preventDefault();const v=m.trim();if(!v||nb)return;
@@ -1503,7 +1503,7 @@ function Footer({ctx}){const {t,go,say,L}=ctx;const [m,setM]=useState('');const 
       <div><h4>${t.f.about}</h4><ul>${L2(t.nav.story,{v:'story'})}${L2(t.nav.sell,{v:'sell'})}${L2(t.revEy,{v:'reviews'})}${L2(t.f.contact,{v:'info',p:'contact'})}<li><a className="fl" href="https://www.instagram.com/jpselectofficial/" target="_blank" rel="noopener">${t.f.insta}</a></li></ul></div>
       <div><h4>${t.f.service}</h4><ul>${L2(t.f.ship,{v:'info',p:'ship'})}${L2(t.f.terms,{v:'info',p:'terms'})}${L2(t.f.privacy,{v:'info',p:'privacy'})}</ul></div>
     </div>
-    <div className="bot"><span>© 2026 JP SELECT · ${t.f.kvk} ${CO.kvk} · ${t.f.btw} ${CO.btw}</span><span>Trade in. Step up.</span></div>
+    <div className="bot"><span>© 2026 JP SELECT · ${CO.addr} · ${t.f.kvk} ${CO.kvk} · ${t.f.btw} ${CO.btw}</span><span>Trade in. Step up.</span></div>
   </div></footer>`}
 
 ReactDOM.createRoot(document.getElementById('root')).render(html`<${App}/>`);
