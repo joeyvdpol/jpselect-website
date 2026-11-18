@@ -197,6 +197,19 @@ p{margin:0}
   .hero .ctas .btn{width:100%;box-sizing:border-box;min-height:44px;padding:0 20px;font-size:10.5px;letter-spacing:.2em}
   .hero .ctas{gap:8px;max-width:min(320px,calc(100% - 96px))}
   .hero .perk{font-size:11.5px;max-width:min(320px,calc(100% - 64px))}
+  /* donkere video: donkere laag onderaan en lichte tekst, geen witte waas */
+  .hero{background:#17130f}
+  .hero .veil{background:linear-gradient(0deg,rgba(18,15,12,.92) 0%,rgba(18,15,12,.72) 30%,rgba(18,15,12,.25) 55%,rgba(18,15,12,0) 72%)}
+  .hero .claim,.hero h1{color:#F6F3EE}
+  .hero h1 svg{fill:#F6F3EE}
+  .hero .quote{color:rgba(246,243,238,.86)}
+  .hero .perk{color:rgba(246,243,238,.72)}
+  .hero .btn{border-color:rgba(246,243,238,.85);color:#F6F3EE}
+  .hero .btn:hover{background:#F6F3EE;color:var(--char)}
+  .hero .btn.solid{background:#F6F3EE;border-color:#F6F3EE;color:var(--char)}
+  .hero .btn.solid:hover{background:transparent;color:#F6F3EE}
+  .hero .pause{border-color:rgba(246,243,238,.5);background:rgba(18,15,12,.35);color:#F6F3EE}
+  .hero .pause svg{stroke:#F6F3EE;fill:#F6F3EE}
 }
 
 /* zichtbaar in rust; bij binnenkomen schuift het iets omhoog */
