@@ -70,7 +70,7 @@ ${row(t.sub, S.euro(o.subtotal_cents))}${row(t.ship, shipTxt)}${row(esc(t.total)
 }
 
 function ownerMail(o, conflict) {
-  const lines = (o.items || []).map(i => `- ${i.sku || i.id}  ${i.brand} ${i.model} (${i.size})  ${S.euro(i.price_cents)}`);
+  const lines = (o.items || []).map(i => `- ${i.sku || i.id}  ${i.brand} ${i.model} (${i.size})  ${S.euro(i.price_cents)}${i.bid ? '  (geaccepteerd bod)' : ''}`);
   const text = [(conflict ? '⚠️ LET OP: dubbel verkocht – een stuk was al bezet. Neem contact op met de klant en betaal dat deel terug via Mollie.\n' : '') +
     'Nieuwe webshopbestelling ' + o.ref + ' is betaald (' + (o.method || 'onbekend') + (o.mollie_mode === 'test' ? ', TESTMODUS' : '') + ').', '',
     ...lines, 'Verzending: ' + S.euro(o.shipping_cents), 'Totaal: ' + S.euro(o.total_cents), '',
@@ -86,4 +86,4 @@ async function orderMails(o, conflict) {
   await tr.sendMail(customerMail(o, conflict));
 }
 
-module.exports = { orderMails, customerMail, ownerMail };
+module.exports = { orderMails, customerMail, ownerMail, transport, esc, FROM, CO };

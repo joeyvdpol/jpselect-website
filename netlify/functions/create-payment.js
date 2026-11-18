@@ -33,6 +33,18 @@ exports.handler = async event => {
   }
   if (gone.length) return S.json(409, { error: 'unavailable', unavailable: gone });
 
+  /* afrekenen met een geaccepteerd bod: één stuk, voor het bedrag uit de database */
+  const bidTok = b.bid ? (/^[0-9a-f]{64}$/.test(String(b.bid)) ? String(b.bid) : null) : '';
+  if (bidTok === null) return S.json(400, { error: 'bid', state: 'unknown' });
+  if (bidTok) {
+    let bid;
+    try { bid = await S.rpc('bid_checkout', { p_token: bidTok }); } catch (e) { console.error(e); return S.json(502, { error: 'db' }); }
+    if (!bid || bid.state !== 'accepted' || items.length !== 1 || items[0].id !== bid.product_id || !(new Date(bid.accept_until) > new Date()))
+      return S.json(409, { error: 'bid', state: (bid && bid.state) || 'unknown' });
+    items[0].price_cents = bid.amount_cents;
+    items[0].bid = true;
+  }
+
   const subtotal = items.reduce((a, x) => a + x.price_cents, 0);
   const shipping = S.SHOP.shippingCents(cu.country, subtotal);
   const total = subtotal + shipping;
@@ -42,6 +54,7 @@ exports.handler = async event => {
     res = await S.rpc('shop_reserve', { p: { product_ids: ids, lang, ...cu, items, subtotal_cents: subtotal, shipping_cents: shipping, total_cents: total } });
   } catch (e) { console.error(e); return S.json(502, { error: 'db' }); }
   if (!res || !res.ok) return S.json(409, { error: 'unavailable', unavailable: (res && res.unavailable) || ids });
+  if (bidTok) { try { await S.rpc('bid_attach_order', { p_token: bidTok, p_order: res.id }); } catch (e) { console.error(e); } }
 
   const site = S.siteUrl(event);
   const back = site + (lang === 'nl' ? '/nl/afrekenen/' : '/checkout/') + '?order=' + res.id;

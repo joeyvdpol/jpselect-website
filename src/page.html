@@ -484,6 +484,12 @@ select.sel{appearance:none;-webkit-appearance:none;padding-right:16px;background
 .spec dt{font:500 10.5px/1.9 var(--f-sans);letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
 .spec dd{margin:0}
 .avail{display:flex;gap:10px;align-items:center;font-size:14px}
+.bidbox{display:grid;gap:12px}
+.bidbox .bidsum{font-size:14px;color:#4A443C;display:flex;gap:10px;align-items:center}
+.bidbox .bidsum b{font-weight:500;color:var(--char)}
+.bidbox .form{padding:20px}
+.bidbox .accept{margin:0}
+.pc .bidln{font-size:12px;color:var(--champ);letter-spacing:.02em}
 .avail i{width:7px;height:7px;border-radius:50%;background:var(--ok)}
 .avail.no i{background:var(--taupe)}
 details{border-bottom:1px solid var(--line);padding-block:16px}
@@ -611,6 +617,11 @@ nl:{
  demoNote:'Dit is een demoproduct om de shop te tonen. Merk, model en prijs zijn een voorbeeld; het stuk is niet te koop.',
  related:'Misschien ook iets voor jou',zoom:'Klik om te vergroten',
  bagT:'Je tas',bagEmpty:'Je tas is leeg.',unique:'Uniek stuk · max. 1',remove:'Verwijderen',sub:'Subtotaal',shipCalc:'Verzending',shipLater:'Bij afrekenen',checkout:'Afrekenen',continue:'Verder winkelen',onlyOne:'Dit is een uniek stuk; het zit al in je tas.',added:'Toegevoegd aan je tas',removed:'Verwijderd uit je tas',
+ bidBtn:'Doe een bod',bidNone:'Nog geen biedingen. Doe als eerste een bod.',bidHi:(x,n)=>'Hoogste bod '+x+' · '+n+(n===1?' bod':' biedingen'),bidCard:x=>'Hoogste bod '+x,bidAmt:'Jouw bod in euro',bidMin:x=>'minimaal '+x,bidSend:'Bod versturen',bidBusy:'Versturen…',bidCancel:'Annuleren',
+ bidInfo:'Je krijgt een mail om je bod te bevestigen. Een bevestigd bod geldt 7 dagen. Accepteren wij je bod, dan krijg je een betaallink die 24 uur geldig is. Het paar wordt niet voor je gereserveerd: koopt iemand anders het eerder, dan is het weg. We gebruiken je naam en e-mail alleen voor dit bod.',
+ bidSent:'Bijna klaar: we hebben je een mail gestuurd. Klik op de link in die mail om je bod te bevestigen.',bidLow:x=>'Je bod is te laag. Het minimum is '+x+'.',bidOut:x=>'Er is al een bod van '+x+'. Bied meer om mee te doen.',bidOver:'Je bod is gelijk aan of hoger dan de prijs. Koop hem dan direct.',bidGone:'Dit stuk is net verkocht of niet meer beschikbaar.',bidRate:'Je hebt vandaag al veel biedingen gedaan. Probeer het later opnieuw.',bidClosed:'Bieden staat nog niet aan. Mail ons gerust op info@jpselect.nl.',bidFail:'Er ging iets mis. Probeer het opnieuw of mail info@jpselect.nl.',bidProto:'Dit is het prototype: hier wordt geen bod verstuurd.',
+ bodMsg:{ok:'Je bod is bevestigd. We laten het je per mail weten als we het accepteren.',outbid:'Iemand anders heeft inmiddels hoger geboden, dus je bod is niet geplaatst. Je kunt opnieuw bieden.',sold:'Dit stuk is inmiddels verkocht.',expired:'Deze bevestigingslink is verlopen. Doe gerust opnieuw een bod.',unknown:'Deze link is ongeldig.',error:'Bevestigen is niet gelukt. Probeer het later opnieuw.'},
+ coBidLoad:'Je geaccepteerde bod ophalen…',coBidH:'Afrekenen met je bod',coBidP:x=>'We hebben je bod geaccepteerd. Deze prijs geldt tot '+x+'. Het paar is niet gereserveerd: wie het eerst betaalt, krijgt het.',coBidLine:'Geaccepteerd bod',coBidBad:{sold:'Dit stuk is helaas al door iemand anders gekocht.',expired:'Deze betaallink is verlopen.',paid:'Dit bod is al betaald. Bedankt!',other:'Deze betaallink is niet (meer) geldig.'},
  coH:'Afrekenen',coDemo:'Demonstratie',coIntro:'Dit is een demonstratie van het afrekenen. Er wordt niets besteld, niets betaald en niets opgeslagen.',
  coEy:'Veilig betalen',coLive:'Je betaalt via de beveiligde betaalpagina van Mollie met iDEAL, Bancontact, creditcard of Apple Pay. Elk stuk is uniek; zodra je naar betalen gaat, houden we het 45 minuten voor je vast.',
  coPhone:'Telefoon (optioneel, voor de bezorger)',coTerms:'Ik ga akkoord met de {a} en heb de informatie over de bedenktijd gelezen.',coTermsA:'algemene voorwaarden',coPay:'Bestellen en betalen',coBusy:'Even geduld…',
@@ -676,6 +687,11 @@ en:{
  demoNote:'This is a demo product to show the shop. Brand, model and price are examples; the piece is not for sale.',
  related:'You may also like',zoom:'Click to enlarge',
  bagT:'Your bag',bagEmpty:'Your bag is empty.',unique:'One of a kind · max. 1',remove:'Remove',sub:'Subtotal',shipCalc:'Shipping',shipLater:'At checkout',checkout:'Checkout',continue:'Continue shopping',onlyOne:'This is a one-of-a-kind piece; it is already in your bag.',added:'Added to your bag',removed:'Removed from your bag',
+ bidBtn:'Make an offer',bidNone:'No offers yet. Be the first to make one.',bidHi:(x,n)=>'Highest offer '+x+' · '+n+(n===1?' offer':' offers'),bidCard:x=>'Highest offer '+x,bidAmt:'Your offer in euros',bidMin:x=>'at least '+x,bidSend:'Send offer',bidBusy:'Sending…',bidCancel:'Cancel',
+ bidInfo:'We will email you to confirm your offer. A confirmed offer is valid for 7 days. If we accept it, you get a payment link valid for 24 hours. The pair is not reserved for you: if someone else buys it first, it is gone. We only use your name and email for this offer.',
+ bidSent:'Almost done: we have sent you an email. Click the link in it to confirm your offer.',bidLow:x=>'Your offer is too low. The minimum is '+x+'.',bidOut:x=>'There is already an offer of '+x+'. Offer more to take part.',bidOver:'Your offer is equal to or higher than the price. Just buy it directly.',bidGone:'This piece was just sold or is no longer available.',bidRate:'You have made a lot of offers today. Please try again later.',bidClosed:'Offers are not switched on yet. Feel free to email us at info@jpselect.nl.',bidFail:'Something went wrong. Please try again or email info@jpselect.nl.',bidProto:'This is the prototype: no offer is sent here.',
+ bodMsg:{ok:'Your offer is confirmed. We will email you if we accept it.',outbid:'Someone else has offered more in the meantime, so your offer was not placed. You can offer again.',sold:'This piece has been sold.',expired:'This confirmation link has expired. Feel free to make a new offer.',unknown:'This link is not valid.',error:'Confirming did not work. Please try again later.'},
+ coBidLoad:'Loading your accepted offer…',coBidH:'Check out with your offer',coBidP:x=>'We accepted your offer. This price is valid until '+x+'. The pair is not reserved: whoever pays first gets it.',coBidLine:'Accepted offer',coBidBad:{sold:'Sorry, someone else has already bought this piece.',expired:'This payment link has expired.',paid:'This offer has already been paid. Thank you!',other:'This payment link is not (or no longer) valid.'},
  coH:'Checkout',coDemo:'Demonstration',coIntro:'This is a demonstration of the checkout. Nothing is ordered, paid or stored.',
  coEy:'Secure payment',coLive:'You pay on Mollie’s secure payment page with iDEAL, Bancontact, credit card or Apple Pay. Every piece is one of a kind; as soon as you continue to payment, we hold it for you for 45 minutes.',
  coPhone:'Phone (optional, for the courier)',coTerms:'I agree to the {a} and have read the information about the withdrawal period.',coTermsA:'terms and conditions',coPay:'Order and pay',coBusy:'One moment…',
@@ -786,7 +802,12 @@ function App(){
   const [busyIds,setBusyIds]=useState({});
   useEffect(()=>{if(!LIVE)return;let dead=false;const load=()=>fetch(SB.url+'/rest/v1/rpc/shop_unavailable',{method:'POST',headers:{apikey:SB.key,'Content-Type':'application/json'},body:'{}'}).then(r=>r.ok?r.json():[]).then(rows=>{if(dead)return;const m={};(rows||[]).forEach(x=>{m[x.product_id]=x.state});setBusyIds(m)}).catch(()=>{});
     load();const iv=setInterval(load,120000);const vis=()=>{if(document.visibilityState==='visible')load()};document.addEventListener('visibilitychange',vis);return()=>{dead=true;clearInterval(iv);document.removeEventListener('visibilitychange',vis)}},[]);
-  const productsLive=useMemo(()=>Object.keys(busyIds).length?products.map(p=>busyIds[p.id]==='sold'&&p.status!=='sold'?{...p,status:'sold'}:busyIds[p.id]==='reserved'&&p.status==='available'?{...p,reserved:true}:p):products,[products,busyIds]);
+  /* biedingen: hoogste bod en aantal per stuk (openbaar, zonder namen) */
+  const [bidMap,setBidMap]=useState({});
+  useEffect(()=>{if(!LIVE)return;let dead=false;const load=()=>fetch(SB.url+'/rest/v1/rpc/bid_summary',{method:'POST',headers:{apikey:SB.key,'Content-Type':'application/json'},body:'{}'}).then(r=>r.ok?r.json():[]).then(rows=>{if(dead)return;const m={};(rows||[]).forEach(x=>{m[x.product_id]={h:x.high_cents/100,n:x.bids}});setBidMap(m)}).catch(()=>{});
+    load();const iv=setInterval(load,60000);window.__jpsBidReload=load;return()=>{dead=true;clearInterval(iv)}},[]);
+  const productsLive=useMemo(()=>{let ps=Object.keys(busyIds).length?products.map(p=>busyIds[p.id]==='sold'&&p.status!=='sold'?{...p,status:'sold'}:busyIds[p.id]==='reserved'&&p.status==='available'?{...p,reserved:true}:p):products;
+    if(Object.keys(bidMap).length)ps=ps.map(p=>bidMap[p.id]&&p.status==='available'?{...p,bidHigh:bidMap[p.id].h,bidCount:bidMap[p.id].n}:p);return ps},[products,busyIds,bidMap]);
   const go=useCallback((r)=>{setUi({menu:false,search:false,bag:false,acct:false,quick:null});setRoute(r);
     try{if(PATHS){const want=SEO.pathOf(r,Lref.current,pref.current);if(want!==location.pathname)history.pushState(null,'',want)}
       else{const h=hashOf(r);history.replaceState(null,'',h?'#'+h:location.pathname+location.search)}}catch(e){}
@@ -935,6 +956,7 @@ function Card({ctx,p}){const {t,L,go,setUi,bag}=ctx;
       <div className="r"><span className="brandn">${p.brand}</span><span className="price">${p.status==='sold'?t.tagSold:html`${p.retail&&html`<s>${fmt(p.retail,L)}</s>`}${fmt(p.price,L)||t.priceTba}`}</span></div>
       <span className="model">${p.model}</span>
       <span className="det">${[p.size?szl(p,L):'',p.condition?t.cond[p.condition]:'',bag.includes(p.id)?t.inBag:''].filter(Boolean).join(' · ')}</span>
+      ${p.bidCount>0&&html`<span className="bidln">${t.bidCard(fmt(p.bidHigh,L))}</span>`}
     </div></article>`}
 
 /* ---------------- home ---------------- */
@@ -1191,6 +1213,46 @@ function Buy({ctx,p}){const {t,L,add,bag,open}=ctx;
   if(bag.includes(p.id))return html`<button className="btn full" onClick=${()=>open('bag')}>${t.inBag} ✓</button>`;
   if(p.reserved)return html`<button className="btn full" disabled>${t.resBtn}</button>`;
   return html`<button className="btn solid full" onClick=${()=>add(p)}>${t.add} · ${fmt(p.price,L)}</button>`}
+/* ---------------- bieden ---------------- */
+function BidBox({ctx,p}){const {t,L}=ctx;
+  const [bod]=useState(()=>{try{const v=new URLSearchParams(location.search).get('bod');if(v){history.replaceState(null,'',location.pathname)}return v||''}catch(e){return ''}});
+  const [on,setOn]=useState(false);const [done,setDone]=useState(false);const [busy,setBusy]=useState(false);const [msg,setMsg]=useState('');const [err,setErr]=useState({});
+  const [f,setF]=useState(()=>{const c=ss.get('jps-co',{});return {amount:'',name:c.name||'',email:c.email||'',ok:false}});
+  const note=bod?html`<p className="ph-note" role="status">${(t.bodMsg[bod]||t.bodMsg.error)}</p>`:null;
+  if(p.demo||p.status!=='available'||!(p.price>0)||p.reserved)return note;
+  const minE=Math.max(Math.ceil(p.price*0.75),p.bidCount>0?Math.floor(p.bidHigh)+1:0);
+  const s=k=>e=>{const v=e.target.type==='checkbox'?e.target.checked:e.target.value;setF(o=>({...o,[k]:v}));setErr(o=>o[k]?{...o,[k]:null}:o)};
+  const submit=async e=>{e.preventDefault();if(busy)return;setMsg('');const er={};const a=Math.round(parseFloat(String(f.amount).replace(',','.')));
+    if(!(a>=minE))er.amount=t.bidLow(fmt(minE,L));else if(a>=p.price)er.amount=t.bidOver;
+    if(!f.name.trim())er.name=t.form.req;if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.trim()))er.email=t.form.badMail;if(!f.ok)er.ok=t.form.needConsent;
+    setErr(er);if(Object.keys(er).length)return;
+    if(!LIVE){setMsg(t.bidProto);return}
+    setBusy(true);
+    try{const r=await fetch('/.netlify/functions/bid',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({product_id:p.id,amount:a,name:f.name,email:f.email,lang:L})});
+      const d=await r.json().catch(()=>({}));
+      if(r.ok&&d.ok){setDone(true);setOn(false)}
+      else if(r.status===503)setMsg(t.bidClosed);
+      else if(d.error==='low')setMsg(t.bidLow(fmt(Math.max(minE,(d.min_cents||0)/100),L)));
+      else if(d.error==='outbid'){setMsg(t.bidOut(fmt(d.high_cents/100,L)));window.__jpsBidReload&&window.__jpsBidReload()}
+      else if(d.error==='high')setMsg(t.bidOver);
+      else if(d.error==='sold'||d.error==='unavailable')setMsg(t.bidGone);
+      else if(d.error==='rate')setMsg(t.bidRate);
+      else setMsg(t.bidFail)}
+    catch(x){setMsg(t.bidFail)}setBusy(false)};
+  const fld=(k,label,type,ac,extra)=>html`<div className="fld full"><label htmlFor=${'bd-'+k}>${label}</label><input id=${'bd-'+k} type=${type} autoComplete=${ac} value=${f[k]} onInput=${s(k)} aria-invalid=${err[k]?'true':null} ...${extra||{}}/>${err[k]&&html`<span className="err">${err[k]}</span>`}</div>`;
+  return html`<div className="bidbox">
+    ${note}
+    <div className="bidsum">${p.bidCount>0?html`<b>${t.bidHi(fmt(p.bidHigh,L),p.bidCount)}</b>`:html`<span>${t.bidNone}</span>`}</div>
+    ${done?html`<p className="ph-note" role="status">${t.bidSent}</p>`
+    :on?html`<form className="form" onSubmit=${submit} noValidate>
+        ${fld('amount',t.bidAmt+' ('+t.bidMin(fmt(minE,L))+')','number','off',{inputMode:'numeric',min:minE,max:Math.ceil(p.price)-1,step:1})}
+        ${fld('name',t.coName,'text','name')}${fld('email',t.coEmail,'email','email')}
+        <label className="check full"><input type="checkbox" checked=${f.ok} onChange=${s('ok')} aria-invalid=${err.ok?'true':null}/><span>${t.bidInfo}${err.ok&&html`<br/><span className="err" style=${{color:'var(--warn)',fontSize:12.5}}>${err.ok}</span>`}</span></label>
+        ${msg&&html`<p className="ph-note full" role="alert">${msg}</p>`}
+        <div className="full" style=${{display:'grid',gridTemplateColumns:'1fr auto',gap:10}}><button className="btn solid" type="submit" disabled=${busy}>${busy?t.bidBusy:t.bidSend}</button><button className="btn" type="button" onClick=${()=>{setOn(false);setMsg('')}}>${t.bidCancel}</button></div>
+      </form>`
+    :html`<button className="btn full" onClick=${()=>setOn(true)}>${t.bidBtn}</button>`}
+  </div>`}
 function Product({ctx}){const {t,L,products,route,go}=ctx;const p=products.find(x=>x.id===route.p);
   const [gi,setGi]=useState(0);const [zoom,setZoom]=useState(false);const [lb,setLb]=useState(false);const zr=useRef(null);
   useEffect(()=>{const k=e=>{if(!lb)return;if(e.key==='Escape')setLb(false);if(e.key==='ArrowRight')setGi(i=>(i+1)%p.images.length);if(e.key==='ArrowLeft')setGi(i=>(i-1+p.images.length)%p.images.length)};document.addEventListener('keydown',k);return()=>document.removeEventListener('keydown',k)},[lb,p]);
@@ -1214,6 +1276,7 @@ function Product({ctx}){const {t,L,products,route,go}=ctx;const p=products.find(
         <div className=${'avail'+(p.status==='available'?'':' no')}><i></i><span>${t.pAvail[p.status]}</span></div>
         <dl className="spec"><dt>${t.pSize}</dt><dd>${szl(p,L)}</dd><dt>${t.pCond}</dt><dd>${t.cond[p.condition]} · ${p.condition.startsWith('new')?t.isNew:t.pre}</dd><dt>${t.pColor}</dt><dd>${p.color[L]}</dd>${p.material&&html`<dt>${t.pMat}</dt><dd>${p.material[L]}</dd>`}<dt>${t.pSku}</dt><dd>${p.sku}</dd></dl>
         <${Buy} ctx=${ctx} p=${p}/>
+        <${BidBox} ctx=${ctx} p=${p} key=${'bid'+p.id}/>
         <a className="rateln" href="#reviews"><${Stars} v=${REV.score} size=${13}/><span>${t.revLine.replace('{s}',rnum(REV.score,L)).replace('{n}',REV.count)}</span></a>
         ${(p.status==='coming'||p.demo)&&html`<p className="ph-note">${p.demo?t.demoNote:t.soonNote}</p>`}
         <div><details open><summary>${t.descT}</summary><p>${desc(p,t,L)}</p></details>
@@ -1251,13 +1314,24 @@ function Bag({ctx}){const {t,L,products,bag,rm,ui,close,go}=ctx;const items=bag.
   </aside>`}
 
 function Checkout({ctx}){const [order,setOrder]=useState(()=>{try{return new URLSearchParams(location.search).get('order')||''}catch(e){return ''}});
-  if(order)return html`<${OrderDone} ctx=${ctx} id=${order} retry=${()=>{try{history.replaceState(null,'',location.pathname)}catch(e){}setOrder('')}}/>`;
+  const [bid]=useState(()=>{try{const v=new URLSearchParams(location.search).get('bid')||'';if(v)ss.set('jps-bidtok',v);return v}catch(e){return ''}});
+  if(order)return html`<${OrderDone} ctx=${ctx} id=${order} retry=${()=>{try{history.replaceState(null,'',location.pathname+(ss.get('jps-bidtok','')?'?bid='+ss.get('jps-bidtok',''):''))}catch(e){}setOrder('')}}/>`;
+  if(bid)return html`<${BidCheckout} ctx=${ctx} token=${bid}/>`;
   return html`<${CheckoutForm} ctx=${ctx}/>`}
+function BidCheckout({ctx,token}){const {t,L,products}=ctx;const [d,setD]=useState(null);
+  useEffect(()=>{if(!LIVE){setD({state:'other'});return}fetch('/.netlify/functions/bid?checkout='+encodeURIComponent(token)).then(r=>r.ok?r.json():{state:'other'}).then(setD).catch(()=>setD({state:'other'}))},[token]);
+  if(!d)return html`<div className="wrap text"><h1>${t.coBidH}</h1><p className="mute">${t.coBidLoad}</p></div>`;
+  const p=products.find(x=>x.id===d.product_id);
+  const okState=d.state==='accepted'&&p&&p.status!=='sold'&&new Date(d.accept_until)>new Date();
+  if(!okState){const k=d.state==='sold'||(p&&p.status==='sold')?'sold':d.state==='paid'?'paid':d.state==='expired'||(d.state==='accepted')?'expired':'other';
+    return html`<div className="wrap text"><h1>${t.coBidH}</h1><p className="ph-note" role="alert">${t.coBidBad[k]}</p><div><button className="btn" onClick=${()=>ctx.go({v:'col',p:'all'})}>${t.continue}</button></div></div>`}
+  const until=new Date(d.accept_until).toLocaleString(L==='en'?'en-GB':'nl-NL',{day:'numeric',month:'long',hour:'2-digit',minute:'2-digit'});
+  return html`<${CheckoutForm} ctx=${ctx} bid=${{token,price:d.amount_cents/100,p,until,name:d.name,email:d.email}}/>`}
 const ss={get(k,d){try{const v=sessionStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{sessionStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
-function CheckoutForm({ctx}){const {t,L,products,bag,go,setBag}=ctx;
-  const items=bag.map(id=>products.find(p=>p.id===id)).filter(Boolean);const sub=items.reduce((a,p)=>a+(p.price||0),0);
+function CheckoutForm({ctx,bid}){const {t,L,products,bag,go,setBag}=ctx;
+  const items=bid?[{...bid.p,price:bid.price,_list:bid.p.price}]:bag.map(id=>products.find(p=>p.id===id)).filter(Boolean);const sub=items.reduce((a,p)=>a+(p.price||0),0);
   const SH=window.JPSHOP;const cl=SH?SH.countries:['NL'];const cn=SH?SH.names[L]:{NL:'Nederland'};
-  const [f,setF]=useState(()=>({name:'',email:'',phone:'',street:'',zip:'',city:'',country:'NL',...ss.get('jps-co',{}),terms:false}));
+  const [f,setF]=useState(()=>({name:'',email:'',phone:'',street:'',zip:'',city:'',country:'NL',...ss.get('jps-co',{}),...(bid?{name:ss.get('jps-co',{}).name||bid.name,email:ss.get('jps-co',{}).email||bid.email}:{}),terms:false}));
   const [err,setErr]=useState({});const [busy,setBusy]=useState(false);const [msg,setMsg]=useState('');const [open,setOpen]=useState(LIVE?null:false);
   useEffect(()=>{if(!LIVE)return;fetch('/.netlify/functions/create-payment').then(r=>r.ok?r.json():{open:false}).then(d=>setOpen(!!d.open)).catch(()=>setOpen(false))},[]);
   const s=k=>e=>{const v=e.target.type==='checkbox'?e.target.checked:e.target.value;setF(o=>({...o,[k]:v}));setErr(o=>o[k]?{...o,[k]:null}:o)};
@@ -1270,10 +1344,12 @@ function CheckoutForm({ctx}){const {t,L,products,bag,go,setBag}=ctx;
     if(!LIVE){setMsg(t.coProto);return}
     if(open===false){setMsg(t.coClosed);return}
     setBusy(true);
-    try{const r=await fetch('/.netlify/functions/create-payment',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({lang:L,items:items.map(p=>p.id),terms:true,customer:{name:f.name,email:f.email,phone:f.phone,street:f.street,zip:f.zip,city:f.city,country:f.country}})});
+    try{const r=await fetch('/.netlify/functions/create-payment',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({lang:L,items:items.map(p=>p.id),bid:bid?bid.token:undefined,terms:true,customer:{name:f.name,email:f.email,phone:f.phone,street:f.street,zip:f.zip,city:f.city,country:f.country}})});
       const d=await r.json().catch(()=>({}));
       if(r.ok&&d.checkout){location.href=d.checkout;return}
-      if(r.status===409&&d.unavailable){const gone=items.filter(p=>d.unavailable.includes(p.id)||!d.unavailable.length);setBag(b=>b.filter(id=>!gone.some(p=>p.id===id)));setMsg(t.coGone.replace('{x}',gone.map(p=>p.brand+' '+p.model).join(', ')))}
+      if(r.status===409&&d.error==='bid'){setMsg(t.coBidBad[d.state==='sold'?'sold':d.state==='paid'?'paid':d.state==='accepted'||d.state==='expired'?'expired':'other'])}
+      else if(r.status===409&&d.unavailable&&bid){setMsg(t.coBidBad.sold)}
+      else if(r.status===409&&d.unavailable){const gone=items.filter(p=>d.unavailable.includes(p.id)||!d.unavailable.length);setBag(b=>b.filter(id=>!gone.some(p=>p.id===id)));setMsg(t.coGone.replace('{x}',gone.map(p=>p.brand+' '+p.model).join(', ')))}
       else if(r.status===503){setOpen(false);setMsg(t.coClosed)}
       else setMsg(t.coFail)}
     catch(x){setMsg(t.coFail)}setBusy(false)};
@@ -1281,7 +1357,7 @@ function CheckoutForm({ctx}){const {t,L,products,bag,go,setBag}=ctx;
   const fld=(k,label,full,ac,type)=>html`<div className=${'fld'+(full?' full':'')}><label htmlFor=${'co-'+k}>${label}</label><input id=${'co-'+k} type=${type||'text'} autoComplete=${ac} value=${f[k]} onInput=${s(k)} aria-invalid=${err[k]?'true':null}/>${err[k]&&html`<span className="err">${err[k]}</span>`}</div>`;
   const ta=t.coTerms.split('{a}');
   return html`<div className="wrap co">
-    <div style=${{display:'grid',gap:24,alignContent:'start'}}><span className="eyebrow cap">${LIVE?t.coEy:t.coDemo}</span><h1 style=${{fontSize:'clamp(40px,5vw,64px)'}}>${t.coH}</h1><p className=${LIVE?'mute':'ph-note'}>${LIVE?t.coLive:t.coIntro}</p>
+    <div style=${{display:'grid',gap:24,alignContent:'start'}}><span className="eyebrow cap">${LIVE?t.coEy:t.coDemo}</span><h1 style=${{fontSize:'clamp(40px,5vw,64px)'}}>${bid?t.coBidH:t.coH}</h1><p className=${LIVE?'mute':'ph-note'}>${bid?t.coBidP(bid.until):LIVE?t.coLive:t.coIntro}</p>
       ${open===false&&LIVE&&html`<p className="ph-note" role="status">${t.coClosed}</p>`}
       <form className="form" onSubmit=${submit} noValidate><span className="cap full">${t.coDetails}</span>${fld('name',t.coName,true,'name')}${fld('email',t.coEmail,true,'email','email')}${fld('phone',t.coPhone,true,'tel','tel')}${fld('street',t.coStreet,true,'street-address')}${fld('zip',t.coZip,false,'postal-code')}${fld('city',t.coCity,false,'address-level2')}
         <div className="fld full"><label htmlFor="co-country">${t.coCountry}</label><select id="co-country" autoComplete="country" value=${f.country} onChange=${s('country')}>${cl.map(k=>html`<option key=${k} value=${k}>${cn[k]||k}</option>`)}</select></div>
@@ -1289,7 +1365,7 @@ function CheckoutForm({ctx}){const {t,L,products,bag,go,setBag}=ctx;
         ${msg&&html`<p className="ph-note full" role="alert">${msg}</p>`}
         <div className="full"><button className="btn solid full" type="submit" disabled=${busy||(LIVE&&open===false)}>${busy?t.coBusy:t.coPay+' · '+fmt(sub+ship,L)}</button></div></form>
     </div>
-    <aside className="sum"><span className="cap">${t.coSum}</span>${items.map(p=>html`<div className="line" key=${p.id} style=${{paddingBlock:10}}><img ...${imp(p.images[0],400)} alt=""/><div className="nm"><span className="cap" style=${{fontSize:9.5}}>${p.brand}</span><b>${p.model}</b><span className="mute">${szl(p,L)}</span></div><span>${fmt(p.price,L)}</span></div>`)}
+    <aside className="sum"><span className="cap">${t.coSum}</span>${items.map(p=>html`<div className="line" key=${p.id} style=${{paddingBlock:10}}><img ...${imp(p.images[0],400)} alt=""/><div className="nm"><span className="cap" style=${{fontSize:9.5}}>${p.brand}</span><b>${p.model}</b><span className="mute">${szl(p,L)}${p._list?' · '+t.coBidLine:''}</span></div><span>${p._list?html`<s className="mute" style=${{marginRight:8,fontSize:12.5}}>${fmt(p._list,L)}</s>`:''}${fmt(p.price,L)}</span></div>`)}
       <div className="tot"><div><span>${t.sub}</span><span>${fmt(sub,L)}</span></div><div><span>${t.shipCalc} ${t.coShipTo.replace('{c}',cn[f.country]||f.country)}</span><span>${shipC?fmt(ship,L):t.coFree}</span></div>
         ${SH&&left>0&&html`<div className="mute" style=${{fontSize:12.5}}><span>${t.coFreeLeft.replace('{x}',fmt(left,L))}</span></div>`}
         <div className="g"><span>${t.total}</span><span>${fmt(sub+ship,L)}</span></div><p className="mute" style=${{fontSize:12.5}}>${t.coVat}</p></div></aside>
