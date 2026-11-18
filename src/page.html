@@ -161,6 +161,7 @@ p{margin:0}
 .hero .claim{font:400 clamp(30px,3.6vw,58px)/1.02 var(--f-serif);letter-spacing:.05em;text-transform:uppercase}
 .hero .quote{font:italic 400 clamp(18px,1.7vw,25px)/1.4 var(--f-serif);color:#4A443C;max-width:26ch}
 .hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+.hero .perk{margin:0;font-size:12.5px;line-height:1.5;letter-spacing:.06em;color:#4A443C;max-width:46ch}
 .st{opacity:0;animation:rise .9s ease forwards}
 .st.d1,.st.d2,.st.d3,.st.d4{animation-delay:0s}
 @keyframes rise{to{opacity:1}}
@@ -182,6 +183,7 @@ p{margin:0}
   .hero .claim{white-space:nowrap;font-size:clamp(28px,3.1vw,54px)}
   .hero .quote{margin-inline:auto}
   .hero .ctas{justify-content:center;margin-top:clamp(30px,5vh,64px)}
+  .hero .perk{margin-inline:auto}
   .pause{right:max(40px,env(safe-area-inset-right,0px))}
 }
 @media (max-width:899px){
@@ -194,6 +196,7 @@ p{margin:0}
   .hero .ctas{display:grid;grid-template-columns:1fr;gap:10px;max-width:min(420px,calc(100% - 64px));margin-top:12px}
   .hero .ctas .btn{width:100%;box-sizing:border-box;min-height:44px;padding:0 20px;font-size:10.5px;letter-spacing:.2em}
   .hero .ctas{gap:8px;max-width:min(320px,calc(100% - 96px))}
+  .hero .perk{font-size:11.5px;max-width:min(320px,calc(100% - 64px))}
 }
 
 /* zichtbaar in rust; bij binnenkomen schuift het iets omhoog */
@@ -562,7 +565,7 @@ const WORD="M945.62 106.41 Q941.75 107.00 935.38 107.07 Q929.00 107.15 926.50 10
 /* ---------------- teksten ---------------- */
 const T={
 nl:{
- notice:'Prototype van de nieuwe website · bestellen, betalen en formulieren zijn nog niet gekoppeld',noticeLive:'Webshop in opbouw · verkopen aan ons kan al, online bestellen volgt binnenkort',
+ notice:'Prototype van de nieuwe website · bestellen, betalen en formulieren zijn nog niet gekoppeld',noticeLive:'Webshop in opbouw · verkopen aan ons kan al, online bestellen volgt binnenkort',perk:'Direct bij JP SELECT: geen servicekosten en gratis verzending in NL vanaf €130 · voordeliger dan via Vinted',
  nav:{new:'Nieuw binnen',men:'Heren',women:'Dames',shoes:'Schoenen',clothing:'Kleding',brands:'Merken',story:'Ons verhaal',sell:'Verkoop aan ons'},
  search:'Zoeken',account:'Account',bag:'Tas',menu:'Menu',close:'Sluiten',
  brandLine:'Luxury fashion — new & pre-owned',
@@ -627,7 +630,7 @@ nl:{
  copy:'Kopieer',copied:'E-mailadres gekopieerd',copyFail:'Selecteer het adres en kopieer het zelf',
  placeholder:'Volgt voor livegang'},
 en:{
- notice:'Prototype of the new website · ordering, payment and forms are not connected yet',noticeLive:'Shop under construction · selling to us works now, online ordering follows soon',
+ notice:'Prototype of the new website · ordering, payment and forms are not connected yet',noticeLive:'Shop under construction · selling to us works now, online ordering follows soon',perk:'Buy direct from JP SELECT: no service fees and free shipping in NL from €130 · better value than via Vinted',
  nav:{new:'New arrivals',men:'Men',women:'Women',shoes:'Shoes',clothing:'Clothing',brands:'Brands',story:'Our story',sell:'Sell to us'},
  search:'Search',account:'Account',bag:'Bag',menu:'Menu',close:'Close',
  brandLine:'Luxury fashion — new & pre-owned',
@@ -911,6 +914,7 @@ function Hero({ctx}){const {t,go}=ctx;const [paused,setPaused]=useState(()=>redu
       <p className="claim st d1">Redefined Luxury</p>
       <p className="quote st d2">${t.banQ}</p>
       <div className="ctas st d3"><button className="btn" onClick=${()=>go({v:'col',p:'all'})}>${t.explore}</button><button className="btn solid" onClick=${()=>go({v:'sell'})}>${t.sellCta}</button></div>
+      <p className="perk st d3">${t.perk}</p>
     </div></div>
     <button className="pause" onClick=${()=>setPaused(!paused)} aria-label=${paused?t.playV:t.pauseV}>${paused?Ic.play:Ic.pause}</button>
   </section>`}
