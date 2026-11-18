@@ -617,7 +617,7 @@ nl:{
  demoNote:'Dit is een demoproduct om de shop te tonen. Merk, model en prijs zijn een voorbeeld; het stuk is niet te koop.',
  related:'Misschien ook iets voor jou',zoom:'Klik om te vergroten',
  bagT:'Je tas',bagEmpty:'Je tas is leeg.',unique:'Uniek stuk · max. 1',remove:'Verwijderen',sub:'Subtotaal',shipCalc:'Verzending',shipLater:'Bij afrekenen',checkout:'Afrekenen',continue:'Verder winkelen',onlyOne:'Dit is een uniek stuk; het zit al in je tas.',added:'Toegevoegd aan je tas',removed:'Verwijderd uit je tas',
- bidBtn:'Doe een bod',bidNone:'Nog geen biedingen. Doe als eerste een bod.',bidHi:(x,n)=>'Hoogste bod '+x+' · '+n+(n===1?' bod':' biedingen'),bidCard:x=>'Hoogste bod '+x,bidAmt:'Jouw bod in euro',bidMin:x=>'minimaal '+x,bidSend:'Bod versturen',bidBusy:'Versturen…',bidCancel:'Annuleren',
+ bidBtn:'Doe een bod',bidNone:'Nog geen biedingen. Doe als eerste een bod.',bidHi:n=>n+(n===1?' bod':' biedingen')+' op dit stuk',bidCard:n=>n+(n===1?' bod':' biedingen'),bidAmt:'Jouw bod in euro',bidMin:x=>'minimaal '+x,bidSend:'Bod versturen',bidBusy:'Versturen…',bidCancel:'Annuleren',
  bidInfo:'Je krijgt een mail om je bod te bevestigen. Een bevestigd bod geldt 7 dagen. Accepteren wij je bod, dan krijg je een betaallink die 24 uur geldig is. Het paar wordt niet voor je gereserveerd: koopt iemand anders het eerder, dan is het weg. We gebruiken je naam en e-mail alleen voor dit bod.',
  bidSent:'Bijna klaar: we hebben je een mail gestuurd. Klik op de link in die mail om je bod te bevestigen.',bidLow:x=>'Je bod is te laag. Het minimum is '+x+'.',bidOut:x=>'Er is al een bod van '+x+'. Bied meer om mee te doen.',bidOver:'Je bod is gelijk aan of hoger dan de prijs. Koop hem dan direct.',bidGone:'Dit stuk is net verkocht of niet meer beschikbaar.',bidRate:'Je hebt vandaag al veel biedingen gedaan. Probeer het later opnieuw.',bidClosed:'Bieden staat nog niet aan. Mail ons gerust op info@jpselect.nl.',bidFail:'Er ging iets mis. Probeer het opnieuw of mail info@jpselect.nl.',bidProto:'Dit is het prototype: hier wordt geen bod verstuurd.',
  bodMsg:{ok:'Je bod is bevestigd. We laten het je per mail weten als we het accepteren.',outbid:'Iemand anders heeft inmiddels hoger geboden, dus je bod is niet geplaatst. Je kunt opnieuw bieden.',sold:'Dit stuk is inmiddels verkocht.',expired:'Deze bevestigingslink is verlopen. Doe gerust opnieuw een bod.',unknown:'Deze link is ongeldig.',error:'Bevestigen is niet gelukt. Probeer het later opnieuw.'},
@@ -687,7 +687,7 @@ en:{
  demoNote:'This is a demo product to show the shop. Brand, model and price are examples; the piece is not for sale.',
  related:'You may also like',zoom:'Click to enlarge',
  bagT:'Your bag',bagEmpty:'Your bag is empty.',unique:'One of a kind · max. 1',remove:'Remove',sub:'Subtotal',shipCalc:'Shipping',shipLater:'At checkout',checkout:'Checkout',continue:'Continue shopping',onlyOne:'This is a one-of-a-kind piece; it is already in your bag.',added:'Added to your bag',removed:'Removed from your bag',
- bidBtn:'Make an offer',bidNone:'No offers yet. Be the first to make one.',bidHi:(x,n)=>'Highest offer '+x+' · '+n+(n===1?' offer':' offers'),bidCard:x=>'Highest offer '+x,bidAmt:'Your offer in euros',bidMin:x=>'at least '+x,bidSend:'Send offer',bidBusy:'Sending…',bidCancel:'Cancel',
+ bidBtn:'Make an offer',bidNone:'No offers yet. Be the first to make one.',bidHi:n=>n+(n===1?' offer':' offers')+' on this piece',bidCard:n=>n+(n===1?' offer':' offers'),bidAmt:'Your offer in euros',bidMin:x=>'at least '+x,bidSend:'Send offer',bidBusy:'Sending…',bidCancel:'Cancel',
  bidInfo:'We will email you to confirm your offer. A confirmed offer is valid for 7 days. If we accept it, you get a payment link valid for 24 hours. The pair is not reserved for you: if someone else buys it first, it is gone. We only use your name and email for this offer.',
  bidSent:'Almost done: we have sent you an email. Click the link in it to confirm your offer.',bidLow:x=>'Your offer is too low. The minimum is '+x+'.',bidOut:x=>'There is already an offer of '+x+'. Offer more to take part.',bidOver:'Your offer is equal to or higher than the price. Just buy it directly.',bidGone:'This piece was just sold or is no longer available.',bidRate:'You have made a lot of offers today. Please try again later.',bidClosed:'Offers are not switched on yet. Feel free to email us at info@jpselect.nl.',bidFail:'Something went wrong. Please try again or email info@jpselect.nl.',bidProto:'This is the prototype: no offer is sent here.',
  bodMsg:{ok:'Your offer is confirmed. We will email you if we accept it.',outbid:'Someone else has offered more in the meantime, so your offer was not placed. You can offer again.',sold:'This piece has been sold.',expired:'This confirmation link has expired. Feel free to make a new offer.',unknown:'This link is not valid.',error:'Confirming did not work. Please try again later.'},
@@ -804,10 +804,10 @@ function App(){
     load();const iv=setInterval(load,120000);const vis=()=>{if(document.visibilityState==='visible')load()};document.addEventListener('visibilitychange',vis);return()=>{dead=true;clearInterval(iv);document.removeEventListener('visibilitychange',vis)}},[]);
   /* biedingen: hoogste bod en aantal per stuk (openbaar, zonder namen) */
   const [bidMap,setBidMap]=useState({});
-  useEffect(()=>{if(!LIVE)return;let dead=false;const load=()=>fetch(SB.url+'/rest/v1/rpc/bid_summary',{method:'POST',headers:{apikey:SB.key,'Content-Type':'application/json'},body:'{}'}).then(r=>r.ok?r.json():[]).then(rows=>{if(dead)return;const m={};(rows||[]).forEach(x=>{m[x.product_id]={h:x.high_cents/100,n:x.bids}});setBidMap(m)}).catch(()=>{});
+  useEffect(()=>{if(!LIVE)return;let dead=false;const load=()=>fetch(SB.url+'/rest/v1/rpc/bid_summary',{method:'POST',headers:{apikey:SB.key,'Content-Type':'application/json'},body:'{}'}).then(r=>r.ok?r.json():[]).then(rows=>{if(dead)return;const m={};(rows||[]).forEach(x=>{m[x.product_id]={n:x.bids}});setBidMap(m)}).catch(()=>{});
     load();const iv=setInterval(load,60000);window.__jpsBidReload=load;return()=>{dead=true;clearInterval(iv)}},[]);
   const productsLive=useMemo(()=>{let ps=Object.keys(busyIds).length?products.map(p=>busyIds[p.id]==='sold'&&p.status!=='sold'?{...p,status:'sold'}:busyIds[p.id]==='reserved'&&p.status==='available'?{...p,reserved:true}:p):products;
-    if(Object.keys(bidMap).length)ps=ps.map(p=>bidMap[p.id]&&p.status==='available'?{...p,bidHigh:bidMap[p.id].h,bidCount:bidMap[p.id].n}:p);return ps},[products,busyIds,bidMap]);
+    if(Object.keys(bidMap).length)ps=ps.map(p=>bidMap[p.id]&&p.status==='available'?{...p,bidCount:bidMap[p.id].n}:p);return ps},[products,busyIds,bidMap]);
   const go=useCallback((r)=>{setUi({menu:false,search:false,bag:false,acct:false,quick:null});setRoute(r);
     try{if(PATHS){const want=SEO.pathOf(r,Lref.current,pref.current);if(want!==location.pathname)history.pushState(null,'',want)}
       else{const h=hashOf(r);history.replaceState(null,'',h?'#'+h:location.pathname+location.search)}}catch(e){}
@@ -956,7 +956,7 @@ function Card({ctx,p}){const {t,L,go,setUi,bag}=ctx;
       <div className="r"><span className="brandn">${p.brand}</span><span className="price">${p.status==='sold'?t.tagSold:html`${p.retail&&html`<s>${fmt(p.retail,L)}</s>`}${fmt(p.price,L)||t.priceTba}`}</span></div>
       <span className="model">${p.model}</span>
       <span className="det">${[p.size?szl(p,L):'',p.condition?t.cond[p.condition]:'',bag.includes(p.id)?t.inBag:''].filter(Boolean).join(' · ')}</span>
-      ${p.bidCount>0&&html`<span className="bidln">${t.bidCard(fmt(p.bidHigh,L))}</span>`}
+      ${p.bidCount>0&&html`<span className="bidln">${t.bidCard(p.bidCount)}</span>`}
     </div></article>`}
 
 /* ---------------- home ---------------- */
@@ -1220,7 +1220,7 @@ function BidBox({ctx,p}){const {t,L}=ctx;
   const [f,setF]=useState(()=>{const c=ss.get('jps-co',{});return {amount:'',name:c.name||'',email:c.email||'',ok:false}});
   const note=bod?html`<p className="ph-note" role="status">${(t.bodMsg[bod]||t.bodMsg.error)}</p>`:null;
   if(p.demo||p.status!=='available'||!(p.price>0)||p.reserved)return note;
-  const minE=Math.max(Math.ceil(p.price*0.75),p.bidCount>0?Math.floor(p.bidHigh)+1:0);
+  const minE=Math.ceil(p.price*0.85);
   const s=k=>e=>{const v=e.target.type==='checkbox'?e.target.checked:e.target.value;setF(o=>({...o,[k]:v}));setErr(o=>o[k]?{...o,[k]:null}:o)};
   const submit=async e=>{e.preventDefault();if(busy)return;setMsg('');const er={};const a=Math.round(parseFloat(String(f.amount).replace(',','.')));
     if(!(a>=minE))er.amount=t.bidLow(fmt(minE,L));else if(a>=p.price)er.amount=t.bidOver;
@@ -1233,8 +1233,7 @@ function BidBox({ctx,p}){const {t,L}=ctx;
       if(r.ok&&d.ok){setDone(true);setOn(false)}
       else if(r.status===503)setMsg(t.bidClosed);
       else if(d.error==='low')setMsg(t.bidLow(fmt(Math.max(minE,(d.min_cents||0)/100),L)));
-      else if(d.error==='outbid'){setMsg(t.bidOut(fmt(d.high_cents/100,L)));window.__jpsBidReload&&window.__jpsBidReload()}
-      else if(d.error==='high')setMsg(t.bidOver);
+            else if(d.error==='high')setMsg(t.bidOver);
       else if(d.error==='sold'||d.error==='unavailable')setMsg(t.bidGone);
       else if(d.error==='rate')setMsg(t.bidRate);
       else setMsg(t.bidFail)}
@@ -1242,7 +1241,7 @@ function BidBox({ctx,p}){const {t,L}=ctx;
   const fld=(k,label,type,ac,extra)=>html`<div className="fld full"><label htmlFor=${'bd-'+k}>${label}</label><input id=${'bd-'+k} type=${type} autoComplete=${ac} value=${f[k]} onInput=${s(k)} aria-invalid=${err[k]?'true':null} ...${extra||{}}/>${err[k]&&html`<span className="err">${err[k]}</span>`}</div>`;
   return html`<div className="bidbox">
     ${note}
-    <div className="bidsum">${p.bidCount>0?html`<b>${t.bidHi(fmt(p.bidHigh,L),p.bidCount)}</b>`:html`<span>${t.bidNone}</span>`}</div>
+    <div className="bidsum">${p.bidCount>0?html`<b>${t.bidHi(p.bidCount)}</b>`:html`<span>${t.bidNone}</span>`}</div>
     ${done?html`<p className="ph-note" role="status">${t.bidSent}</p>`
     :on?html`<form className="form" onSubmit=${submit} noValidate>
         ${fld('amount',t.bidAmt+' ('+t.bidMin(fmt(minE,L))+')','number','off',{inputMode:'numeric',min:minE,max:Math.ceil(p.price)-1,step:1})}
@@ -1435,7 +1434,7 @@ terms:['Versie 18 november 2026',
 '## 4. Bestellen en betalen',
 'De overeenkomst komt tot stand als je je bestelling afrondet en de betaling via onze betaalpartner Mollie is gelukt. Je ontvangt daarna een bevestiging per mail. Zolang je in de kassa bezig bent, houden we het artikel maximaal 45 minuten voor je vast.',
 'Omdat elk artikel uniek is en we ook via andere kanalen verkopen, kan het in een zeldzaam geval gebeuren dat een artikel vlak voor jouw betaling elders is verkocht. Dan laten we je dat binnen één werkdag weten en betalen we het bedrag voor dat artikel binnen 14 dagen volledig terug.',
-'Bieden: bij veel artikelen kun je een bod doen. Een bod moet minimaal 75% van de prijs zijn en hoger dan het hoogste bod op dat moment. Je bevestigt je bod via een link in je mail; een bevestigd bod blijft 7 dagen staan. Het hoogste bod en het aantal biedingen zijn zichtbaar op de site, zonder namen. Wij beslissen zelf of we een bod accepteren. Accepteren we je bod, dan krijg je een betaallink die 24 uur geldig is. Je bod is geen koop en het artikel wordt niet voor je gereserveerd: de koop komt pas tot stand als je via die link betaalt, en koopt iemand anders het artikel eerder, dan vervalt je bod. Ook na een koop via een bod heb je 14 dagen bedenktijd.',
+'Bieden: bij veel artikelen kun je een bod doen. Een bod moet minimaal 85% van de prijs zijn. Je bevestigt je bod via een link in je mail; een bevestigd bod blijft 7 dagen staan. Het aantal biedingen is zichtbaar op de site; bedragen en namen niet. Wij beslissen zelf of we een bod accepteren. Accepteren we je bod, dan krijg je een betaallink die 24 uur geldig is. Je bod is geen koop en het artikel wordt niet voor je gereserveerd: de koop komt pas tot stand als je via die link betaalt, en koopt iemand anders het artikel eerder, dan vervalt je bod. Ook na een koop via een bod heb je 14 dagen bedenktijd.',
 '## 5. Levering',
 'We leveren in de landen van de Europese Unie, op het adres dat je bij je bestelling opgeeft. Levertijden en verzendkosten staan op de pagina Verzenden & retourneren. Het risico voor het artikel gaat op jou over op het moment dat het bij je is bezorgd.',
 '## 6. Bedenktijd (herroepingsrecht)',
@@ -1464,7 +1463,7 @@ privacy:['Versie 18 november 2026',
 '- Betalen: dat gaat via Mollie B.V. Je bank- of kaartgegevens voer je in op de betaalpagina van Mollie; die zien en bewaren wij niet. Mollie laat ons alleen weten of en hoe er is betaald.',
 '- Verkoop- of inruilaanvragen: naam, e-mailadres, telefoonnummer (optioneel), gegevens over het artikel en je foto’s. Om je een bod te doen (op je verzoek, met je toestemming). Komt er geen deal, dan verwijderen we je aanvraag na 90 dagen. Komt er wel een deal, dan bewaren we de gegevens die we voor de aankoop en onze administratie nodig hebben 7 jaar.',
 '- Opkopersregister: kopen we een artikel van je, dan leggen we de gegevens vast die we als opkoper wettelijk moeten registreren (zoals naam, adres en gegevens van je identiteitsbewijs). We bewaren ze zo lang als de wet voorschrijft.',
-'- Biedingen: naam, e-mailadres, bedrag en het artikel. Om je bod te verwerken en je te laten weten of we het accepteren (op je verzoek). Wordt het geen koop, dan verwijderen we je bod na 90 dagen. Op de site tonen we alleen het hoogste bedrag en het aantal biedingen, nooit je naam of e-mail.',
+'- Biedingen: naam, e-mailadres, bedrag en het artikel. Om je bod te verwerken en je te laten weten of we het accepteren (op je verzoek). Wordt het geen koop, dan verwijderen we je bod na 90 dagen. Op de site tonen we alleen het aantal biedingen, nooit het bedrag, je naam of e-mail.',
 '- Nieuwsbrief: alleen je e-mailadres en taalkeuze, met je toestemming. Afmelden kan altijd met één mail naar info@jpselect.nl; daarna verwijderen we je adres.',
 '- Contact per mail: de gegevens die je ons zelf stuurt, om je vraag te beantwoorden. We bewaren je mail zo lang als nodig is voor de afhandeling en daarna maximaal 2 jaar.',
 '## Wie helpt ons daarbij?',
@@ -1516,7 +1515,7 @@ terms:['Version 18 November 2026',
 '## 4. Ordering and payment',
 'The contract is concluded when you complete your order and payment through our payment provider Mollie has succeeded. You then receive a confirmation by email. While you are at checkout, we hold the item for you for up to 45 minutes.',
 'Because every item is unique and we also sell through other channels, in rare cases an item may be sold elsewhere just before your payment. We will then let you know within one working day and refund the amount for that item in full within 14 days.',
-'Offers: on many items you can make an offer. An offer must be at least 75% of the price and higher than the highest offer at that moment. You confirm your offer through a link in your email; a confirmed offer stands for 7 days. The highest offer and the number of offers are shown on the site, without names. We decide ourselves whether to accept an offer. If we accept yours, you receive a payment link valid for 24 hours. An offer is not a purchase and the item is not reserved for you: the contract is only concluded when you pay through that link, and if someone else buys the item first, your offer lapses. You also have the 14-day right of withdrawal after buying through an offer.',
+'Offers: on many items you can make an offer. An offer must be at least 85% of the price. You confirm your offer through a link in your email; a confirmed offer stands for 7 days. The number of offers is shown on the site; amounts and names are not. We decide ourselves whether to accept an offer. If we accept yours, you receive a payment link valid for 24 hours. An offer is not a purchase and the item is not reserved for you: the contract is only concluded when you pay through that link, and if someone else buys the item first, your offer lapses. You also have the 14-day right of withdrawal after buying through an offer.',
 '## 5. Delivery',
 'We deliver within the European Union, to the address you give with your order. Delivery times and shipping costs are listed on the Shipping & returns page. The risk for the item passes to you once it has been delivered to you.',
 '## 6. Right of withdrawal',
@@ -1545,7 +1544,7 @@ privacy:['Version 18 November 2026',
 '- Payment: handled by Mollie B.V. You enter your bank or card details on Mollie’s payment page; we never see or store them. Mollie only tells us whether and how you paid.',
 '- Sell or trade-in requests: name, email address, phone number (optional), item details and your photos. To make you an offer (at your request, with your consent). Without a deal we delete your request after 90 days. With a deal, we keep the details needed for the purchase and our accounts for 7 years.',
 '- Register of second-hand purchases: if we buy an item from you, we record the details we are legally required to register as a buyer of second-hand goods (such as name, address and identity document details). We keep them for as long as the law requires.',
-'- Offers: name, email address, amount and the item. To process your offer and let you know whether we accept it (at your request). If it does not lead to a purchase, we delete your offer after 90 days. On the site we only show the highest amount and the number of offers, never your name or email.',
+'- Offers: name, email address, amount and the item. To process your offer and let you know whether we accept it (at your request). If it does not lead to a purchase, we delete your offer after 90 days. On the site we only show the number of offers, never the amount, your name or email.',
 '- Newsletter: only your email address and language, with your consent. You can unsubscribe any time with one email to info@jpselect.nl; we then delete your address.',
 '- Email contact: the details you send us, to answer your question. We keep your email for as long as needed to handle it and for up to 2 years after that.',
 '## Who helps us?',
