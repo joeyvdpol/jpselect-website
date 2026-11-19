@@ -204,7 +204,9 @@
       if (r.v === 'checkout') noindex = true;
       if (r.v === 'home') {
         jsonld.push({ '@context': 'https://schema.org', '@type': 'Organization', name: 'JP SELECT', url: site + '/', email: 'info@jpselect.nl',
-          address: { '@type': 'PostalAddress', addressLocality: 'Nijkerk', addressCountry: 'NL' }, sameAs: ['https://www.instagram.com/jpselectofficial/'], slogan: 'Trade in. Step up.' });
+          address: { '@type': 'PostalAddress', addressLocality: 'Nijkerk', addressCountry: 'NL' }, sameAs: ['https://www.instagram.com/jpselectofficial/'], slogan: 'Trade in. Step up.',
+          keywords: L === 'nl' ? 'luxe sneakers, tweedehands Hogan sneakers, designermode' : 'luxury sneakers, pre-owned Hogan sneakers, designer fashion',
+          knowsAbout: L === 'nl' ? ['luxe sneakers', 'Hogan sneakers', 'tweedehands designermode'] : ['luxury sneakers', 'Hogan sneakers', 'pre-owned designer fashion'] });
         jsonld.push({ '@context': 'https://schema.org', '@type': 'WebSite', name: 'JP SELECT', url: site + '/', inLanguage: L === 'nl' ? 'nl-NL' : 'en' });
       }
     }

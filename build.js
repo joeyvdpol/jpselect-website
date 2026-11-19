@@ -7,6 +7,8 @@ const fs = require('fs');
 const crypto = require('crypto');
 const path = require('path');
 const SEO = require('./seo.js');
+const CONTENT = require('./content.js');
+const FEED = require('./feed.js');
 
 const ROOT = __dirname;
 const OUT = path.join(ROOT, '_site');
@@ -20,6 +22,7 @@ const LASTMOD = data.updated || new Date().toISOString().slice(0, 10);
 
 const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const jsonld = o => JSON.stringify(o).replace(/</g, '\\u003c');
+const C = CONTENT.create({ pageHtml: page, products, site: SITE });
 const IM = (src, w) => '/.netlify/images?url=' + encodeURIComponent('/' + String(src).replace(/^\//, '')) + '&w=' + w + '&q=78';
 
 /* bron-pagina zonder de kopregels die alleen voor het prototype bedoeld zijn */
@@ -58,62 +61,13 @@ for (const k of Object.keys(SEO.ROUTES.en)) { const [v, p] = SEO.ROUTES.en[k]; r
 for (const b of brandSet) routes.push({ v: 'col', p: 'brand', b: SEO.brandSlug(b) });
 for (const p of products) routes.push({ v: 'product', p: p.id });
 
-/* ---------- tekst voor bezoekers/crawlers zonder JavaScript ---------- */
-function linkList(L) {
-  const items = [['men-sneakers'], ['women-sneakers'], ['shoes'], ['clothing'], ['new']].map(([k]) => `<li><a href="${SEO.pathOf({ v: 'col', p: k }, L)}">${esc(SEO.COLN[L][k])}</a></li>`);
-  items.push(`<li><a href="${SEO.pathOf({ v: 'brands' }, L)}">${L === 'nl' ? 'Merken' : 'Brands'}</a></li>`);
-  items.push(`<li><a href="${SEO.pathOf({ v: 'sell' }, L)}">${L === 'nl' ? 'Verkoop aan ons' : 'Sell to us'}</a></li>`);
-  items.push(`<li><a href="${SEO.pathOf({ v: 'info', p: 'contact' }, L)}">Contact</a></li>`);
-  return `<nav><ul>${items.join('')}</ul></nav>`;
-}
-function statusTxt(p, L) {
-  if (p.status === 'sold') return L === 'nl' ? 'verkocht' : 'sold';
-  if (p.status === 'coming') return L === 'nl' ? 'binnenkort' : 'coming soon';
-  return p.price != null ? SEO.eur(p.price) : '';
-}
-function productItem(p, L) {
-  return `<li><a href="${SEO.pathOf({ v: 'product', p: p.id }, L, products)}">${esc(p.brand + ' ' + p.model)}${p.size ? (L === 'nl' ? ', maat ' : ', size ') + esc(p.size) : ''}</a> – ${esc(statusTxt(p, L))}</li>`;
-}
-function inCol(p, preset) {
-  const shoe = p.category === 'sneakers' || p.category === 'footwear';
-  switch (preset) {
-    case 'all': return true;
-    case 'new': return p.status === 'available' || p.status === 'coming';
-    case 'shoes': return shoe;
-    case 'clothing': return p.category === 'clothing';
-    case 'men-sneakers': return p.category === 'sneakers' && p.gender === 'men';
-    case 'women-sneakers': return p.category === 'sneakers' && p.gender === 'women';
-    case 'men-shoes': return shoe && p.gender === 'men';
-    case 'women-shoes': return shoe && p.gender === 'women';
-    default: return false;
-  }
-}
-function staticContent(r, L, m) {
-  const nl = L === 'nl';
-  let h = `<h1>${esc(m.title.split(' | ')[0])}</h1><p>${esc(m.description)}</p>`;
-  if (r.v === 'product') {
-    const p = products.find(x => x.id === r.p);
-    const c = (SEO.COND[L] || {})[p.condition] || '';
-    h += '<ul>' + [
-      p.price != null ? `<li>${nl ? 'Prijs' : 'Price'}: ${SEO.eur(p.price)}${p.retail ? ` (${nl ? 'nieuwprijs' : 'retail'} ${SEO.eur(p.retail)})` : ''}</li>` : '',
-      `<li>${nl ? 'Status' : 'Status'}: ${esc(p.status === 'available' ? (nl ? 'beschikbaar' : 'available') : statusTxt(p, L))}</li>`,
-      p.size ? `<li>${nl ? 'Maat' : 'Size'}: ${esc(p.size)}${p.sizeSystem ? ' ' + esc(p.sizeSystem) : ''}</li>` : '',
-      c ? `<li>${nl ? 'Staat' : 'Condition'}: ${esc(c)}</li>` : '',
-      p.color && p.color[L] ? `<li>${nl ? 'Kleur' : 'Colour'}: ${esc(p.color[L])}</li>` : '',
-      p.material && p.material[L] ? `<li>${nl ? 'Materiaal' : 'Material'}: ${esc(p.material[L])}</li>` : '',
-      p.sku ? `<li>${nl ? 'Artikelnummer' : 'Item number'}: ${esc(p.sku)}</li>` : ''
-    ].join('') + '</ul>';
-    h += (p.images || []).map((u, i) => `<img src="/${esc(u)}" alt="${esc(p.brand + ' ' + p.model + (i ? ' – ' + (i + 1) : ''))}" width="1000" height="1250">`).join('');
-  } else if (r.v === 'col') {
-    const list = r.p === 'brand' ? products.filter(p => SEO.brandSlug(p.brand) === r.b) : products.filter(p => inCol(p, r.p));
-    if (list.length) h += '<ul>' + list.map(p => productItem(p, L)).join('') + '</ul>';
-  } else if (r.v === 'brands') {
-    h += '<ul>' + [...brandSet].map(b => `<li><a href="${SEO.pathOf({ v: 'col', p: 'brand', b: SEO.brandSlug(b) }, L)}">${esc(b)}</a></li>`).join('') + '</ul>';
-  } else if (r.v === 'home') {
-    const feat = products.filter(p => p.status !== 'sold').slice(0, 12);
-    if (feat.length) h += '<ul>' + feat.map(p => productItem(p, L)).join('') + '</ul>';
-  }
-  return `<noscript><div style="max-width:880px;margin:40px auto;padding:0 24px;font-family:Georgia,serif">${linkList(L)}${h}<p>JP SELECT · info@jpselect.nl · KVK 42155019</p></div></noscript>`;
+/* tekst in de ruwe HTML: zichtbaar zonder JavaScript; met JavaScript verborgen tot de site zelf tekent
+   (de site vervangt de inhoud van #root). Tekent de site niet binnen 6 seconden, dan blijft de tekst zichtbaar. */
+const PRE_CSS = '.js #root>.prerender{display:none}.prerender{max-width:880px;margin:0 auto;padding:32px 24px 64px;font:300 16px/1.65 Jost,Helvetica,Arial,sans-serif;color:#242424;background:#F6F3EE}.prerender h1,.prerender h2{font-family:"Bodoni Moda",Georgia,serif;font-weight:400;line-height:1.15}.prerender h1{font-size:34px}.prerender h2{font-size:24px;margin-top:36px}.prerender p,.prerender ul,.prerender ol{margin:0 0 16px}.prerender a{color:inherit}.prerender img{width:220px;height:auto;margin:0 8px 8px 0}.prerender blockquote{margin:16px 0;padding-left:14px;border-left:2px solid #C9B79C}';
+const PRE_JS = "document.documentElement.classList.add('js');setTimeout(function(){var r=document.getElementById('root');var f=r&&r.firstElementChild;if(f&&f.className==='prerender')document.documentElement.classList.remove('js')},6000)";
+function withRoot(r, L) {
+  if (!bodyLean.includes('<div id="root"></div>')) throw new Error('build: <div id="root"></div> niet gevonden');
+  return bodyLean.replace('<div id="root"></div>', () => '<div id="root"><div class="prerender">' + C.html(r, L) + '</div></div>');
 }
 
 /* ---------- head per pagina ---------- */
@@ -140,7 +94,9 @@ function head(r, L, m, forceNoindex) {
     `<link rel="preconnect" href="https://cdnjs.cloudflare.com"><link rel="preconnect" href="https://unpkg.com">`,
     p && p.images && p.images[0] ? `<link rel="preload" as="image" href="${esc(IM(p.images[0], 1200))}">` : '',
     ...m.jsonld.map(o => `<script type="application/ld+json">${jsonld(o)}</script>`),
-    `<style>:root{color-scheme:light;box-sizing:border-box}body{margin:0;padding:0}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>`,
+    `<style>:root{color-scheme:light;box-sizing:border-box}body{margin:0;padding:0}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}${PRE_CSS}</style>`,
+    `<script>${PRE_JS}</script>`,
+    `<link rel="alternate" type="text/markdown" href="${esc(m.canonical.replace(/\/?$/, '/') + 'index.md')}">`,
     `</head><body>`
   ].filter(Boolean).join('\n');
 }
@@ -160,7 +116,8 @@ for (const r of routes) {
   for (const L of ['en', 'nl']) {
     const m = SEO.meta(r, L, products, SITE);
     const rel = SEO.pathOf(r, L, products).replace(/^\//, '') + 'index.html';
-    write(rel, head(r, L, m) + '\n' + bodyLean + '\n' + staticContent(r, L, m) + '\n</body></html>\n');
+    write(rel, head(r, L, m) + '\n' + withRoot(r, L) + '\n</body></html>\n');
+    write(rel.replace(/index\.html$/, 'index.md'), C.markdown(r, L));
     count++;
     if (!m.noindex && L === 'en') sitemap.push(m);
   }
@@ -179,9 +136,15 @@ for (const m of sitemap) {
 sm.push('</urlset>');
 write('sitemap.xml', sm.join('\n') + '\n');
 
+write('llms.txt', C.llms());
+write('404.md', C.notFoundMarkdown('en'));
+write('google-merchant-feed.xml', FEED.merchantFeed({ products, site: SITE, lang: 'nl' }));
+
 write('robots.txt', INDEXABLE ? `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n` : 'User-agent: *\nDisallow: /\n');
 write('_headers', ['/*', INDEXABLE ? '' : '  X-Robots-Tag: noindex, nofollow', '  Referrer-Policy: strict-origin-when-cross-origin', '  X-Content-Type-Options: nosniff',
-  '/data/*', '  Cache-Control: public, max-age=60, must-revalidate', '/assets/*', '  Cache-Control: public, max-age=31536000, immutable', '/seo.js', '  Cache-Control: public, max-age=300, must-revalidate', '/shop.js', '  Cache-Control: public, max-age=300, must-revalidate'].filter(Boolean).join('\n') + '\n');
+  '/data/*', '  Cache-Control: public, max-age=60, must-revalidate', '/assets/*', '  Cache-Control: public, max-age=31536000, immutable', '/seo.js', '  Cache-Control: public, max-age=300, must-revalidate', '/shop.js', '  Cache-Control: public, max-age=300, must-revalidate',
+  '/*.md', '  Content-Type: text/markdown; charset=utf-8', '  Vary: Accept', '/llms.txt', '  Content-Type: text/plain; charset=utf-8',
+  '/google-merchant-feed.xml', '  Content-Type: application/xml; charset=utf-8', '  Cache-Control: public, max-age=600'].filter(Boolean).join('\n') + '\n');
 
 /* controle: ontbrekende afbeeldingen */
 const missing = [];

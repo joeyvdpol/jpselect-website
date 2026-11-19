@@ -1,0 +1,9 @@
+{
+  "name": "jpselect-website",
+  "private": true,
+  "description": "JP SELECT webshop (statische build voor Netlify)",
+  "scripts": {
+    "build": "node build.js",
+    "test": "node --test test/*.test.js"
+  }
+}
