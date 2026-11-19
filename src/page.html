@@ -537,7 +537,8 @@ select.sel{appearance:none;-webkit-appearance:none;padding-right:16px;background
 .usps li{display:flex;gap:10px;align-items:center}
 .usps svg{width:16px;height:16px;flex:none;fill:none;stroke:var(--char);stroke-width:1.5}
 .usps .pay{flex-wrap:wrap;gap:6px;margin-top:4px}
-.usps .pay span{border:1px solid var(--line);padding:5px 9px;font:500 10.5px/1 var(--f-sans);letter-spacing:.06em;color:var(--mute);background:#fff}
+.usps .pay img{display:block;width:40px;height:30px}
+.usps .pay .paytxt{border:1px solid var(--line);padding:5px 9px;font:500 10.5px/1 var(--f-sans);color:var(--mute);background:#fff}
 details .spec{border:0;padding-block:6px 4px}
 .avail{display:flex;gap:10px;align-items:center;font-size:14px}
 .bidbox{display:grid;gap:12px}
@@ -1339,7 +1340,7 @@ function Product({ctx}){const {t,L,products,route,go}=ctx;const p=products.find(
         <div style=${{display:'grid',gap:10}}><${Buy} ctx=${ctx} p=${p}/><${BidBox} ctx=${ctx} p=${p} key=${'bid'+p.id}/></div>
         ${(p.status==='coming'||p.demo)&&html`<p className="ph-note">${p.demo?t.demoNote:t.soonNote}</p>`}
         <ul className="usps">${t.usps.map(u=>html`<li key=${u}>${Ic.ok}<span>${u}</span></li>`)}
-          <li className="pay">${['iDEAL','Bancontact','Visa','Mastercard','Apple Pay'].map(m=>html`<span key=${m}>${m}</span>`)}</li></ul>
+          <li className="pay">${[['ideal','iDEAL'],['bancontact','Bancontact'],['creditcard','Creditcard'],['applepay','Apple Pay']].map(([k,n])=>html`<img key=${k} src=${'https://www.mollie.com/external/icons/payment-methods/'+k+'.svg'} alt=${n} title=${n} width="40" height="30" loading="lazy" onError=${e=>{try{e.target.replaceWith(Object.assign(document.createElement('span'),{textContent:n,className:'paytxt'}))}catch(x){}}}/>`)}</li></ul>
         <div><details open><summary>${t.descT}</summary><p>${desc(p,t,L)}</p></details>
           <details><summary>${t.specT}</summary><dl className="spec"><dt>${t.pSize}</dt><dd>${szl(p,L)}</dd><dt>${t.pCond}</dt><dd>${t.cond[p.condition]} · ${p.condition.startsWith('new')?t.isNew:t.pre}</dd><dt>${t.pColor}</dt><dd>${p.color[L]}</dd>${p.material&&html`<dt>${t.pMat}</dt><dd>${p.material[L]}</dd>`}<dt>${t.pSku}</dt><dd>${p.sku}</dd></dl></details>
           <details><summary>${t.shipT}</summary><p>${t.shipP}</p></details>
@@ -1539,7 +1540,7 @@ privacy:['Versie 18 november 2026',
 '- Onze boekhouder, voor zover nodig voor de administratie en belastingaangifte.',
 'We verkopen je gegevens nooit en gebruiken ze niet voor reclame van anderen.',
 '## Cookies en lettertypes',
-'We gebruiken geen tracking- of advertentiecookies en geen analysediensten. In je eigen browser onthouden we alleen je taalkeuze en de inhoud van je tas; ingevulde kassagegevens alleen zolang je tabblad open is. Daarvoor is geen toestemming nodig. Onze lettertypes worden geladen van Google Fonts; daarbij ziet Google het IP-adres van je apparaat.',
+'We gebruiken geen tracking- of advertentiecookies en geen analysediensten. In je eigen browser onthouden we alleen je taalkeuze en de inhoud van je tas; ingevulde kassagegevens alleen zolang je tabblad open is. Daarvoor is geen toestemming nodig. Onze lettertypes worden geladen van Google Fonts; daarbij ziet Google het IP-adres van je apparaat. De logo’s van de betaalmethoden laden we van onze betaalpartner Mollie; daarbij ziet Mollie het IP-adres van je apparaat.',
 '## Je rechten',
 'Je mag je gegevens inzien, laten verbeteren of verwijderen, de verwerking laten beperken, bezwaar maken en je gegevens laten overdragen. Gaf je toestemming, dan kun je die altijd intrekken. Mail je verzoek naar info@jpselect.nl; we reageren binnen een maand. Ben je het niet eens met hoe we met je gegevens omgaan, dan kun je een klacht indienen bij de Autoriteit Persoonsgegevens.',
 '## Beveiliging',
@@ -1620,7 +1621,7 @@ privacy:['Version 18 November 2026',
 '- Our accountant, where needed for our accounts and tax returns.',
 'We never sell your data and do not use it for anyone else’s advertising.',
 '## Cookies and fonts',
-'We use no tracking or advertising cookies and no analytics services. In your own browser we only remember your language and the contents of your bag; checkout details only while your tab is open. No consent is needed for this. Our fonts are loaded from Google Fonts, which means Google sees your device’s IP address.',
+'We use no tracking or advertising cookies and no analytics services. In your own browser we only remember your language and the contents of your bag; checkout details only while your tab is open. No consent is needed for this. Our fonts are loaded from Google Fonts, which means Google sees your device’s IP address. The payment method logos are loaded from our payment provider Mollie, which means Mollie sees your device’s IP address.',
 '## Your rights',
 'You may access, correct or delete your data, restrict its processing, object and have your data transferred. If you gave consent, you can withdraw it at any time. Email your request to info@jpselect.nl; we respond within one month. If you disagree with how we handle your data, you can lodge a complaint with the Dutch Data Protection Authority (Autoriteit Persoonsgegevens) or the authority in your own country.',
 '## Security',
