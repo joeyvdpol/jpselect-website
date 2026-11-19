@@ -118,6 +118,17 @@ test('homepage JSON-LD noemt de hoofdproducten', () => {
   assert.match(textOf(rootOf(html)), /luxury sneakers/);
 });
 
+test('Organization JSON-LD is compleet: description, contactPoint en adres', () => {
+  const html = read('index.html');
+  const org = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(m => JSON.parse(m[1])).find(o => o['@type'] === 'Organization');
+  assert.ok(org, 'Organization ontbreekt');
+  assert.ok(org.description && org.description.length > 50);
+  assert.equal(org.contactPoint['@type'], 'ContactPoint');
+  assert.ok(org.contactPoint.contactType && org.contactPoint.email);
+  assert.equal(org.address['@type'], 'PostalAddress');
+  assert.ok(org.address.streetAddress && org.address.postalCode && org.address.addressLocality);
+});
+
 /* ---------- edge function: content negotiation ---------- */
 test('content negotiation (edge function)', async () => {
   /* het bestand is een ES-module (Deno/Netlify Edge); hier als data-URL laden */

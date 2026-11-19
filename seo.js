@@ -204,7 +204,10 @@
       if (r.v === 'checkout') noindex = true;
       if (r.v === 'home') {
         jsonld.push({ '@context': 'https://schema.org', '@type': 'Organization', name: 'JP SELECT', url: site + '/', email: 'info@jpselect.nl',
-          address: { '@type': 'PostalAddress', addressLocality: 'Nijkerk', addressCountry: 'NL' }, sameAs: ['https://www.instagram.com/jpselectofficial/'], slogan: 'Trade in. Step up.',
+          description: STATIC_DESC[L].home,
+          address: { '@type': 'PostalAddress', streetAddress: 'Van Reenenpark 16', postalCode: '3862 CC', addressLocality: 'Nijkerk', addressCountry: 'NL' },
+          contactPoint: { '@type': 'ContactPoint', contactType: 'customer service', email: 'info@jpselect.nl', availableLanguage: ['nl', 'en'], areaServed: 'EU' },
+          vatID: 'NL005540814B59', identifier: { '@type': 'PropertyValue', propertyID: 'KVK', value: '42155019' }, sameAs: ['https://www.instagram.com/jpselectofficial/'], slogan: 'Trade in. Step up.',
           keywords: L === 'nl' ? 'luxe sneakers, tweedehands Hogan sneakers, designermode' : 'luxury sneakers, pre-owned Hogan sneakers, designer fashion',
           knowsAbout: L === 'nl' ? ['luxe sneakers', 'Hogan sneakers', 'tweedehands designermode'] : ['luxury sneakers', 'Hogan sneakers', 'pre-owned designer fashion'] });
         jsonld.push({ '@context': 'https://schema.org', '@type': 'WebSite', name: 'JP SELECT', url: site + '/', inLanguage: L === 'nl' ? 'nl-NL' : 'en' });
