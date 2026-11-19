@@ -667,7 +667,7 @@ nl:{
  bodMsg:{ok:'Je bod is bevestigd. We laten het je per mail weten als we het accepteren.',outbid:'Iemand anders heeft inmiddels hoger geboden, dus je bod is niet geplaatst. Je kunt opnieuw bieden.',sold:'Dit stuk is inmiddels verkocht.',expired:'Deze bevestigingslink is verlopen. Doe gerust opnieuw een bod.',unknown:'Deze link is ongeldig.',error:'Bevestigen is niet gelukt. Probeer het later opnieuw.'},
  coBidLoad:'Je geaccepteerde bod ophalen…',coBidH:'Afrekenen met je bod',coBidP:x=>'We hebben je bod geaccepteerd. Deze prijs geldt tot '+x+'. Het paar is niet gereserveerd: wie het eerst betaalt, krijgt het.',coBidLine:'Geaccepteerd bod',coBidBad:{sold:'Dit stuk is helaas al door iemand anders gekocht.',expired:'Deze betaallink is verlopen.',paid:'Dit bod is al betaald. Bedankt!',other:'Deze betaallink is niet (meer) geldig.'},
  coH:'Afrekenen',coDemo:'Demonstratie',coIntro:'Dit is een demonstratie van het afrekenen. Er wordt niets besteld, niets betaald en niets opgeslagen.',
- coEy:'Veilig betalen',coLive:'Je betaalt via de beveiligde betaalpagina van Mollie met iDEAL, Bancontact, creditcard of Apple Pay. Elk stuk is uniek; zodra je naar betalen gaat, houden we het 45 minuten voor je vast.',
+ coEy:'Veilig betalen',coLive:'Betaal veilig met iDEAL, Bancontact, creditcard of Apple Pay.',
  coPhone:'Telefoon (optioneel, voor de bezorger)',coTerms:'Ik ga akkoord met de {a} en heb de informatie over de bedenktijd gelezen.',coTermsA:'algemene voorwaarden',coPay:'Bestellen en betalen',coBusy:'Even geduld…',
  coFree:'Gratis',coFreeFrom:'Gratis verzending in NL vanaf {x}',coFreeLeft:'Nog {x} tot gratis verzending',coShipTo:'naar {c}',coVat:'Prijzen inclusief btw, voor zover verschuldigd.',
  coClosed:'Online betalen staat nog niet aan. Wil je dit stuk kopen? Mail ons via info@jpselect.nl, dan regelen we het.',coGone:'Dit stuk is net door iemand anders gekocht of gereserveerd en is uit je tas gehaald: {x}.',coFail:'Er ging iets mis bij het starten van de betaling. Er is niets afgeschreven. Probeer het opnieuw of mail info@jpselect.nl.',coProto:'Prototype: hier ga je in de live versie naar de betaalpagina van Mollie. Er is niets besteld of betaald.',
@@ -737,7 +737,7 @@ en:{
  bodMsg:{ok:'Your offer is confirmed. We will email you if we accept it.',outbid:'Someone else has offered more in the meantime, so your offer was not placed. You can offer again.',sold:'This piece has been sold.',expired:'This confirmation link has expired. Feel free to make a new offer.',unknown:'This link is not valid.',error:'Confirming did not work. Please try again later.'},
  coBidLoad:'Loading your accepted offer…',coBidH:'Check out with your offer',coBidP:x=>'We accepted your offer. This price is valid until '+x+'. The pair is not reserved: whoever pays first gets it.',coBidLine:'Accepted offer',coBidBad:{sold:'Sorry, someone else has already bought this piece.',expired:'This payment link has expired.',paid:'This offer has already been paid. Thank you!',other:'This payment link is not (or no longer) valid.'},
  coH:'Checkout',coDemo:'Demonstration',coIntro:'This is a demonstration of the checkout. Nothing is ordered, paid or stored.',
- coEy:'Secure payment',coLive:'You pay on Mollie’s secure payment page with iDEAL, Bancontact, credit card or Apple Pay. Every piece is one of a kind; as soon as you continue to payment, we hold it for you for 45 minutes.',
+ coEy:'Secure payment',coLive:'Pay securely with iDEAL, Bancontact, credit card or Apple Pay.',
  coPhone:'Phone (optional, for the courier)',coTerms:'I agree to the {a} and have read the information about the withdrawal period.',coTermsA:'terms and conditions',coPay:'Order and pay',coBusy:'One moment…',
  coFree:'Free',coFreeFrom:'Free shipping in NL from {x}',coFreeLeft:'{x} more for free shipping',coShipTo:'to {c}',coVat:'Prices include VAT where applicable.',
  coClosed:'Online payment is not switched on yet. Would you like to buy this piece? Email us at info@jpselect.nl and we will arrange it.',coGone:'This piece was just bought or reserved by someone else and has been removed from your bag: {x}.',coFail:'Something went wrong starting the payment. Nothing has been charged. Please try again or email info@jpselect.nl.',coProto:'Prototype: in the live version you continue to the Mollie payment page here. Nothing has been ordered or paid.',
@@ -1288,7 +1288,7 @@ function BidBox({ctx,p}){const {t,L}=ctx;
   const fld=(k,label,type,ac,extra)=>html`<div className="fld full"><label htmlFor=${'bd-'+k}>${label}</label><input id=${'bd-'+k} type=${type} autoComplete=${ac} value=${f[k]} onInput=${s(k)} aria-invalid=${err[k]?'true':null} ...${extra||{}}/>${err[k]&&html`<span className="err">${err[k]}</span>`}</div>`;
   return html`<div className="bidbox">
     ${note}
-    <div className="bidsum">${p.bidCount>0?html`<b>${t.bidHi(p.bidCount)}</b>`:html`<span>${t.bidNone}</span>`}</div>
+    ${p.bidCount>0?html`<div className="bidsum"><b>${t.bidHi(p.bidCount)}</b></div>`:null}
     ${done?html`<p className="ph-note" role="status">${t.bidSent}</p>`
     :on?html`<form className="form" onSubmit=${submit} noValidate>
         ${fld('amount',t.bidAmt+' ('+t.bidMin(fmt(minE,L))+')','number','off',{inputMode:'numeric',min:minE,max:Math.ceil(p.price)-1,step:1})}
