@@ -527,6 +527,18 @@ select.sel{appearance:none;-webkit-appearance:none;padding-right:16px;background
 .spec{display:grid;grid-template-columns:auto 1fr;gap:12px 28px;margin:0;padding-block:20px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:15px}
 .spec dt{font:500 10.5px/1.9 var(--f-sans);letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
 .spec dd{margin:0}
+.pdsize{display:grid;gap:12px}
+.pdsize .lbl{display:flex;justify-content:space-between;gap:12px;font:500 10.5px/1.6 var(--f-sans);letter-spacing:.2em;text-transform:uppercase}
+.pdsize .lbl .mute{letter-spacing:.06em;text-transform:none;font:400 13.5px/1.6 var(--f-sans);color:var(--mute)}
+.pdsize .chips{display:flex;flex-wrap:wrap;gap:8px}
+.pdsize .chip{display:inline-grid;place-items:center;min-width:64px;height:44px;padding:0 14px;border:1px solid var(--line);font-size:14px}
+.pdsize .chip.on{border-color:var(--char);box-shadow:inset 0 0 0 1px var(--char)}
+.usps{list-style:none;margin:0;padding:18px 0 0;display:grid;gap:11px;border-top:1px solid var(--line);font-size:14px}
+.usps li{display:flex;gap:10px;align-items:center}
+.usps svg{width:16px;height:16px;flex:none;fill:none;stroke:var(--char);stroke-width:1.5}
+.usps .pay{flex-wrap:wrap;gap:6px;margin-top:4px}
+.usps .pay span{border:1px solid var(--line);padding:5px 9px;font:500 10.5px/1 var(--f-sans);letter-spacing:.06em;color:var(--mute);background:#fff}
+details .spec{border:0;padding-block:6px 4px}
 .avail{display:flex;gap:10px;align-items:center;font-size:14px}
 .bidbox{display:grid;gap:12px}
 .bidbox .bidsum{font-size:14px;color:#4A443C;display:flex;gap:10px;align-items:center}
@@ -655,7 +667,7 @@ nl:{
  photoFollows:'Demo · foto volgt', photoSoon:'Foto volgt',
  pSize:'Maat',pCond:'Staat',pColor:'Kleur',pMat:'Materiaal',pSku:'Artikelnummer',pAvail:{available:'Op voorraad · uniek stuk',coming:'Onderweg naar ons',sold:'Verkocht',demo:'Demoproduct'},
  descT:'Omschrijving',shipT:'Verzenden & retourneren',vatT:'Prijs & btw',
- shipP:'Verzonden vanuit Nederland, zorgvuldig verpakt. Verzendkosten en levertijd zie je bij het afrekenen zodra de webshop live is. Je hebt wettelijk 14 dagen bedenktijd; de volledige retourvoorwaarden volgen voor de lancering.',
+ shipP:'Zorgvuldig verpakt verzonden vanuit Nederland, met track & trace. Nederland € 6,95, gratis vanaf € 130. België en Duitsland € 9,95, Frankrijk € 12,95, Italië € 13,95, overige EU-landen € 14,95. Je hebt 14 dagen bedenktijd: meld je retour binnen 14 dagen na ontvangst via info@jpselect.nl. De kosten voor het terugsturen zijn voor jou; het aankoopbedrag en de oorspronkelijke verzendkosten krijg je terug.',specT:'Specificaties',usps:['Gratis verzending in Nederland vanaf € 130','14 dagen bedenktijd','Elk stuk gecontroleerd op echtheid'],
  vatP:'Prijs inclusief btw. Tweedehands stukken vallen onder de margeregeling; de btw staat dan niet apart op de factuur.',
  soonNote:'Dit stuk is onderweg naar ons. De foto is een studiobeeld; foto’s van het echte stuk volgen zodra het binnen is.',
  demoNote:'Dit is een demoproduct om de shop te tonen. Merk, model en prijs zijn een voorbeeld; het stuk is niet te koop.',
@@ -725,7 +737,7 @@ en:{
  photoFollows:'Demo · photo to follow', photoSoon:'Photo coming soon',
  pSize:'Size',pCond:'Condition',pColor:'Colour',pMat:'Material',pSku:'Item number',pAvail:{available:'In stock · one of a kind',coming:'On its way to us',sold:'Sold',demo:'Demo product'},
  descT:'Description',shipT:'Shipping & returns',vatT:'Price & VAT',
- shipP:'Shipped from the Netherlands, carefully packed. Shipping costs and delivery times are shown at checkout once the shop is live. You have a statutory 14-day withdrawal period; the full return conditions will be published before launch.',
+ shipP:'Carefully packed and shipped from the Netherlands, with tracking. Netherlands € 6.95, free from € 130. Belgium and Germany € 9.95, France € 12.95, Italy € 13.95, other EU countries € 14.95. You have a 14-day withdrawal period: let us know within 14 days of receipt at info@jpselect.nl. Return shipping is at your expense; we refund the purchase price and the original shipping costs.',specT:'Specifications',usps:['Free shipping in the Netherlands from € 130','14-day withdrawal period','Every piece checked for authenticity'],
  vatP:'Price includes VAT. Pre-owned pieces are sold under the margin scheme, so VAT is not shown separately on the invoice.',
  soonNote:'This piece is on its way to us. The photo is a studio image; photos of the actual piece follow once it arrives.',
  demoNote:'This is a demo product to show the shop. Brand, model and price are examples; the piece is not for sale.',
@@ -789,6 +801,7 @@ const Ic={
  l:html`<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4l-6 6 6 6"/></svg>`,
  r:html`<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4l6 6-6 6"/></svg>`,
  pause:html`<svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true" style=${{stroke:'currentColor',strokeWidth:1.4}}><path d="M7 4.5v11M13 4.5v11"/></svg>`,
+ ok:html`<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg>`,
  play:html`<svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true"><path d="M6.5 4.5l9 5.5-9 5.5z" fill="currentColor"/></svg>`};
 const Mono=({h})=>html`<svg viewBox="0 0 510 624" style=${{height:h,width:'auto'}} aria-hidden="true"><path fillRule="evenodd" d=${MONO}/></svg>`;
 const Word=({h,cls})=>html`<svg className=${cls||''} viewBox="0 0 1114 108" style=${{height:h,width:'auto'}} aria-hidden="true"><path fillRule="evenodd" d=${WORD}/></svg>`;
@@ -1317,15 +1330,18 @@ function Product({ctx}){const {t,L,products,route,go}=ctx;const p=products.find(
           <span className="hint">${t.zoom}</span></div>
       </div>
       <div className="info">
-        <div style=${{display:'grid',gap:12}}><span className="cap">${p.brand}${p.demo?' · '+t.tagDemo:''}</span><h1>${p.model}</h1>
+        <div style=${{display:'grid',gap:10}}><span className="cap">${p.brand}${p.demo?' · '+t.tagDemo:''}</span><h1>${p.model}</h1>
+          <a className="rateln" href="#reviews"><${Stars} v=${REV.score} size=${12}/><span>${t.revLine.replace('{s}',rnum(REV.score,L)).replace('{n}',REV.count)}</span></a>
           <div className="pr">${fmt(p.price,L)||t.priceTba}${p.retail&&html`<s>${t.retail} ${fmt(p.retail,L)}</s>`}</div></div>
-        <div className=${'avail'+(p.status==='available'?'':' no')}><i></i><span>${t.pAvail[p.status]}</span></div>
-        <dl className="spec"><dt>${t.pSize}</dt><dd>${szl(p,L)}</dd><dt>${t.pCond}</dt><dd>${t.cond[p.condition]} · ${p.condition.startsWith('new')?t.isNew:t.pre}</dd><dt>${t.pColor}</dt><dd>${p.color[L]}</dd>${p.material&&html`<dt>${t.pMat}</dt><dd>${p.material[L]}</dd>`}<dt>${t.pSku}</dt><dd>${p.sku}</dd></dl>
-        <${Buy} ctx=${ctx} p=${p}/>
-        <${BidBox} ctx=${ctx} p=${p} key=${'bid'+p.id}/>
-        <a className="rateln" href="#reviews"><${Stars} v=${REV.score} size=${13}/><span>${t.revLine.replace('{s}',rnum(REV.score,L)).replace('{n}',REV.count)}</span></a>
+        <div className="pdsize"><div className="lbl"><span>${t.pSize}</span><span className="mute">${t.cond[p.condition]} · ${p.condition.startsWith('new')?t.isNew:t.pre}</span></div>
+          <div className="chips"><span className="chip on">${szl(p,L)}</span></div>
+          <div className=${'avail'+(p.status==='available'?'':' no')}><i></i><span>${t.pAvail[p.status]}</span></div></div>
+        <div style=${{display:'grid',gap:10}}><${Buy} ctx=${ctx} p=${p}/><${BidBox} ctx=${ctx} p=${p} key=${'bid'+p.id}/></div>
         ${(p.status==='coming'||p.demo)&&html`<p className="ph-note">${p.demo?t.demoNote:t.soonNote}</p>`}
+        <ul className="usps">${t.usps.map(u=>html`<li key=${u}>${Ic.ok}<span>${u}</span></li>`)}
+          <li className="pay">${['iDEAL','Bancontact','Visa','Mastercard','Apple Pay'].map(m=>html`<span key=${m}>${m}</span>`)}</li></ul>
         <div><details open><summary>${t.descT}</summary><p>${desc(p,t,L)}</p></details>
+          <details><summary>${t.specT}</summary><dl className="spec"><dt>${t.pSize}</dt><dd>${szl(p,L)}</dd><dt>${t.pCond}</dt><dd>${t.cond[p.condition]} · ${p.condition.startsWith('new')?t.isNew:t.pre}</dd><dt>${t.pColor}</dt><dd>${p.color[L]}</dd>${p.material&&html`<dt>${t.pMat}</dt><dd>${p.material[L]}</dd>`}<dt>${t.pSku}</dt><dd>${p.sku}</dd></dl></details>
           <details><summary>${t.shipT}</summary><p>${t.shipP}</p></details>
           <details><summary>${t.vatT}</summary><p>${t.vatP}</p></details></div>
       </div>
