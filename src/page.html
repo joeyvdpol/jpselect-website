@@ -81,8 +81,8 @@ p{margin:0}
 .burger,.msearch{display:grid}
 .nav .links,.tools .tsearch,.nav .langs{display:none}
 /* grote schermen: kopjes zichtbaar in de balk, menu-icoon weg */
-@media (min-width:1200px){
-  .nav .links{display:flex;gap:clamp(18px,1.9vw,30px)}
+@media (min-width:1000px){
+  .nav .links{display:flex;gap:clamp(14px,1.9vw,30px)}
   .nav .wrap.row{max-width:none;padding-left:max(44px,env(safe-area-inset-left,0px));padding-right:max(44px,env(safe-area-inset-right,0px))}
   .nav .tools .tsearch,.nav .langs{display:flex}
   .nav .tools .tsearch{display:grid}
@@ -90,7 +90,11 @@ p{margin:0}
   .nav .row{min-height:76px}
   .nav .langs button{opacity:.55}
 }
-@media (max-width:1040px){
+@media (min-width:1000px) and (max-width:1199px){
+  .nav .links button{font-size:10px;letter-spacing:.16em}
+  .nav .wrap.row{padding-left:28px;padding-right:28px}
+}
+@media (max-width:999px){
   .nav .row{min-height:54px}
   .nav .links{display:none}
   .burger,.msearch{display:grid}
@@ -125,7 +129,7 @@ p{margin:0}
 .msub button:hover,.msub button:focus-visible{color:var(--char)}
 .mmenu .foot{margin-inline:calc(var(--gut) * -1) calc(var(--gutr) * -1);background:var(--char);color:var(--ivory);display:flex;justify-content:center;align-items:center;padding:24px 16px calc(24px + env(safe-area-inset-bottom,0px));font:500 11.5px/1 var(--f-sans);letter-spacing:.32em;text-transform:uppercase}
 /* laptop: hetzelfde menu, als paneel dat van links inschuift */
-@media (min-width:1041px){
+@media (min-width:1000px){
   .mmenu{inset:0 auto 0 0;width:min(440px,100%);padding:0 40px;opacity:1;transform:translateX(-102%);box-shadow:24px 0 60px rgba(36,36,36,.14);transition:transform .55s var(--ease),visibility 0s .55s}
   .mmenu.on{transform:none;transition:transform .55s var(--ease)}
   .mmenu .top{min-height:72px}
@@ -186,7 +190,7 @@ p{margin:0}
   .hero{--fm:clamp(24px,3.2vw,56px)}
   .hbg{display:block;filter:blur(34px) brightness(.62) saturate(1.15);transform:scale(1.2)}
   .hbg video{opacity:1}
-  .hframe{left:auto;right:0;top:0;bottom:0;height:100%;width:auto;aspect-ratio:8/9;max-width:50%;transform:none}
+  .hframe{left:50%;right:0;top:0;bottom:0;width:auto;height:auto;transform:none}
   .hero .scroll-cue{display:none}
   .hero .veil{display:block;background:linear-gradient(90deg,rgba(18,15,12,.55) 0%,rgba(18,15,12,.2) 45%,rgba(18,15,12,0) 70%)}
   .hero .copy{align-content:center;justify-items:start;text-align:left}
