@@ -104,6 +104,43 @@ p{margin:0}
 }
 @media (max-width:420px){.tools .acct{display:none}}
 
+/* kassa */
+.co2{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(30px,5vw,72px)}
+.co2 .coleft{display:grid;gap:22px;align-content:start;max-width:620px}
+.co2 .steps b{font-weight:500;color:var(--char)}
+.co2 .steps{display:flex;align-items:center;gap:10px;font:500 10.5px/1 var(--f-sans);letter-spacing:.18em;text-transform:uppercase}
+.co2 .steps button{all:unset;cursor:pointer;color:var(--mute)}.co2 .steps button:hover{color:var(--char)}
+.co2 .steps svg{width:11px;height:11px;fill:none;stroke:var(--mute);stroke-width:1.5;display:block}
+.co2 .coh{font-size:clamp(32px,3.4vw,44px);margin:0}
+.co2 .coform{display:grid;gap:30px}
+.co2 .sh{font:500 11px/1.4 var(--f-sans);letter-spacing:.2em;text-transform:uppercase;margin:0 0 14px}
+.co2 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.co2 .grid2 .full{grid-column:1/-1}
+.co2 .fld{gap:6px}
+.co2 .fld label{font:400 12.5px/1.2 var(--f-sans);letter-spacing:.02em;text-transform:none;color:var(--mute)}
+.co2 .fld input,.co2 .fld select{border:1px solid var(--line2);background:#fff;padding:0 14px;height:50px;font:400 15.5px/1 var(--f-sans);border-radius:6px;transition:border-color .2s,box-shadow .2s}
+.co2 .fld select{appearance:none;-webkit-appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 8l5 5 5-5' fill='none' stroke='%23242424' stroke-width='1.4'/%3E%3C/svg%3E") no-repeat right 14px center/14px}
+.co2 .fld input:focus,.co2 .fld select:focus{border-color:var(--char);box-shadow:0 0 0 1px var(--char)}
+.co2 .fld [aria-invalid="true"]{border-color:var(--warn);box-shadow:0 0 0 1px var(--warn)}
+.co2 .check{font-size:13.5px;line-height:1.55}
+.co2 .paybtn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:56px}
+.co2 .paybtn svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.5;flex:none}
+.co2 .secure{display:grid;justify-items:center;gap:10px;text-align:center}
+.co2 .secure p{margin:0;font-size:12.5px}
+.paylogos{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.paylogos img{display:block;width:40px;height:30px}
+.paylogos .paytxt{border:1px solid var(--line);padding:5px 9px;font:500 10.5px/1 var(--f-sans);color:var(--mute);background:#fff}
+.co2 .sum{gap:18px;padding:28px;border-radius:0}
+.co2 .sumhead{display:flex;justify-content:space-between;align-items:baseline;font-size:13px}
+.co2 .sum .line{grid-template-columns:76px 1fr auto;padding-block:14px;border-top:1px solid var(--line);border-bottom:0}
+.co2 .sum .thumb{aspect-ratio:4/5;background:#efece6;overflow:hidden}.co2 .sum .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.co2 .sum .nm{display:grid;gap:4px;font-size:14px}
+.co2 .sum .pz{display:grid;justify-items:end;font-size:14.5px}.co2 .sum .pz s{font-size:12px}
+.co2 .tot{border-top:1px solid var(--line);padding-top:16px;gap:10px}
+.co2 .tot .g{border-top:1px solid var(--line);padding-top:14px;margin-top:4px;font-size:19px}
+.co2 .freeleft{font-size:12.5px;color:#4F6B55}
+.co2 .sum .usps{padding-top:16px}
+@media (max-width:900px){.co2{grid-template-columns:1fr}.co2 .sum{position:static;padding:20px}.co2 .grid2{grid-template-columns:1fr}.co2 .grid2 .fld:not(.full){grid-column:auto}}
 /* volledig scherm menu (mobiel) */
 .mmenu{position:fixed;inset:0;z-index:80;background:var(--ivory);display:grid;grid-template-rows:auto 1fr auto;padding:env(safe-area-inset-top,0px) var(--gutr) 0 var(--gut);visibility:hidden;opacity:0;transition:opacity .45s var(--ease),visibility 0s .45s}
 .mmenu.on{visibility:visible;opacity:1;transition:opacity .45s var(--ease)}
@@ -686,7 +723,7 @@ nl:{
  coClosed:'Online betalen staat nog niet aan. Wil je dit stuk kopen? Mail ons via info@jpselect.nl, dan regelen we het.',coGone:'Dit stuk is net door iemand anders gekocht of gereserveerd en is uit je tas gehaald: {x}.',coFail:'Er ging iets mis bij het starten van de betaling. Er is niets afgeschreven. Probeer het opnieuw of mail info@jpselect.nl.',coProto:'Prototype: hier ga je in de live versie naar de betaalpagina van Mollie. Er is niets besteld of betaald.',
  okWait:'We wachten op de bevestiging van je betaling…',okWaitP:'Dit duurt meestal maar een paar seconden. Je kunt deze pagina open laten.',okPaidCap:'Bestelling geplaatst',okPaidH:'Bedankt! Je bestelling {r} is betaald.',okPaidP:'We sturen een bevestiging naar {e}. Zodra je pakket onderweg is, krijg je de track & trace. Niets ontvangen? Kijk ook even in je spam.',
  okNoCap:'Niet betaald',okNoH:'Je betaling is niet gelukt of geannuleerd.',okNoP:'Er is niets afgeschreven en je stukken zijn weer vrijgegeven. Je kunt het opnieuw proberen.',okRetry:'Terug naar je tas',okOpenP:'Je betaling is nog niet bevestigd. Heb je wel betaald? Dan krijg je binnen enkele minuten een bevestiging per mail. Anders kun je het opnieuw proberen.',okConflict:'Je betaling is binnen. Eén van je stukken was helaas net elders verkocht; we mailen je binnen één werkdag en betalen dat deel volledig terug.',
- coDetails:'Gegevens',coName:'Naam',coEmail:'E-mail',coStreet:'Straat en huisnummer',coZip:'Postcode',coCity:'Plaats',coCountry:'Land',countries:{NL:'Nederland',BE:'België',DE:'Duitsland',FR:'Frankrijk',OTHER:'Ander EU-land'},
+ coDetails:'Gegevens',coContact:'Contactgegevens',coAddr:'Bezorgadres',coSteps:['Winkeltas','Gegevens','Betalen'],coItem1:'artikel',coItemN:'artikelen',coName:'Naam',coEmail:'E-mail',coStreet:'Straat en huisnummer',coZip:'Postcode',coCity:'Plaats',coCountry:'Land',countries:{NL:'Nederland',BE:'België',DE:'Duitsland',FR:'Frankrijk',OTHER:'Ander EU-land'},
  coNext:'Naar betalen',coPayH:'Betaalstap (nog niet gekoppeld)',coPayP:'Hier ga je in de live versie naar de beveiligde betaalpagina van de betaalpartner. Er is in dit prototype geen betaling gedaan en er is geen bestelling geplaatst.',coEdit:'Gegevens wijzigen',coSum:'Overzicht',coEmpty:'Je tas is leeg.',total:'Totaal',
  acctH:'Account',acctP:'Inloggen en bestelgeschiedenis komen in de live versie.',
  sH:'Zoek op merk, model of maat',sNone:'Geen resultaten.',sTips:'Bijvoorbeeld: Hogan, Interactive, 44',
@@ -756,7 +793,7 @@ en:{
  coClosed:'Online payment is not switched on yet. Would you like to buy this piece? Email us at info@jpselect.nl and we will arrange it.',coGone:'This piece was just bought or reserved by someone else and has been removed from your bag: {x}.',coFail:'Something went wrong starting the payment. Nothing has been charged. Please try again or email info@jpselect.nl.',coProto:'Prototype: in the live version you continue to the Mollie payment page here. Nothing has been ordered or paid.',
  okWait:'Waiting for confirmation of your payment…',okWaitP:'This usually takes only a few seconds. You can leave this page open.',okPaidCap:'Order placed',okPaidH:'Thank you! Your order {r} has been paid.',okPaidP:'We are sending a confirmation to {e}. Once your parcel is on its way, you will receive the tracking link. Nothing yet? Please check your spam folder too.',
  okNoCap:'Not paid',okNoH:'Your payment failed or was cancelled.',okNoP:'Nothing has been charged and your pieces have been released. You can try again.',okRetry:'Back to your bag',okOpenP:'Your payment has not been confirmed yet. Did you pay? Then you will receive a confirmation email within a few minutes. Otherwise you can try again.',okConflict:'Your payment has been received. Unfortunately one of your pieces was just sold elsewhere; we will email you within one working day and refund that part in full.',
- coDetails:'Details',coName:'Name',coEmail:'Email',coStreet:'Street and number',coZip:'Postcode',coCity:'City',coCountry:'Country',countries:{NL:'Netherlands',BE:'Belgium',DE:'Germany',FR:'France',OTHER:'Other EU country'},
+ coDetails:'Details',coContact:'Contact',coAddr:'Delivery address',coSteps:['Bag','Details','Payment'],coItem1:'item',coItemN:'items',coName:'Name',coEmail:'Email',coStreet:'Street and number',coZip:'Postcode',coCity:'City',coCountry:'Country',countries:{NL:'Netherlands',BE:'Belgium',DE:'Germany',FR:'France',OTHER:'Other EU country'},
  coNext:'Continue to payment',coPayH:'Payment step (not connected yet)',coPayP:'In the live version you go to the secure payment page of the payment provider here. No payment has been made and no order has been placed in this prototype.',coEdit:'Edit details',coSum:'Summary',coEmpty:'Your bag is empty.',total:'Total',
  acctH:'Account',acctP:'Sign-in and order history arrive with the live version.',
  sH:'Search by brand, model or size',sNone:'No results.',sTips:'For example: Hogan, Interactive, 44',
@@ -802,6 +839,7 @@ const Ic={
  l:html`<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4l-6 6 6 6"/></svg>`,
  r:html`<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4l6 6-6 6"/></svg>`,
  pause:html`<svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true" style=${{stroke:'currentColor',strokeWidth:1.4}}><path d="M7 4.5v11M13 4.5v11"/></svg>`,
+ lock:html`<svg viewBox="0 0 20 20" aria-hidden="true"><rect x="4.5" y="9" width="11" height="8" rx="1.2"/><path d="M7 9V6.5a3 3 0 016 0V9"/></svg>`,
  ok:html`<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg>`,
  play:html`<svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true"><path d="M6.5 4.5l9 5.5-9 5.5z" fill="currentColor"/></svg>`};
 const Mono=({h})=>html`<svg viewBox="0 0 510 624" style=${{height:h,width:'auto'}} aria-hidden="true"><path fillRule="evenodd" d=${MONO}/></svg>`;
@@ -1419,19 +1457,30 @@ function CheckoutForm({ctx,bid}){const {t,L,products,bag,go,setBag}=ctx;
   if(!items.length)return html`<div className="wrap text"><h1>${t.coH}</h1>${msg&&html`<p className="ph-note" role="alert">${msg}</p>`}<p>${t.coEmpty}</p><div><button className="btn" onClick=${()=>go({v:'col',p:'all'})}>${t.continue}</button></div></div>`;
   const fld=(k,label,full,ac,type)=>html`<div className=${'fld'+(full?' full':'')}><label htmlFor=${'co-'+k}>${label}</label><input id=${'co-'+k} type=${type||'text'} autoComplete=${ac} value=${f[k]} onInput=${s(k)} aria-invalid=${err[k]?'true':null}/>${err[k]&&html`<span className="err">${err[k]}</span>`}</div>`;
   const ta=t.coTerms.split('{a}');
-  return html`<div className="wrap co">
-    <div style=${{display:'grid',gap:24,alignContent:'start'}}><span className="eyebrow cap">${LIVE?t.coEy:t.coDemo}</span><h1 style=${{fontSize:'clamp(40px,5vw,64px)'}}>${bid?t.coBidH:t.coH}</h1><p className=${LIVE?'mute':'ph-note'}>${bid?t.coBidP(bid.until):LIVE?t.coLive:t.coIntro}</p>
+  const logos=html`<div className="paylogos">${[['ideal','iDEAL'],['bancontact','Bancontact'],['creditcard','Creditcard'],['applepay','Apple Pay']].map(([k,n])=>html`<img key=${k} src=${'https://www.mollie.com/external/icons/payment-methods/'+k+'.svg'} alt=${n} title=${n} width="40" height="30" loading="lazy" onError=${e=>{try{e.target.replaceWith(Object.assign(document.createElement('span'),{textContent:n,className:'paytxt'}))}catch(x){}}}/>`)}</div>`;
+  return html`<div className="wrap co co2">
+    <div className="coleft">
+      <nav className="steps" aria-label=${t.coH}><button type="button" onClick=${()=>ctx.open&&ctx.open('bag')}>${t.coSteps[0]}</button><span>${Ic.r}</span><b>${t.coSteps[1]}</b><span>${Ic.r}</span><span className="mute">${t.coSteps[2]}</span></nav>
+      <h1 className="coh">${bid?t.coBidH:t.coH}</h1>
+      ${bid?html`<p className="mute">${t.coBidP(bid.until)}</p>`:!LIVE?html`<p className="ph-note">${t.coIntro}</p>`:null}
       ${open===false&&LIVE&&html`<p className="ph-note" role="status">${t.coClosed}</p>`}
-      <form className="form" onSubmit=${submit} noValidate><span className="cap full">${t.coDetails}</span>${fld('name',t.coName,true,'name')}${fld('email',t.coEmail,true,'email','email')}${fld('phone',t.coPhone,true,'tel','tel')}${fld('street',t.coStreet,true,'street-address')}${fld('zip',t.coZip,false,'postal-code')}${fld('city',t.coCity,false,'address-level2')}
-        <div className="fld full"><label htmlFor="co-country">${t.coCountry}</label><select id="co-country" autoComplete="country" value=${f.country} onChange=${s('country')}>${cl.map(k=>html`<option key=${k} value=${k}>${cn[k]||k}</option>`)}</select></div>
-        <label className="check full"><input type="checkbox" checked=${f.terms} onChange=${s('terms')} aria-invalid=${err.terms?'true':null}/><span>${ta[0]}<a href=${termsHref} target="_blank" rel="noopener" style=${{textDecoration:'underline'}}>${t.coTermsA}</a>${ta[1]||''}${err.terms&&html`<br/><span className="err" style=${{color:'var(--warn)',fontSize:12.5}}>${err.terms}</span>`}</span></label>
-        ${msg&&html`<p className="ph-note full" role="alert">${msg}</p>`}
-        <div className="full"><button className="btn solid full" type="submit" disabled=${busy||(LIVE&&open===false)}>${busy?t.coBusy:t.coPay+' · '+fmt(sub+ship,L)}</button></div></form>
+      <form className="coform" onSubmit=${submit} noValidate>
+        <section><h2 className="sh">${t.coContact}</h2><div className="grid2">${fld('email',t.coEmail,true,'email','email')}${fld('phone',t.coPhone,true,'tel','tel')}</div></section>
+        <section><h2 className="sh">${t.coAddr}</h2><div className="grid2">
+          <div className="fld full"><label htmlFor="co-country">${t.coCountry}</label><select id="co-country" autoComplete="country" value=${f.country} onChange=${s('country')}>${cl.map(k=>html`<option key=${k} value=${k}>${cn[k]||k}</option>`)}</select></div>
+          ${fld('name',t.coName,true,'name')}${fld('street',t.coStreet,true,'street-address')}${fld('zip',t.coZip,false,'postal-code')}${fld('city',t.coCity,false,'address-level2')}</div></section>
+        <label className="check"><input type="checkbox" checked=${f.terms} onChange=${s('terms')} aria-invalid=${err.terms?'true':null}/><span>${ta[0]}<a href=${termsHref} target="_blank" rel="noopener" style=${{textDecoration:'underline'}}>${t.coTermsA}</a>${ta[1]||''}${err.terms&&html`<br/><span className="err" style=${{color:'var(--warn)',fontSize:12.5}}>${err.terms}</span>`}</span></label>
+        ${msg&&html`<p className="ph-note" role="alert">${msg}</p>`}
+        <button className="btn solid full paybtn" type="submit" disabled=${busy||(LIVE&&open===false)}>${Ic.lock}<span>${busy?t.coBusy:t.coPay+' · '+fmt(sub+ship,L)}</span></button>
+        <div className="secure">${logos}<p className="mute">${t.coLive}</p></div>
+      </form>
     </div>
-    <aside className="sum"><span className="cap">${t.coSum}</span>${items.map(p=>html`<div className="line" key=${p.id} style=${{paddingBlock:10}}><img ...${imp(p.images[0],400)} alt=""/><div className="nm"><span className="cap" style=${{fontSize:9.5}}>${p.brand}</span><b>${p.model}</b><span className="mute">${szl(p,L)}${p._list?' · '+t.coBidLine:''}</span></div><span>${p._list?html`<s className="mute" style=${{marginRight:8,fontSize:12.5}}>${fmt(p._list,L)}</s>`:''}${fmt(p.price,L)}</span></div>`)}
+    <aside className="sum"><div className="sumhead"><span className="cap">${t.coSum}</span><span className="mute">${items.length} ${items.length===1?t.coItem1:t.coItemN}</span></div>
+      ${items.map(p=>html`<div className="line" key=${p.id}><div className="thumb"><img ...${imp(p.images[0],400)} alt=""/></div><div className="nm"><span className="cap" style=${{fontSize:9.5}}>${p.brand}</span><b>${p.model}</b><span className="mute">${szl(p,L)}${p._list?' · '+t.coBidLine:''}</span></div><span className="pz">${p._list?html`<s className="mute">${fmt(p._list,L)}</s>`:''}${fmt(p.price,L)}</span></div>`)}
       <div className="tot"><div><span>${t.sub}</span><span>${fmt(sub,L)}</span></div><div><span>${t.shipCalc} ${t.coShipTo.replace('{c}',cn[f.country]||f.country)}</span><span>${shipC?fmt(ship,L):t.coFree}</span></div>
-        ${SH&&left>0&&html`<div className="mute" style=${{fontSize:12.5}}><span>${t.coFreeLeft.replace('{x}',fmt(left,L))}</span></div>`}
-        <div className="g"><span>${t.total}</span><span>${fmt(sub+ship,L)}</span></div><p className="mute" style=${{fontSize:12.5}}>${t.coVat}</p></div></aside>
+        ${SH&&left>0&&html`<div className="freeleft"><span>${t.coFreeLeft.replace('{x}',fmt(left,L))}</span></div>`}
+        <div className="g"><span>${t.total}</span><span>${fmt(sub+ship,L)}</span></div><p className="mute" style=${{fontSize:12.5,margin:0}}>${t.coVat}</p></div>
+      <ul className="usps">${t.usps.map(u=>html`<li key=${u}>${Ic.ok}<span>${u}</span></li>`)}</ul></aside>
   </div>`}
 function OrderDone({ctx,id,retry}){const {t,go,setBag}=ctx;const [st,setSt]=useState(null);const [n,setN]=useState(0);
   useEffect(()=>{let dead=false,tm;const poll=async k=>{try{const r=await fetch('/.netlify/functions/order-status?order='+encodeURIComponent(id));const d=await r.json();if(dead)return;setSt(d);
