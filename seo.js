@@ -205,6 +205,8 @@
       if (r.v === 'home') {
         jsonld.push({ '@context': 'https://schema.org', '@type': 'Organization', name: 'JP SELECT', url: site + '/', email: 'info@jpselect.nl',
           description: STATIC_DESC[L].home,
+          logo: { '@type': 'ImageObject', url: site + '/img/brand/logo-512.png', width: 512, height: 512 },
+          image: site + '/img/brand/logo-512.png',
           address: { '@type': 'PostalAddress', streetAddress: 'Van Reenenpark 16', postalCode: '3862 CC', addressLocality: 'Nijkerk', addressCountry: 'NL' },
           contactPoint: { '@type': 'ContactPoint', contactType: 'customer service', email: 'info@jpselect.nl', availableLanguage: ['nl', 'en'], areaServed: 'EU' },
           vatID: 'NL005540814B59', identifier: { '@type': 'PropertyValue', propertyID: 'KVK', value: '42155019' }, sameAs: ['https://www.instagram.com/jpselectofficial/'], slogan: 'Trade in. Step up.',

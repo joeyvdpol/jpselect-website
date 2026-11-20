@@ -83,6 +83,11 @@ function head(r, L, m, forceNoindex) {
     `<meta name="description" content="${esc(m.description)}">`,
     noindex ? `<meta name="robots" content="noindex,nofollow">` : '',
     `<link rel="canonical" href="${esc(m.canonical)}">`,
+    `<link rel="icon" href="/favicon.ico" sizes="48x48">`,
+    `<link rel="icon" href="/img/brand/favicon.svg" type="image/svg+xml">`,
+    `<link rel="icon" href="/img/brand/favicon-192.png" type="image/png" sizes="192x192">`,
+    `<link rel="apple-touch-icon" href="/apple-touch-icon.png">`,
+    `<link rel="manifest" href="/site.webmanifest">`,
     m.noindex ? '' : `<link rel="alternate" hreflang="en" href="${esc(m.alternates.en)}"><link rel="alternate" hreflang="nl" href="${esc(m.alternates.nl)}"><link rel="alternate" hreflang="x-default" href="${esc(m.alternates.en)}">`,
     `<meta property="og:site_name" content="JP SELECT"><meta property="og:type" content="${m.type === 'product' ? 'product' : 'website'}">`,
     `<meta property="og:title" content="${esc(m.title)}"><meta property="og:description" content="${esc(m.description)}">`,
@@ -105,6 +110,10 @@ function head(r, L, m, forceNoindex) {
 rmrf(OUT);
 fs.mkdirSync(OUT, { recursive: true });
 for (const d of ['data', 'img', 'media', 'scene']) copyDir(path.join(ROOT, d), path.join(OUT, d));
+fs.copyFileSync(path.join(ROOT, 'favicon.ico'), path.join(OUT, 'favicon.ico'));
+fs.copyFileSync(path.join(ROOT, 'img/brand/apple-touch-icon.png'), path.join(OUT, 'apple-touch-icon.png'));
+write('site.webmanifest', JSON.stringify({ name: 'JP SELECT', short_name: 'JP SELECT', start_url: '/', display: 'browser', background_color: '#F6F3EE', theme_color: '#242424',
+  icons: [{ src: '/img/brand/favicon-192.png', sizes: '192x192', type: 'image/png' }, { src: '/img/brand/favicon-512.png', sizes: '512x512', type: 'image/png' }] }) + '\n');
 fs.copyFileSync(path.join(ROOT, 'seo.js'), path.join(OUT, 'seo.js'));
 fs.copyFileSync(path.join(ROOT, 'shop.js'), path.join(OUT, 'shop.js'));
 write(CSS_FILE, CSS);

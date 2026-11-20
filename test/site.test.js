@@ -13,8 +13,9 @@ let OUT;
 
 test.before(() => {
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'jps-build-'));
-  for (const f of ['build.js', 'seo.js', 'shop.js', 'content.js', 'feed.js', 'site.config.json']) fs.copyFileSync(path.join(REPO, f), path.join(tmp, f));
-  for (const d of ['src', 'data']) fs.cpSync(path.join(REPO, d), path.join(tmp, d), { recursive: true });
+  for (const f of ['build.js', 'seo.js', 'shop.js', 'content.js', 'feed.js', 'site.config.json', 'favicon.ico']) fs.copyFileSync(path.join(REPO, f), path.join(tmp, f));
+  for (const d of ['src', 'data', 'img/brand']) fs.cpSync(path.join(REPO, d), path.join(tmp, d), { recursive: true });
+  for (const d of ['img', 'media', 'scene']) fs.mkdirSync(path.join(tmp, d), { recursive: true });
   execFileSync(process.execPath, ['build.js'], { cwd: tmp, stdio: 'pipe', env: { ...process.env, JPS_SITE: 'https://jpselect.nl' } });
   OUT = path.join(tmp, '_site');
 });
@@ -166,4 +167,16 @@ test('content negotiation (edge function)', async () => {
     assert.ok(body.length >= 20);
     assert.match(body, /sitemap/);
   } finally { globalThis.fetch = realFetch; }
+});
+
+test('favicon en logo: bestanden, links in de head en logo in Organization', () => {
+  const html = read('index.html');
+  for (const f of ['favicon.ico', 'apple-touch-icon.png', 'site.webmanifest', 'img/brand/favicon-192.png', 'img/brand/favicon.svg', 'img/brand/logo-512.png'])
+    assert.ok(fs.existsSync(path.join(OUT, f)), 'ontbreekt: ' + f);
+  assert.match(html, /<link rel="icon" href="\/favicon\.ico" sizes="48x48">/);
+  assert.match(html, /<link rel="icon" href="\/img\/brand\/favicon-192\.png" type="image\/png" sizes="192x192">/);
+  const ico = fs.readFileSync(path.join(OUT, 'favicon.ico'));
+  assert.equal(ico.readUInt16LE(2), 1); assert.equal(ico[6], 48);
+  const org = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(m => JSON.parse(m[1])).find(o => o['@type'] === 'Organization');
+  assert.equal(org.logo.url, 'https://jpselect.nl/img/brand/logo-512.png');
 });
