@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-20",
+ "updated": "2026-11-21",
  "source": "JP SELECT Business Center (echte voorraad en verkopen)",
  "products": [
   {
@@ -655,7 +655,8 @@
    "note": {
     "nl": "Ronde hals met contrasterende ribboorden.",
     "en": "Crew neck with contrasting ribbed trims."
-   }
+   },
+   "soldAt": "2026-11-21"
   },
   {
    "id": "jp-2610-014",
@@ -1545,7 +1546,8 @@
    },
    "added": "2026-11-13",
    "demo": false,
-   "note": null
+   "note": null,
+   "soldAt": "2026-11-21"
   },
   {
    "id": "jp-2611-029",
@@ -1829,7 +1831,8 @@
    },
    "added": "2026-11-17",
    "demo": false,
-   "note": null
+   "note": null,
+   "soldAt": "2026-11-21"
   }
  ]
 }
