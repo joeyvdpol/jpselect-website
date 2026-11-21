@@ -636,7 +636,7 @@
    "condition": "very-good",
    "price": 89,
    "retail": 285,
-   "status": "available",
+   "status": "sold",
    "images": [
     "img/jp-2610-023-1.jpg",
     "img/jp-2610-023-2.jpg",
@@ -1530,7 +1530,7 @@
    "condition": "very-good",
    "price": 105,
    "retail": 295,
-   "status": "available",
+   "status": "sold",
    "images": [
     "img/jp-2611-027-0w.jpg",
     "img/jp-2611-027-1w.jpg"
