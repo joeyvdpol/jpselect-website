@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23",
+ "updated": "2026-11-25",
  "source": "JP SELECT Business Center (echte voorraad en verkopen)",
  "products": [
   {
@@ -1705,7 +1705,7 @@
    "condition": "very-good",
    "price": 145,
    "retail": 509,
-   "status": "available",
+   "status": "sold",
    "images": [
     "img/jp-2611-033-0nw.jpg"
    ],
@@ -1719,7 +1719,8 @@
    },
    "added": "2026-11-17",
    "demo": false,
-   "note": null
+   "note": null,
+   "soldAt": "2026-11-24"
   },
   {
    "id": "jp-2611-034",
