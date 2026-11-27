@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-25",
+ "updated": "2026-11-27",
  "source": "JP SELECT Business Center (echte voorraad en verkopen)",
  "products": [
   {
@@ -1564,7 +1564,7 @@
    "condition": "very-good",
    "price": 129,
    "retail": 425,
-   "status": "coming",
+   "status": "available",
    "images": [
     "img/jp-2611-029-0nw.jpg"
    ],
